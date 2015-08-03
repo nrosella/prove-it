@@ -1,9 +1,10 @@
 class HomeController < ApplicationController
+  
   def index
     if current_user
-      render 'index'
-    else
       binding.pry
+      @user = current_user
     end
   end
+
 end

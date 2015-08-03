@@ -1,1 +1,15 @@
-prooove it
+<ul>
+
+<% Challenge.all.each do |challenge| %>
+  <li><%= challenge.title %></li>
+  <% end %>
+</ul>
+
+
+<% if user_signed_in? %>
+
+<p>see your challenges // challenge someone </p>
+
+
+
+<% end %>
