@@ -17,19 +17,14 @@ class ChallengesController < ApplicationController
 
 
   def create
-    
-    @challenge = Challenge.new(challenge_params)
-
-    @challenge.challenged = User.find_by(email: params[:challenge]["challenged_id"])
-    @challenge.challenger = current_user
-    @challenge.save
     binding.pry
-    
-    
-    current_user.save
-  
+    @challenge = Challenge.new(challenge_params)
+    @challenged = User.find_by(email: params[:challenge][:challenged_email])
 
-    # binding.pry
+    if @challenge.save
+      UserChallenge.create(user_id: current_user, challenge_id: @challenge.id, admin: true)
+      UserChallenge.create(user_id: @challenged, challenge_id: @challenge.id)
+    end
 
     render 'show'
 

@@ -52,6 +52,8 @@ group :test, :development do
   gem 'pry'
   gem 'guard-rspec', require: false
   gem 'thin'
+  gem 'faker'
+  gem gem 'factory_girl_rails'
 end
 
 group :production do

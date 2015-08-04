@@ -1,13 +1,10 @@
 class Challenge < ActiveRecord::Base
-
-  belongs_to :challenger, :class_name => "User"
-  belongs_to :challenged, :class_name => "User"
+  attr_accessor :challenged_email
 
   has_many :notifications
+  has_many :user_challenges
+  has_many :challenges, through: :user_challenges
 
   validates :title, presence: true
-  validates :challenged_id, presence: true
- 
-  
-  
+    
 end
