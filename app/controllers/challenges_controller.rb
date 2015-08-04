@@ -24,7 +24,7 @@ class ChallengesController < ApplicationController
     @challenge.challenger = current_user
     @challenge.save
 
-    binding.pry
+    # binding.pry
 
     render 'show'
 
