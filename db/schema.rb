@@ -11,30 +11,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150803213822) do
+ActiveRecord::Schema.define(version: 20150804152737) do
 
   create_table "challenges", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
-    t.datetime "challenge_start"
     t.datetime "challenge_end"
     t.integer  "challenge_duration"
     t.integer  "voting_duration"
     t.integer  "challenger_id"
     t.integer  "challenged_id"
-    t.string   "status"
-    t.text     "challenger_evidence_comment"
-    t.text     "challenged_evidence_comment"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
-    t.string   "challenger_evidence_file_name"
-    t.string   "challenger_evidence_content_type"
-    t.integer  "challenger_evidence_file_size"
-    t.datetime "challenger_evidence_updated_at"
-    t.string   "challenged_evidence_file_name"
-    t.string   "challenged_evidence_content_type"
-    t.integer  "challenged_evidence_file_size"
-    t.datetime "challenged_evidence_updated_at"
+    t.string   "status",             default: "pending"
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+  end
+
+  create_table "evidences", force: :cascade do |t|
+    t.integer  "challenge_id"
+    t.integer  "user_id"
+    t.string   "comment"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
   end
 
   create_table "users", force: :cascade do |t|
