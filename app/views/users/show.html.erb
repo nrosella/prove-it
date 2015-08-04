@@ -1,15 +1,49 @@
 <% if user_signed_in? %>
 
-<p>your challenges </p>
+<p>your pending challenges </p>
 
 <ul>
 
-<% current_user.challenges.each do |challenge| %>
+ <% current_user.challenges.each do |challenge| %>
+	<% if challenge.status == "pending" %>
   <li><%= link_to challenge.title, challenge_path(challenge) %></li>
+   <% end %>
+  <% end %>
+   </ul>
+
+<p>your in-progress challenges</p>
+ <ul>
+
+	<% current_user.challenges.each do |challenge| %>
+		<% if challenge.status == "in_progress" %>
+  		<li><%= link_to challenge.title, challenge_path(challenge) %></li>
+   	<% end %>
+   	<% end %>
+   </ul>
+
+   <p>your challenges open for voting</p>
+ <ul>
+
+<% current_user.challenges.each do |challenge| %>
+	<% if challenge.status == "voting" %>
+  <li><%= link_to challenge.title, challenge_path(challenge) %></li>
+   <% end %>
+   <% end %>
+   </ul>
+   
+
+   <p>your completed challenges</p>
+ <ul>
+
+<% current_user.challenges.each do |challenge| %>
+	<% if challenge.status == "completed" %>
+  <li><%= link_to challenge.title, challenge_path(challenge) %></li>
+   <% end %>
    <% end %>
    </ul>
 
 <p>this is going to show all the challenges sorted by date created // a button for a new challenge // a link to your profile account // usual nav bar shit</p>
+
 
 <%= link_to "new challenge", new_challenge_path  %>
 
