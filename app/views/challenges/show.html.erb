@@ -1,8 +1,10 @@
-<%= @challenge.title %>
+<h1><%= @challenge.title %></h1>
 
-<%= @challenge.description %>
+<h2><%= @challenge.description %></h2>
 
 <p><%= @challenge.challenger.name %> VS. <%= @challenge.challenged.name %></p>
+
+<p>Status: <%= @challenge.status%></p>
 
 <%= link_to "go back to challenges", challenges_path %>
 
