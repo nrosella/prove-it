@@ -1,0 +1,31 @@
+<ul>
+
+
+all challenges
+
+<% Challenge.all.each do |challenge| %>
+  <li><%= link_to challenge.title, challenge_path(challenge) %></li>
+  <% end %>
+</ul>
+
+
+
+
+<% if user_signed_in? %>
+
+<p>your challenges </p>
+
+<ul>
+
+<% current_user.challenges.each do |challenge| %>
+  <li><%= link_to challenge.title, challenge_path(challenge) %></li>
+   <% end %>
+   </ul>
+
+<p>this is going to show all the challenges sorted by date created // a button for a new challenge // a link to your profile account // usual nav bar shit</p>
+
+<%= link_to "new challenge", new_challenge_path  %>
+
+
+
+<%end%>
