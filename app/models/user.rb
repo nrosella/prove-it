@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
   has_many :challenges, :foreign_key => "challenger_id"
   has_many :challenges, :foreign_key => "challenged_id"
 
+  has_many :notifications
+
   
   
 end

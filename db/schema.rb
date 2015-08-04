@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150804152737) do
+ActiveRecord::Schema.define(version: 20150804181528) do
 
   create_table "challenges", force: :cascade do |t|
     t.string   "title"
@@ -21,9 +21,17 @@ ActiveRecord::Schema.define(version: 20150804152737) do
     t.integer  "voting_duration"
     t.integer  "challenger_id"
     t.integer  "challenged_id"
-    t.string   "status",             default: "pending"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.string   "status",                           default: "pending"
+    t.datetime "created_at",                                           null: false
+    t.datetime "updated_at",                                           null: false
+    t.string   "challenger_evidence_file_name"
+    t.string   "challenger_evidence_content_type"
+    t.integer  "challenger_evidence_file_size"
+    t.datetime "challenger_evidence_updated_at"
+    t.string   "challenged_evidence_file_name"
+    t.string   "challenged_evidence_content_type"
+    t.integer  "challenged_evidence_file_size"
+    t.datetime "challenged_evidence_updated_at"
   end
 
   create_table "evidences", force: :cascade do |t|
@@ -36,6 +44,14 @@ ActiveRecord::Schema.define(version: 20150804152737) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "challenge_id"
+    t.text     "content"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "users", force: :cascade do |t|
