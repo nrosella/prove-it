@@ -18,11 +18,16 @@ class ChallengesController < ApplicationController
 
   def create
     
-    @challenged = User.find_by(email: params[:challenge]["challenged_id"])
     @challenge = Challenge.new(challenge_params)
-    @challenge.challenged = @challenged
+
+    @challenge.challenged = User.find_by(email: params[:challenge]["challenged_id"])
     @challenge.challenger = current_user
     @challenge.save
+    binding.pry
+    
+    
+    current_user.save
+  
 
     # binding.pry
 
