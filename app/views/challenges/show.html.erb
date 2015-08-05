@@ -17,7 +17,7 @@ Submit evidence here:
 
 <%= f.label 'Comment' %>
 <%= f.text_field :comment %></br>
-<%= f.file_field :photo, as: :file %>
+<%= f.file_field :photo, as: :file, :required => true %>
 <%= f.submit 'submit evidence' %>
 
 <% end %>
@@ -26,33 +26,34 @@ You've submitted evidence. <br>
 
 <% end %>
 
-
-
-
 <%end%>
 
+<%if @challenge.status == 'voting' %>
+<p> Votes for <%= @challenge.users.first.name %> </p>
+<p> Votes for <%= @challenge.users.second.name %> </p>
+<% end %>
 <%= link_to "go back to challenges", challenges_path %>
 
 <br>
 
 
 
-Your evidence: (I'm greg)
+<% if @challenge.status != 'pending' %>
 <% if !@challenge.evidences.find_by(user_id: current_user.id).nil? %>
+<p>Your evidence: </p>
 <%= image_tag @challenge.evidences.find_by(user_id: current_user.id).photo.url %>
-<% else %>
-add some evidence
-<%end%>
-
-<br>
-
-Their evidence: 
-<%= @challenge.users.where.not(id: current_user.id).first.name + "s" %> evidence: 
-<% if !@challenge.evidences.where.not(user_id: current_user).first.nil? %>
-<%= image_tag @challenge.evidences.where.not(user_id: current_user).first.photo.url %>
 <% else %>
 Awaiting evidence...
 <%end%>
 
+<br>
+ 
+<% if !@challenge.evidences.where.not(user_id: current_user).first.nil? %>
+<%= @challenge.users.where.not(id: current_user.id).first.name + "s" %> evidence:
+<%= image_tag @challenge.evidences.where.not(user_id: current_user).first.photo.url %>
+<% else %>
+Awaiting evidence...
+<%end%>
+<%end%>
 
 
