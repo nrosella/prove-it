@@ -1,74 +1,76 @@
 <% if user_signed_in? %>
 
+  <p>your pending challenges </p>
 
-<p>your pending challenges </p>
+  <ul>
+   <% current_user.challenges.each do |challenge| %>
+  	<% if challenge.status == "pending" %>
+    <li><%= link_to challenge.title, challenge_path(challenge) %>
+      <% if challenge.users[0] != current_user %>
+      <%= form_for(challenge) do |f| %>
+      <%= f.submit 'Accept' %>
+      <%end%>
+      <%= form_for(challenge) do |f| %>
+      <%= f.submit 'Decline' %>
+      <%end%>
+      <% else %>
+        Challenge waiting to be accepted.
+      <%end%>
+    </li>
+     <% end %>
+    <% end %>
+  </ul>
 
-<ul>
- <% current_user.challenges.each do |challenge| %>
-	<% if challenge.status == "pending" %>
-  <li><%= link_to challenge.title, challenge_path(challenge) %>
-    <% if challenge.users[0] != current_user %>
-    <%= form_for(challenge) do |f| %>
-    <%= f.submit 'Accept' %>
-    <%end%>
-    <%= form_for(challenge) do |f| %>
-    <%= f.submit 'Decline' %>
-    <%end%>
-    <% else %>
-      Challenge waiting to be accepted.
-    <%end%>
-  </li>
-   <% end %>
-  <% end %>
-</ul>
+  <p>your in-progress challenges</p>
+   <ul>
 
-<p>your in-progress challenges</p>
- <ul>
+  	<% current_user.challenges.each do |challenge| %>
+  		<% if challenge.status == "in_progress" %>
+    		<li><%= link_to challenge.title, challenge_path(challenge) %></li>
+     	<% end %>
+     	<% end %>
+     </ul>
 
-	<% current_user.challenges.each do |challenge| %>
-		<% if challenge.status == "in_progress" %>
-  		<li><%= link_to challenge.title, challenge_path(challenge) %></li>
-   	<% end %>
-   	<% end %>
-   </ul>
+     <p>your challenges open for voting</p>
+   <ul>
 
-   <p>your challenges open for voting</p>
- <ul>
+  <% current_user.challenges.each do |challenge| %>
+  	<% if challenge.status == "voting" %>
+    <li><%= link_to challenge.title, challenge_path(challenge) %></li>
+     <% end %>
+     <% end %>
+     </ul>
+     
 
-<% current_user.challenges.each do |challenge| %>
-	<% if challenge.status == "voting" %>
-  <li><%= link_to challenge.title, challenge_path(challenge) %></li>
-   <% end %>
-   <% end %>
-   </ul>
-   
+     <p>your completed challenges</p>
+   <ul>
 
-   <p>your completed challenges</p>
- <ul>
+  <% current_user.challenges.each do |challenge| %>
+  	<% if challenge.status == "completed" %>
+    <li><%= link_to challenge.title, challenge_path(challenge) %></li>
+     <% end %>
+     <% end %>
+     </ul>
 
-<% current_user.challenges.each do |challenge| %>
-	<% if challenge.status == "completed" %>
-  <li><%= link_to challenge.title, challenge_path(challenge) %></li>
-   <% end %>
-   <% end %>
-   </ul>
+    <p>your declined challenges</p>
+  <ul>
 
-  <p>your declined challenges</p>
- <ul>
+  <% current_user.challenges.each do |challenge| %>
+    <% if challenge.status == "declined" %>
+      <li><%= link_to challenge.title, challenge_path(challenge) %></li>
+     <% end %>
+    <% end %>
+  </ul>
 
-<% current_user.challenges.each do |challenge| %>
-  <% if challenge.status == "declined" %>
-  <li><%= link_to challenge.title, challenge_path(challenge) %></li>
-   <% end %>
-   <% end %>
-   </ul>
-
-<p>this is going to show all the challenges sorted by date created // a button for a new challenge // a link to your profile account // usual nav bar shit</p>
-
-
-<%= link_to "new challenge", new_challenge_path  %>
+  <p>this is going to show all the challenges sorted by date created // a button for a new challenge // a link to your profile account // usual nav bar shit</p>
 
 
+  <%= link_to "new challenge", new_challenge_path  %>
+
+<!-- When user not signed in -->
 <% else %>
+  <%= @user.name %>
+  <%= render partial: "challenges/in_progress" %>
+  
   
 <%end%>
