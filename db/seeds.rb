@@ -19,4 +19,6 @@ Challenge.create(title: "Challenge 3: Challenged Again", description:'A great ch
 UserChallenge.create(user_id: 1, challenge_id: 1, admin: true)  
 UserChallenge.create(user_id: 2, challenge_id: 1)
 UserChallenge.create(user_id: 3, challenge_id: 2, admin: true) 
-UserChallenge.create(user_id: 4, challenge_id: 2) 
+UserChallenge.create(user_id: 4, challenge_id: 2)
+UserChallenge.create(user_id: 1, challenge_id: 3, admin: true) 
+UserChallenge.create(user_id: 4, challenge_id: 3) 
