@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   resources :votes
 
+  resources :evidences
+
   root  'challenges#index'
 
   get '/users/:id', to: 'users#show', as: 'user'

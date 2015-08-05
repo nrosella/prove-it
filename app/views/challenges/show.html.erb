@@ -7,7 +7,52 @@
 
 <p>Status: <%= @challenge.status%></p>
 
+<% if @challenge.status == "in_progress" %>
+ <% if @challenge.evidences.find_by(user_id: current_user.id).nil? %>
+Submit evidence here:
+
+<%= form_for Evidence.new, :html => { :multipart => true } do |f| %>
+<%= f.hidden_field :challenge_id, {:value => @challenge.id} %>
+<%= f.hidden_field :user_id, {:value => current_user.id} %>
+
+<%= f.label 'Comment' %>
+<%= f.text_field :comment %></br>
+<%= f.file_field :photo, as: :file %>
+<%= f.submit 'submit evidence' %>
+
+<% end %>
+<% else %>
+You've submitted evidence. <br>
+
+<% end %>
+
+
+
+
+<%end%>
+
 <%= link_to "go back to challenges", challenges_path %>
+
+<br>
+
+
+
+Your evidence: (I'm greg)
+<% if !@challenge.evidences.find_by(user_id: current_user.id).nil? %>
+<%= image_tag @challenge.evidences.find_by(user_id: current_user.id).photo.url %>
+<% else %>
+add some evidence
+<%end%>
+
+<br>
+
+Their evidence: 
+<%= @challenge.users.where.not(id: current_user.id).first.name + "s" %> evidence: 
+<% if !@challenge.evidences.where.not(user_id: current_user).first.nil? %>
+<%= image_tag @challenge.evidences.where.not(user_id: current_user).first.photo.url %>
+<% else %>
+Awaiting evidence...
+<%end%>
 
 
 

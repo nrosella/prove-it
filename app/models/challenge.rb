@@ -5,6 +5,8 @@ class Challenge < ActiveRecord::Base
   has_many :user_challenges
   has_many :users, through: :user_challenges
 
+  has_many :evidences
+
   validates :title, presence: true
     
 end
