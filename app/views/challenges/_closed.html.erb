@@ -2,6 +2,7 @@
 <% @challenges.where(status: 'closed').each do |challenge|  %>
   <div>
     <p><%= challenge.title %></p>
+    <p><%= challenge.winner.name %></p>
     
     <p><%= challenge.challenge_end %></p>
     <% challenge.users.each do |user| %>
