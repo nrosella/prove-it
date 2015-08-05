@@ -15,6 +15,8 @@ class User < ActiveRecord::Base
   has_many :user_challenges
   has_many :challenges, through: :user_challenges
 
+  has_many :evidences
+
   def all_challenges
     Challenge.where(challenger_id: self.id) | Challenge.where(challenged_id: self.id)
   end
