@@ -25,5 +25,21 @@ class Challenge < ActiveRecord::Base
     end 
   end
 
+  def competitor1
+    self.users.first
+  end
+
+  def competitor2
+    self.users.second
+  end
+
+  def votes1
+    self.votes.where(recipient_id: self.competitor1.id).size
+  end
+
+  def votes2
+    self.votes.where(recipient_id: self.competitor2.id).size
+  end
+
 
 end

@@ -3,21 +3,17 @@
 <h2><%= @challenge.description %></h2>
 
 
-<h3><%= @challenge.users.first.name %> VS. <%= @challenge.users.second.name %></h3>
+<h1><%= @challenge.competitor1.name %> VS. <%= @challenge.competitor2.name %></h1>
 
 <% if @challenge.status == 'closed' %>
-  <%if (@challenge.votes.where(recipient_id: @challenge.users.first.id).size) > (@challenge.votes.where(recipient_id: @challenge.users.second.id).size) %>
-    <h1><%= @challenge.users.first.name %> wins!</h1>
-    <% else %>
-    <h1><%= @challenge.users.second.name %> wins!</h1>
-    <%end%>
-    <%end%>
+  <h1><%= @challenge.winner.name %> wins!</h1>
+<%end%>
 
 
 <p>Status: <%= @challenge.status%></p>
 
 <% if @challenge.status == "in_progress" %>
- <% if @challenge.evidences.find_by(user_id: current_user.id).nil? %>
+ <% if current_user.competing?(@challenge) && @challenge.evidences.find_by(user_id: current_user.id).nil? %>
 Submit evidence here:
 
 <%= form_for Evidence.new, :html => { :multipart => true } do |f| %>
@@ -38,46 +34,49 @@ You've submitted evidence. <br>
 <%end%>
 
 <%if @challenge.status == 'voting' %>
-<p> Votes for <%= @challenge.users.first.name %> <%= @challenge.votes.where(recipient_id: @challenge.users.first.id).size %></p>
-<%= form_for Vote.new do |f| %>
-<%= f.hidden_field :challenge_id, {:value => @challenge.id} %>
-<%= f.hidden_field :user_id, {:value => current_user.id} %>
-<%= f.hidden_field :recipient_id, {:value => @challenge.users.first.id} %>
-<%= f.submit "vote for #{@challenge.users.first.name}" %>
+<%if !current_user.voted?(@challenge) %>
+  <p> Votes for <%= @challenge.competitor1.name %> <%= @challenge.votes1 %></p>
+  <%= form_for Vote.new do |f| %>
+    <%= f.hidden_field :challenge_id, {:value => @challenge.id} %>
+    <%= f.hidden_field :user_id, {:value => current_user.id} %>
+    <%= f.hidden_field :recipient_id, {:value => @challenge.competitor1.id} %>
+    <%= f.submit "vote for #{@challenge.competitor1.name}" %>
+  <% end %>
+
+  <p> Votes for <%= @challenge.competitor2.name %> </p> <%= @challenge.votes2 %></p> 
+  <%= form_for Vote.new do |f| %>
+    <%= f.hidden_field :challenge_id, {:value => @challenge.id} %>
+    <%= f.hidden_field :user_id, {:value => current_user.id} %>
+    <%= f.hidden_field :recipient_id, {:value => @challenge.competitor2.id} %>
+    <%= f.submit "vote for #{@challenge.competitor2.name}" %>
+  <% end %>
+<%else%>
+<p>Thanks for voting!</p>
+<%end%>
 <% end %>
 
-<p> Votes for <%= @challenge.users.second.name %> </p> <%= @challenge.votes.where(recipient_id: @challenge.users.second.id).size %>
-<p> 
-<%= form_for Vote.new do |f| %>
-<%= f.hidden_field :challenge_id, {:value => @challenge.id} %>
-<%= f.hidden_field :user_id, {:value => current_user.id} %>
-<%= f.hidden_field :recipient_id, {:value => @challenge.users.second.id} %>
-<%= f.submit "vote for #{@challenge.users.second.name}" %>
-<% end %>
-
-<% end %>
 <%= link_to "go back to challenges", challenges_path %>
-
 <br>
 
-
-
 <% if @challenge.status != 'pending' %>
-<% if !@challenge.evidences.find_by(user_id: current_user.id).nil? %>
-<p>Your evidence: </p>
-<%= image_tag @challenge.evidences.find_by(user_id: current_user.id).photo.url %>
-<% else %>
-Awaiting evidence...
-<%end%>
+  <% if current_user.competing?(@challenge) && !@challenge.evidences.find_by(user_id: current_user.id).nil? %>
+    <p>Your evidence: </p>
+    <%= image_tag @challenge.evidences.find_by(user_id: current_user.id).photo.url(:medium) %>
+    <% else %>
+    <p>Awaiting evidence...</p>
+  <%end%>
 
 <br>
  
 <% if !@challenge.evidences.where.not(user_id: current_user).first.nil? %>
-<%= @challenge.users.where.not(id: current_user.id).first.name + "s" %> evidence:
-<%= image_tag @challenge.evidences.where.not(user_id: current_user).first.photo.url %>
-<% else %>
-Awaiting evidence...
+  <p><%= @challenge.users.where.not(id: current_user.id).first.name + "s" %> evidence:</p>
+  <%= image_tag @challenge.evidences.where.not(user_id: current_user).first.photo.url(:medium) %>
+  <% else %>
+  Awaiting evidence...
+  <%end%>
 <%end%>
-<%end%>
+
+
+
 
 

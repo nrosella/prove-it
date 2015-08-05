@@ -7,26 +7,18 @@ class User < ActiveRecord::Base
   has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
 
-  has_many :admin_challenges, class_name: "Challenge", :foreign_key => "challenger_id"
-  has_many :guest_challenges, class_name: "Challenge", :foreign_key => "challenged_id"
-
   has_many :notifications
   has_many :votes
   has_many :user_challenges
   has_many :challenges, through: :user_challenges
-
   has_many :evidences
 
-  def all_challenges
-    Challenge.where(challenger_id: self.id) | Challenge.where(challenged_id: self.id)
+  def competing?(challenge)
+    challenge.users.include?(self)
   end
 
-  def all_challenges_better
-    self.admin_challenges | self.guest_challenges
+  def voted?(challenge)
+    challenge.votes.where(recipient_id: self.id).exists?
   end
 
-
-
-  
-  
 end
