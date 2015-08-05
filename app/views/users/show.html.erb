@@ -4,20 +4,23 @@
 <p>your pending challenges </p>
 
 <ul>
-
  <% current_user.challenges.each do |challenge| %>
 	<% if challenge.status == "pending" %>
   <li><%= link_to challenge.title, challenge_path(challenge) %>
+    <% if challenge.users[0] != current_user %>
     <%= form_for(challenge) do |f| %>
     <%= f.submit 'Accept' %>
     <%end%>
     <%= form_for(challenge) do |f| %>
     <%= f.submit 'Decline' %>
     <%end%>
+    <% else %>
+      Challenge waiting to be accepted.
+    <%end%>
   </li>
    <% end %>
   <% end %>
-   </ul>
+</ul>
 
 <p>your in-progress challenges</p>
  <ul>
@@ -45,6 +48,16 @@
 
 <% current_user.challenges.each do |challenge| %>
 	<% if challenge.status == "completed" %>
+  <li><%= link_to challenge.title, challenge_path(challenge) %></li>
+   <% end %>
+   <% end %>
+   </ul>
+
+  <p>your declined challenges</p>
+ <ul>
+
+<% current_user.challenges.each do |challenge| %>
+  <% if challenge.status == "declined" %>
   <li><%= link_to challenge.title, challenge_path(challenge) %></li>
    <% end %>
    <% end %>
