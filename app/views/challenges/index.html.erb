@@ -4,8 +4,9 @@
 <% Challenge.all.each do |challenge| %>
   <div>
     <%= link_to challenge.title, challenge_path(challenge) %>
-    <%= link_to challenge.users.first.name, user_path(challenge.users.first) %>
-    <%= link_to challenge.users.second.name, user_path(challenge.users.second) %>
+    <%challenge.users.each do |user|  %>
+      <%= link_to user.name, user_path(user) %>
+    <% end %>
   </div>
   
 
