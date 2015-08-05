@@ -18,7 +18,15 @@ class User < ActiveRecord::Base
   end
 
   def voted?(challenge)
-    challenge.votes.where(recipient_id: self.id).exists?
+    challenge.votes.where(user_id: self.id).exists?
   end
+
+  def has_submitted_evidence_for(challenge)
+    !self.challenges.find_by(id: challenge.id).evidences.find_by(user_id: self.id).nil?
+  end
+
+  # def evidence_submitted?(user)
+  #   self.evidences.where(user_id: user.id).exists?
+  # end
 
 end

@@ -41,5 +41,11 @@ class Challenge < ActiveRecord::Base
     self.votes.where(recipient_id: self.competitor2.id).size
   end
 
+  def evidence_submitted?(user)
+    self.evidences.where(user_id: user.id).exists?
+  end
+
+
+
 
 end

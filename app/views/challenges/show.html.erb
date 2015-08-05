@@ -1,82 +1,29 @@
+
+
 <h1><%= @challenge.title %></h1>
 
 <h2><%= @challenge.description %></h2>
 
-
 <h1><%= @challenge.competitor1.name %> VS. <%= @challenge.competitor2.name %></h1>
-
-<% if @challenge.status == 'closed' %>
-  <h1><%= @challenge.winner.name %> wins!</h1>
-<%end%>
-
 
 <p>Status: <%= @challenge.status%></p>
 
-<% if @challenge.status == "in_progress" %>
- <% if current_user.competing?(@challenge) && @challenge.evidences.find_by(user_id: current_user.id).nil? %>
-Submit evidence here:
+<% case @challenge.status %>
+<% when 'closed' %>
+  <h1><%= @challenge.winner.name %> wins!</h1>
+<% when 'in_progress' %>
+  <%= render 'show_in_progress' %>
+<% when 'voting' %>
+  <%= render 'show_voting' %>
+<%end%>
 
-<%= form_for Evidence.new, :html => { :multipart => true } do |f| %>
-<%= f.hidden_field :challenge_id, {:value => @challenge.id} %>
-<%= f.hidden_field :user_id, {:value => current_user.id} %>
+<% if @challenge.status != ('pending') && @challenge.status != ('declined') %>
+  <%= render 'show_evidence' %>
+<%end%>
 
-<%= f.label 'Comment' %>
-<%= f.text_field :comment %></br>
-<%= f.file_field :photo, as: :file, :required => true %>
-<%= f.submit 'submit evidence' %>
-
-<% end %>
+<br>
+<% if user_signed_in? %>
+<%= link_to "Go back to your challenges", user_path(current_user) %>
 <% else %>
-You've submitted evidence. <br>
-
+<%= link_to "Go back to challenges", root_path %>
 <% end %>
-
-<%end%>
-
-<%if @challenge.status == 'voting' %>
-<%if !current_user.voted?(@challenge) %>
-  <p> Votes for <%= @challenge.competitor1.name %> <%= @challenge.votes1 %></p>
-  <%= form_for Vote.new do |f| %>
-    <%= f.hidden_field :challenge_id, {:value => @challenge.id} %>
-    <%= f.hidden_field :user_id, {:value => current_user.id} %>
-    <%= f.hidden_field :recipient_id, {:value => @challenge.competitor1.id} %>
-    <%= f.submit "vote for #{@challenge.competitor1.name}" %>
-  <% end %>
-
-  <p> Votes for <%= @challenge.competitor2.name %> </p> <%= @challenge.votes2 %></p> 
-  <%= form_for Vote.new do |f| %>
-    <%= f.hidden_field :challenge_id, {:value => @challenge.id} %>
-    <%= f.hidden_field :user_id, {:value => current_user.id} %>
-    <%= f.hidden_field :recipient_id, {:value => @challenge.competitor2.id} %>
-    <%= f.submit "vote for #{@challenge.competitor2.name}" %>
-  <% end %>
-<%else%>
-<p>Thanks for voting!</p>
-<%end%>
-<% end %>
-
-<%= link_to "go back to challenges", challenges_path %>
-<br>
-
-<% if @challenge.status != 'pending' %>
-  <% if current_user.competing?(@challenge) && !@challenge.evidences.find_by(user_id: current_user.id).nil? %>
-    <p>Your evidence: </p>
-    <%= image_tag @challenge.evidences.find_by(user_id: current_user.id).photo.url(:medium) %>
-    <% else %>
-    <p>Awaiting evidence...</p>
-  <%end%>
-
-<br>
- 
-<% if !@challenge.evidences.where.not(user_id: current_user).first.nil? %>
-  <p><%= @challenge.users.where.not(id: current_user.id).first.name + "s" %> evidence:</p>
-  <%= image_tag @challenge.evidences.where.not(user_id: current_user).first.photo.url(:medium) %>
-  <% else %>
-  Awaiting evidence...
-  <%end%>
-<%end%>
-
-
-
-
-

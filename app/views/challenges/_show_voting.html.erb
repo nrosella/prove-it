@@ -1,0 +1,27 @@
+<% if user_signed_in? %>
+
+<%if !current_user.voted?(@challenge) %>
+  <% @challenge.users.each do |user| %>
+
+    <p> Votes for <%= user.name %>: <%= @challenge.votes.where(recipient_id: user.id).size %></p>
+    <%= form_for Vote.new do |f| %>
+      <%= f.hidden_field :challenge_id, {:value => @challenge.id} %>
+      <%= f.hidden_field :user_id, {:value => current_user.id} %>
+      <%= f.hidden_field :recipient_id, {:value => user.id} %>
+      <%= f.submit "Vote for #{user.name}!" %>
+    <% end %>
+  <% end %>
+
+<%else%>
+    <p>Thanks for voting!</p>
+    <% @challenge.users.each do |user| %>
+    <p> Votes for <%= user.name %>: <%= @challenge.votes.where(recipient_id: user.id).size %></p>
+    <%end%>   
+<%end%>
+
+<%else%>
+<p>Log in or sign up to vote!</p>
+<% @challenge.users.each do |user| %>
+    <p> Votes for <%= user.name %>: <%= @challenge.votes.where(recipient_id: user.id).size %></p>
+  <%end%>
+<%end%>
