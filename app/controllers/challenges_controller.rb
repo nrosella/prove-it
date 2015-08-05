@@ -4,11 +4,20 @@ class ChallengesController < ApplicationController
   end
 
   def update
-    # binding.pry
-     # if params["commit"] == "Accept"
+    @challenge = Challenge.find(params[:id])
+    if params["commit"] == "Accept"
+      @challenge.status = "in_progress"
+      @challenge.save
+    elsif params["commit"] == "Decline"
+      @challenge.status = "declined"
+      @challenge.save
+    end
+    redirect_to user_path 
+  end
+
 
     #this is logic for changing statuses 1. pending -> "in progress"
-  end
+
 
   def new
     @challenge = Challenge.new
