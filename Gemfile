@@ -27,6 +27,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+gem 'rails-erd'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -53,7 +54,6 @@ group :test, :development do
   gem 'guard-rspec', require: false
   gem 'thin'
   gem 'faker'
-  gem gem 'factory_girl_rails'
 end
 
 group :production do
