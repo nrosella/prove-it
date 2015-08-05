@@ -1,8 +1,13 @@
 class ChallengesController < ApplicationController
 
   def index
-    
+  end
 
+  def update
+    # binding.pry
+     # if params["commit"] == "Accept"
+
+    #this is logic for changing statuses 1. pending -> "in progress"
   end
 
   def new
@@ -17,13 +22,23 @@ class ChallengesController < ApplicationController
 
 
   def create
-    binding.pry
+   
     @challenge = Challenge.new(challenge_params)
     @challenged = User.find_by(email: params[:challenge][:challenged_email])
 
+    # current_user.challenges << @challenge
+
+    # @challenged.challenges << @challenge
+
+    # current_user.save
+    # @challenged.save
+
+
     if @challenge.save
-      UserChallenge.create(user_id: current_user, challenge_id: @challenge.id, admin: true)
-      UserChallenge.create(user_id: @challenged, challenge_id: @challenge.id)
+
+      UserChallenge.create(user_id: current_user.id, challenge_id: @challenge.id, admin: true)
+      UserChallenge.create(user_id: @challenged.id, challenge_id: @challenge.id)
+    binding.pry
     end
 
     render 'show'

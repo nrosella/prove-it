@@ -1,5 +1,5 @@
 <% if user_signed_in? %>
-<%binding.pry%>
+
 
 <p>your pending challenges </p>
 
@@ -7,7 +7,14 @@
 
  <% current_user.challenges.each do |challenge| %>
 	<% if challenge.status == "pending" %>
-  <li><%= link_to challenge.title, challenge_path(challenge) %></li>
+  <li><%= link_to challenge.title, challenge_path(challenge) %>
+    <%= form_for(challenge) do |f| %>
+    <%= f.submit 'Accept' %>
+    <%end%>
+    <%= form_for(challenge) do |f| %>
+    <%= f.submit 'Decline' %>
+    <%end%>
+  </li>
    <% end %>
   <% end %>
    </ul>

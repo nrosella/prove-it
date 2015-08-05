@@ -3,7 +3,7 @@
 <h2><%= @challenge.description %></h2>
 
 
-<p><%= @challenge.challenger.name %> VS. <%= @challenge.challenged.name %></p>
+<p><%= @challenge.users.first.name %> VS. <%= @challenge.users.second.name %></p>
 
 <p>Status: <%= @challenge.status%></p>
 
