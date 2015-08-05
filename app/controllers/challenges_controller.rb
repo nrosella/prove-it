@@ -47,7 +47,7 @@ class ChallengesController < ApplicationController
 
       UserChallenge.create(user_id: current_user.id, challenge_id: @challenge.id, admin: true)
       UserChallenge.create(user_id: @challenged.id, challenge_id: @challenge.id)
-    binding.pry
+    
     end
 
     render 'show'

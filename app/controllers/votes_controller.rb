@@ -2,7 +2,7 @@ class VotesController < ApplicationController
   def create
     @challenge = Challenge.find(params[:vote][:challenge_id])
     Vote.create (vote_params)
-    if @challenge.votes.size > 11
+    if @challenge.votes.size > 10
       @challenge.status = 'closed'
       @challenge.save
     end
