@@ -1,0 +1,19 @@
+<h2>Challenges Completed:</h2><br>
+<% @challenges.where(status: 'closed').each do |challenge|  %>
+  <div>
+    <p><%= challenge.title %></p>
+    
+    <p><%= challenge.challenge_end %></p>
+    <% challenge.users.each do |user| %>
+      <div>
+        <% if user.id == params[:id].to_i %>
+          <%= user.name %>
+        <% else %>
+          <%= link_to user.name, user_path(user) %>
+        <% end %>
+
+        <%= image_tag @user.avatar.url(:thumb) %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

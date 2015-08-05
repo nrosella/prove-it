@@ -5,7 +5,7 @@ class UsersController < ApplicationController
       @challenges = current_user.challenges
     else
       @user = User.find(params[:id])
-      @challenges = @user.challenges.where()
+      @challenges = @user.challenges.where.not(status: 'pending')
     end
 		
 	end
