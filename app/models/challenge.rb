@@ -3,7 +3,7 @@ class Challenge < ActiveRecord::Base
 
   has_many :notifications
   has_many :user_challenges
-  has_many :challenges, through: :user_challenges
+  has_many :users, through: :user_challenges
 
   validates :title, presence: true
     
