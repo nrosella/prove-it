@@ -47,7 +47,7 @@
  <ul>
 
 <% current_user.challenges.each do |challenge| %>
-	<% if challenge.status == "completed" %>
+	<% if challenge.status == "closed" %>
   <li><%= link_to challenge.title, challenge_path(challenge) %></li>
    <% end %>
    <% end %>
