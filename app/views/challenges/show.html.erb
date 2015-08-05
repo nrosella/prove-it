@@ -3,7 +3,16 @@
 <h2><%= @challenge.description %></h2>
 
 
-<p><%= @challenge.users.first.name %> VS. <%= @challenge.users.second.name %></p>
+<h3><%= @challenge.users.first.name %> VS. <%= @challenge.users.second.name %></h3>
+
+<% if @challenge.status == 'closed' %>
+  <%if (@challenge.votes.where(recipient_id: @challenge.users.first.id).size) > (@challenge.votes.where(recipient_id: @challenge.users.second.id).size) %>
+    <h1><%= @challenge.users.first.name %> wins!</h1>
+    <% else %>
+    <h1><%= @challenge.users.second.name %> wins!</h1>
+    <%end%>
+    <%end%>
+
 
 <p>Status: <%= @challenge.status%></p>
 
@@ -29,8 +38,23 @@ You've submitted evidence. <br>
 <%end%>
 
 <%if @challenge.status == 'voting' %>
-<p> Votes for <%= @challenge.users.first.name %> </p>
-<p> Votes for <%= @challenge.users.second.name %> </p>
+<p> Votes for <%= @challenge.users.first.name %> <%= @challenge.votes.where(recipient_id: @challenge.users.first.id).size %></p>
+<%= form_for Vote.new do |f| %>
+<%= f.hidden_field :challenge_id, {:value => @challenge.id} %>
+<%= f.hidden_field :user_id, {:value => current_user.id} %>
+<%= f.hidden_field :recipient_id, {:value => @challenge.users.first.id} %>
+<%= f.submit "vote for #{@challenge.users.first.name}" %>
+<% end %>
+
+<p> Votes for <%= @challenge.users.second.name %> </p> <%= @challenge.votes.where(recipient_id: @challenge.users.second.id).size %>
+<p> 
+<%= form_for Vote.new do |f| %>
+<%= f.hidden_field :challenge_id, {:value => @challenge.id} %>
+<%= f.hidden_field :user_id, {:value => current_user.id} %>
+<%= f.hidden_field :recipient_id, {:value => @challenge.users.second.id} %>
+<%= f.submit "vote for #{@challenge.users.second.name}" %>
+<% end %>
+
 <% end %>
 <%= link_to "go back to challenges", challenges_path %>
 

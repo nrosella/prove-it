@@ -4,7 +4,7 @@ class Challenge < ActiveRecord::Base
   has_many :notifications
   has_many :user_challenges
   has_many :users, through: :user_challenges
-
+  has_many :votes
   has_many :evidences
 
   validates :title, presence: true

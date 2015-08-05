@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   has_many :guest_challenges, class_name: "Challenge", :foreign_key => "challenged_id"
 
   has_many :notifications
-
+  has_many :votes
   has_many :user_challenges
   has_many :challenges, through: :user_challenges
 
