@@ -17,7 +17,7 @@ class EvidencesController < ApplicationController
   private
 
   def evidence_params
-  params.require(:evidence).permit(:photo, :comment, :challenge_id, :user_id)
-end
+    params.require(:evidence).permit(:photo, :comment, :challenge_id, :user_id)
+  end
 
 end
