@@ -2,7 +2,7 @@ class UserMailer < ApplicationMailer
 
 	def send_welcome_email(user)
     @user = user
-    @url  = 'http://example.com/login'
+    @url  = "http://localhost:3000/#{user_path(@user)}"
     mail(to: @user.email, subject: 'Welcome to My Awesome Site')
   end
 
