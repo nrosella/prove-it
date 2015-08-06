@@ -33,6 +33,7 @@ class ChallengesController < ApplicationController
   def create
    
     @challenge = Challenge.new(challenge_params)
+    @challenge.title = @challenge.title.titleize
     @challenged = User.find_by(email: params[:challenge][:challenged_email])
 
     # current_user.challenges << @challenge
