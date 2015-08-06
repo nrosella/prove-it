@@ -1,0 +1,35 @@
+<% if user_signed_in? %>
+
+  <% if current_user.competing?(@challenge) %>
+    <% if current_user.has_submitted_evidence_for(@challenge) %>
+      <p>Your evidence: </p>
+      <%= image_tag @challenge.evidences.find_by(user_id: current_user.id)  .photo.url(:medium) %>
+    <%else%>
+      <p>Awaiting your evidence...</p>
+    <%end%>
+  <%end%>
+  
+  <br>
+  
+  <% @challenge.users.where.not(id: current_user.id).each do |user| %>
+    <% if user.has_submitted_evidence_for(@challenge) %>
+      <p><%= user.name.capitalize + "'s" %> evidence:</p>
+      <%= image_tag @challenge.evidences.find_by(user_id: user.id).photo. url(:medium) %>
+    <%else%>
+      <p>Awaiting <%= user.name.capitalize + "'s" %> evidence...</p> 
+    <%end%>
+  <%end%>
+  
+  <%else%>
+    <% @challenge.users.each do |user| %>
+    <% if user.has_submitted_evidence_for(@challenge) %>
+      <p><%= user.name.capitalize + "'s" %> evidence:</p>
+      <%= image_tag @challenge.evidences.find_by(user_id: user.id).photo. url(:medium) %>
+    <%else%>
+      <p>Awaiting <%= user.name.capitalize + "'s" %> evidence...</p> 
+    <%end%>
+  <%end%>
+
+<%end%>
+
+
