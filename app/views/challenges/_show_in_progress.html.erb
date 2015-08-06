@@ -3,6 +3,7 @@
 <% if current_user.competing?(@challenge) && @challenge.evidences.find_by(user_id: current_user.id).nil? %>
   <p>Submit evidence here:</p>
   <%= form_for Evidence.new, :html => { :multipart => true } do |f| %>
+
   <%= f.hidden_field :challenge_id, {:value => @challenge.id} %>
   <%= f.hidden_field :user_id, {:value => current_user.id} %>
   <%= f.label 'Comment' %>
@@ -10,6 +11,7 @@
   <%= f.file_field :photo, as: :file, :required => true %>
   <%= f.submit 'Submit evidence!' %>
   <% end %>
+
 <% else %>
   <p>You've submitted evidence.</p>
 <%end%>
