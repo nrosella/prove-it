@@ -1,4 +1,12 @@
-<% binding.pry %>
+<% if @challenge.status == "in_progress" %>
+  <% content_for :head do %>
+    <script type="text/javascript">
+      <%= render 'countdown.js' %>
+    </script>
+  <% end %>
+<%end%>
+
+<div id=defaultCountdown> </div>
 
 <h1><%= @challenge.title %></h1>
 
@@ -20,8 +28,6 @@
   <div id='voting'><%= render 'show_voting' %></div>
 <%end%>
 
-
-
 <% if ['pending', 'declined'].exclude?(@challenge.status) %>
   <div id='evidence'><%= render 'show_evidence' %></div>
 <%end%>
@@ -32,3 +38,5 @@
 <% else %>
 <%= link_to "Go back to challenges", root_path %>
 <% end %>
+
+

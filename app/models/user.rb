@@ -25,8 +25,14 @@ class User < ActiveRecord::Base
     !self.challenges.find_by(id: challenge.id).evidences.find_by(user_id: self.id).nil?
   end
 
-  # def evidence_submitted?(user)
-  #   self.evidences.where(user_id: user.id).exists?
-  # end
+  def total_wins
+    self.challenges.where(status: "closed").select do |challenge|
+      challenge.winner == self
+    end.count
+  end
+
+  def total_losses
+    self.challenges.where(status: "closed").count - self.total_wins
+  end
 
 end

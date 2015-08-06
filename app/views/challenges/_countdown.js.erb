@@ -1,0 +1,7 @@
+$(document).ready(function(){
+  var finishTime = new Date(); 
+  finishTime = new Date("<%= @challenge.updated_at + @challenge.challenge_duration.day %>"); 
+  debugger;
+  $('#defaultCountdown').countdown({until: finishTime});
+
+});
