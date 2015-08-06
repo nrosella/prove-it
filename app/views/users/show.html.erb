@@ -1,21 +1,25 @@
 <% if user_signed_in? %>
 
-  <% if current_user.challenge_pending.size > 0 %>
-    <h3>Your Pending Challenges:</h3>
-    <ul>
-     <% current_user.challenge_pending.each do |challenge| %>
-        <li><h4 class="no-caps"><%= link_to challenge.title, challenge_path(challenge) %></h4></li>
-          <% if challenge.users[0] != current_user %>
-            <%= form_for(challenge) do |f| %>
-              <%= f.submit 'Accept' %>
+<div class="bs-component">
+  <table class="table table-striped table-hover">
+    <tbody>
+      <% if current_user.challenge_pending.size > 0 %>
+          <h3>Your Pending Challenges:</h3>
+           <% current_user.challenge_pending.each do |challenge| %>
+              <tr><td><h4 class="no-caps"><%= link_to challenge.title, challenge_path(challenge) %></h4></td></tr>
+                <% if challenge.users[0] != current_user %>
+                  <%= form_for(challenge) do |f| %>
+                    <%= f.submit 'Accept' %>
+                  <% end %>
+                  <%= form_for(challenge) do |f| %>
+                    <%= f.submit 'Decline' %>
+                  <%end%>
+                <% end %>
             <% end %>
-            <%= form_for(challenge) do |f| %>
-              <%= f.submit 'Decline' %>
-            <%end%>
-          <% end %>
       <% end %>
-    </ul>
-  <% end %>
+    </tbody>
+  </table>
+</div>
 
   <% if current_user.challenge_in_progress.size > 0 %>
     <h3> Your In-Progress Challenges:</h3>
