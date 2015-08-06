@@ -1,0 +1,9 @@
+$(document).ready(function(){
+  $("#defaultCountdown")
+    .countdown("2016/01/01", function(event) {
+      $("#defaultCountdown").html(
+        event.strftime('%D days %H:%M:%S')
+      );
+    });
+
+  });

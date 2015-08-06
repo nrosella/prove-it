@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   has_many :evidences
 
   after_create :send_admin_mail
+  
   def send_admin_mail
     UserMailer.send_welcome_email(self).deliver_now!
   end
@@ -31,7 +32,7 @@ class User < ActiveRecord::Base
   end
 
   def has_submitted_evidence_for(challenge)
-    !self.challenges.find_by(id: challenge.id).evidences.find_by(user_id: self.id).nil?
+    self.challenges.find_by(id: challenge.id).evidences.find_by(user_id: self.id).present?
   end
 
   def total_wins

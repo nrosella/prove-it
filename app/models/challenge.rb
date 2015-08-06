@@ -1,5 +1,5 @@
 class Challenge < ActiveRecord::Base
-  attr_accessor :challenged_email
+  attr_accessor :challenged_email, :time_unit_vote, :time_unit_challenge
 
   has_many :notifications
   has_many :user_challenges
@@ -28,5 +28,9 @@ class Challenge < ActiveRecord::Base
     "#{k.name}: #{v} votes"
     end.join(", ")
   end
+
+  # def set_event_duration(event_duration, number, unit)
+  #   self.send(event_duration)= number * unit
+  # end
 
 end
