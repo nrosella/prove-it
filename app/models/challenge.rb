@@ -12,42 +12,21 @@ class Challenge < ActiveRecord::Base
   
 
   def winner
-    total_votes.max_by{|k,v| v}[0]
+    total_votes.key(total_votes.values.max)
   end
 
   def loser
-    total_votes.min_by{|k,v| v}[0]
+    total_votes.key(total_votes.values.min)
   end
 
   def total_votes
-    {}.tap do |results|
-      self.users.each do |user|
-        results[user] = self.votes.where(recipient_id: user.id).size
-      end
-    end 
+    self.votes.group(:recipient_id).count.transform_keys{|key| User.find(key)}
   end
 
-  def competitor1
-    self.users.first
+  def print_votes
+    total_votes.collect do |k,v|
+    "#{k.name}: #{v} votes"
+    end.join(" ")
   end
-
-  def competitor2
-    self.users.second
-  end
-
-  def votes1
-    self.votes.where(recipient_id: self.competitor1.id).size
-  end
-
-  def votes2
-    self.votes.where(recipient_id: self.competitor2.id).size
-  end
-
-  def evidence_submitted?(user)
-    self.evidences.where(user_id: user.id).exists?
-  end
-
-
-
 
 end

@@ -1,5 +1,6 @@
 class EvidencesController < ApplicationController
 
+ 
   def create
     @challenge = Challenge.find(params[:evidence][:challenge_id])
     e = Evidence.new(evidence_params)
@@ -8,7 +9,7 @@ class EvidencesController < ApplicationController
       @challenge.status = 'voting'
       @challenge.save
     end
-    
+
     redirect_to challenge_path(@challenge)
   end
 

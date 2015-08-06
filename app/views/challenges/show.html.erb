@@ -1,24 +1,29 @@
-
+<% binding.pry %>
 
 <h1><%= @challenge.title %></h1>
 
 <h2><%= @challenge.description %></h2>
 
-<h1><%= @challenge.competitor1.name %> VS. <%= @challenge.competitor2.name %></h1>
+<h1><%= @challenge.users.collect{|user| user.name.capitalize}.join(" vs ") %></h1>
 
 <p>Status: <%= @challenge.status%></p>
+
+<div id="results"></div>
 
 <% case @challenge.status %>
 <% when 'closed' %>
   <h1><%= @challenge.winner.name %> wins!</h1>
+  <%= @challenge.print_votes %>
 <% when 'in_progress' %>
   <%= render 'show_in_progress' %>
 <% when 'voting' %>
-  <%= render 'show_voting' %>
+  <div id='voting'><%= render 'show_voting' %></div>
 <%end%>
 
-<% if @challenge.status != ('pending') && @challenge.status != ('declined') %>
-  <%= render 'show_evidence' %>
+
+
+<% if ['pending', 'declined'].exclude?(@challenge.status) %>
+  <div id='evidence'><%= render 'show_evidence' %></div>
 <%end%>
 
 <br>
