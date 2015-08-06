@@ -9,6 +9,8 @@ class Challenge < ActiveRecord::Base
 
   validates :title, presence: true
 
+  
+
   def winner
     total_votes.max_by{|k,v| v}[0]
   end
