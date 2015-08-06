@@ -7,6 +7,7 @@ class ChallengesController < ApplicationController
     @challenge = Challenge.find(params[:id])
     if params["commit"] == "Accept"
       @challenge.status = "in_progress"
+      @challenge.challenge_end = Time.now + @challenge.challenge_duration.day
       @challenge.save
     elsif params["commit"] == "Decline"
       @challenge.status = "declined"
@@ -25,29 +26,27 @@ class ChallengesController < ApplicationController
 
   def show
     @challenge = Challenge.find(params["id"])
-
+    if ((Time.now > (@challenge.challenge_end) && @challenge.status == "in_progress"))
+      @challenge.status = "voting"
+      @challenge.save
+    end
+  
   end
 
 
 
   def create
+    binding.pry
    
-    @challenge = Challenge.new(challenge_params)
+    @challenge = Challenge.new(challenge_params) #title, description
     @challenged = User.find_by(email: params[:challenge][:challenged_email])
-
-    # current_user.challenges << @challenge
-
-    # @challenged.challenges << @challenge
-
-    # current_user.save
-    # @challenged.save
-
-
+    @challenge.challenge_duration = (params["challenge"]["challenge_duration"].to_i * params["challenge"]["time_unit_challenge"].to_i)
+    @challenge.voting_duration = (params["challenge"]["voting_duration"].to_i * params["challenge"]["time_unit_vote"].to_i)
+  
     if @challenge.save
-
       UserChallenge.create(user_id: current_user.id, challenge_id: @challenge.id, admin: true)
       UserChallenge.create(user_id: @challenged.id, challenge_id: @challenge.id)
-      @challenged.send_challenge_invitation_email(@challenge)
+      # @challenged.send_challenge_invitation_email(@challenge)
     end
 
     render 'show'
@@ -57,8 +56,7 @@ class ChallengesController < ApplicationController
   private
 
   def challenge_params
-    params.require(:challenge).permit(:title, :description, :challenge_duration, :voting_duration)
-
+    params.require(:challenge).permit(:title, :description)
   end
 
 

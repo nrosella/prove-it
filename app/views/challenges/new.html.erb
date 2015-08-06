@@ -5,12 +5,15 @@
 <p><%= f.text_field :challenged_email %></p>
 <p><%= f.label :description %></p>
 <p><%= f.text_field :description %></p>
-<p><%= f.label :challenge_duration %></p>
-<p><%= f.text_field :challenge_duration %></p>
-<p><%= f.label :voting_duration %></p>
-<p><%= f.text_field :voting_duration %></p>
+<p><%= f.label :challenge_duration, 'Length of time to submit evidence:' %></p>
+<p><%= f.select :challenge_duration, (1..60) %>
+<%= f.select :time_unit_challenge, [['Days', 1440],['Hours', 60],['Minutes', 1]] %></p>
+<p><%= f.label :voting_duration, 'Length of time for voting:' %></p>
+<p><%= f.select :voting_duration, (1..60) %>
+<%= f.select :time_unit_vote, [['Days', 1440],['Hours', 60],['Minutes', 1]] %></p>
 
 <%= f.submit %>
 <% end %>
 
 <%= link_to "go back to challenges", challenges_path %>
+
