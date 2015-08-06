@@ -4,9 +4,22 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Hi <%= @user.name %></h1>
+    <h1>Hi <%= @user.name %>!</h1>
+    <h3>
+      We're so happy to see that you've joined Prove It - the platform that allows you to challenge anyone to anything!
+    </h3>
     <p>
-      Sample mail sent using smtp.
+    	Please click the button below to go to your profile page and fill in your bio and upload a profile picture. This makes it easier for people to find and challenge you.
     </p>
+
+    <form action="<%= @url %>">
+    	<input type="submit" value="Go to profile">
+		</form>
+
+    
+
+		<p>See you soon!</p>
+		<p>The Prove It team :)</p>
+
   </body>
 </html>
