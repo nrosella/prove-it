@@ -26,7 +26,7 @@ class Challenge < ActiveRecord::Base
   def print_votes
     total_votes.collect do |k,v|
     "#{k.name}: #{v} votes"
-    end.join(" ")
+    end.join(", ")
   end
 
 end

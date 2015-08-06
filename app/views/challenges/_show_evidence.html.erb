@@ -20,7 +20,7 @@
     <%end%>
   <%end%>
   
-  <%else%>
+<%else%>
     <% @challenge.users.each do |user| %>
     <% if user.has_submitted_evidence_for(@challenge) %>
       <p><%= user.name.capitalize + "'s" %> evidence:</p>
