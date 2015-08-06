@@ -44,4 +44,25 @@ class User < ActiveRecord::Base
     self.challenges.where(status: "closed").count - self.total_wins
   end
 
+  def challenge_pending
+    self.challenges.where(status: "pending")
+  end
+
+  def challenge_in_progress
+    self.challenges.where(status: "in_progress")
+  end
+
+  def challenge_voting
+    self.challenges.where(status: "voting")
+  end
+
+  def challenge_closed
+    self.challenges.where(status: "closed")
+  end
+
+  def challenge_declined
+    self.challenges.where(status: "declined")
+  end
+
+
 end
