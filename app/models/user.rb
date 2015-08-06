@@ -13,6 +13,11 @@ class User < ActiveRecord::Base
   has_many :challenges, through: :user_challenges
   has_many :evidences
 
+  after_create :send_admin_mail
+  def send_admin_mail
+    UserMailer.send_welcome_email(self).deliver_now!
+  end
+
   def competing?(challenge)
     challenge.users.include?(self)
   end
