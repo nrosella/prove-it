@@ -32,7 +32,7 @@
     <h3>Your Challenges Open for Voting:</h3>
      <ul>
       <% current_user.challenges.each do |challenge| %>
-        <li><%= link_to challenge.title, challenge_path(challenge) %></li>
+        <li><h4 class="no-caps"><%= link_to challenge.title, challenge_path(challenge) %></h4></li>
       <% end %>
      </ul>
   <% end %>
