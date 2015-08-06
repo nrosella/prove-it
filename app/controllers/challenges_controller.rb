@@ -26,7 +26,7 @@ class ChallengesController < ApplicationController
 
   def show
     @challenge = Challenge.find(params["id"])
-    if ((Time.now > (@challenge.challenge_end) && @challenge.status == "in_progress"))
+    if (@challenge.status == "in_progress" && Time.now > (@challenge.challenge_end) )
       @challenge.status = "voting"
       @challenge.save
     end
@@ -36,9 +36,6 @@ class ChallengesController < ApplicationController
 
 
   def create
-    binding.pry
-   
-
     @challenge = Challenge.new(challenge_params)
     @challenge.title = @challenge.title.titleize
 
