@@ -18,6 +18,10 @@ class User < ActiveRecord::Base
     UserMailer.send_welcome_email(self).deliver_now!
   end
 
+  def send_challenge_invitation_email(challenge)
+    UserMailer.send_invitation_email(self, challenge).deliver_now!
+  end
+
   def competing?(challenge)
     challenge.users.include?(self)
   end
