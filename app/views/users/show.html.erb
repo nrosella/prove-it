@@ -6,15 +6,15 @@
       <% if current_user.challenge_pending.size > 0 %>
           <h3>Your Pending Challenges:</h3>
            <% current_user.challenge_pending.each do |challenge| %>
-              <tr><td><h4 class="no-caps"><%= link_to challenge.title, challenge_path(challenge) %></h4></td></tr>
+              <tr><td><h4 class="no-caps"><%= link_to challenge.title, challenge_path(challenge) %></h4></td>
                 <% if challenge.users[0] != current_user %>
                   <%= form_for(challenge) do |f| %>
-                    <%= f.submit 'Accept' %>
+                    <td><%= f.submit 'Accept' %><td>
                   <% end %>
                   <%= form_for(challenge) do |f| %>
-                    <%= f.submit 'Decline' %>
+                    <td><%= f.submit 'Decline' %><td>
                   <%end%>
-                <% end %>
+                <% end %></tr>
             <% end %>
       <% end %>
     </tbody>
