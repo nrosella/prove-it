@@ -2,8 +2,11 @@ $(document).ready(function(){
   var finishTime = new Date(); 
   finishTime = new Date("<%= @challenge.challenge_end + @challenge.voting_duration.minutes %>"); 
   $('#votingCountdown').countdown({until: finishTime, onExpiry: function(){
-    alert("voting done!");
-
+    $.ajax({
+      url: "<%= votes_path %>", 
+      dataType: "script", 
+      type: "GET",
+      data: {id: "<%= @challenge.id %>"}});
     },
   });
 });
