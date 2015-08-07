@@ -1,67 +1,123 @@
 <% if user_signed_in? %>
-
-<div class="bs-component">
-  <table class="table table-striped table-hover">
-    <tbody>
-      <% if current_user.challenge_pending.size > 0 %>
-          <h3>Your Pending Challenges:</h3>
-           <% current_user.challenge_pending.each do |challenge| %>
-              <tr><td><h4 class="no-caps"><%= link_to challenge.title, challenge_path(challenge) %></h4></td>
-                <% if challenge.users[0] != current_user %>
-                  <%= form_for(challenge) do |f| %>
-                    <td><%= f.submit 'Accept' %><td>
-                  <% end %>
-                  <%= form_for(challenge) do |f| %>
-                    <td><%= f.submit 'Decline' %><td>
-                  <%end%>
-                <% end %></tr>
-            <% end %>
-      <% end %>
-    </tbody>
-  </table>
-</div>
-
-  <% if current_user.challenge_in_progress.size > 0 %>
-    <h3> Your In-Progress Challenges:</h3>
-     <ul>
-    	<% current_user.challenge_in_progress.each do |challenge| %>
-    		<% if challenge.status == "in_progress" %>
-      	 <li><h4 class="no-caps"><%= link_to challenge.title, challenge_path(challenge) %></h4></li>
-       	<% end %>
-      <% end %>
-    </ul>
-  <% end %>
-
-  <% if current_user.challenge_voting.size > 0 %>
-    <h3>Your Challenges Open for Voting:</h3>
-     <ul>
-      <% current_user.challenges.each do |challenge| %>
-        <li><h4 class="no-caps"><%= link_to challenge.title, challenge_path(challenge) %></h4></li>
-      <% end %>
-     </ul>
-  <% end %>
-       
-  <% if current_user.challenge_closed.size > 0 %>
-    <h3>Your Completed Challenges:</h3>
-     <ul>
-      <% current_user.challenges.each do |challenge| %>
-    	 <% if challenge.status == "closed" %>
-        <li><h4 class="no-caps"><%= link_to challenge.title, challenge_path(challenge) %></h4></li>
+  
+  <!-- LIST OF PENDING -->
+  <div class="bs-component">
+   <table class="table table-striped table-hover">
+     <tbody>
+       <% if current_user.challenge_pending.size > 0 %>
+           <h3>Your Pending Challenges:</h3>
+            <% current_user.challenge_pending.each do |challenge| %>
+               <tr>
+               <td><h4 class="no-caps"><%= link_to challenge.title, challenge_path(challenge) %></h4></td>
+                 <% if challenge.users[0] != current_user %>
+                   <%= form_for(challenge) do |f| %>
+                     <td><%= f.submit 'Accept', class: "btn btn-challenge-accept btn-md" %></td>
+                   <% end %>
+                   <%= form_for(challenge) do |f| %>
+                     <td><%= f.submit 'Decline', class: "btn btn-challenge-decline btn-md"%></td>
+                   <% end %>
+                 <% else %>
+                   <td class="hidden-td"></td>
+                   <td class="hidden-td"></td>
+                 <% end %>
+               </tr>
+             <% end %>
        <% end %>
-      <% end %>
-    </ul>
-  <% end %>
+     </tbody>
+   </table>
+  </div>
+  
 
-<% if current_user.challenge_declined.size > 0 %>
-  <h3>Your Declined Challenges</h3>
-   <ul>
-    <% current_user.challenges.each do |challenge| %>
-      <% if challenge.status == "declined" %>
-        <li><h4 class="no-caps"><%= link_to challenge.title, challenge_path(challenge) %></h4></li>
-      <% end %>
-     <% end %>
-    </ul>
-  <% end %>
+  <!-- LIST OF IN PROGRESS -->
+  <div class="bs-component">
+    <table class="table table-striped table-hover">
+      <tbody>
+          <% if current_user.challenge_in_progress.size > 0 %>
+            <h3> Your In-Progress Challenges:</h3>
+            <% current_user.challenge_in_progress.each do |challenge| %>
+              <tr>
+                <td>
+                  <h4 class="no-caps"><%= link_to challenge.title, challenge_path(challenge) %></h4>
+                </td>
+              </tr>
+            <% end %>
+          <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- LIST OF IN VOTING PHASE -->
+  <div class="bs-component">
+    <table class="table table-striped table-hover">
+      <tbody>
+        <% if current_user.challenge_voting.size > 0 %>
+          <h3> Your Challenges Up For Voting:</h3>
+          <% current_user.challenge_voting.each do |challenge| %>
+            <tr>
+              <td>
+                <h4 class="no-caps"><%= link_to challenge.title, challenge_path(challenge) %></h4>
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- LIST OF VICTORIES -->
+  <div class="bs-component">
+    <table class="table table-striped table-hover">
+      <tbody>
+        <% if current_user.challenges_won.size > 0 %>
+          <h3>Your Victories!</h3>
+          <% current_user.challenges_won.each do |challenge| %>
+            <tr>
+              <td>
+                <h4 class="no-caps"><%= link_to challenge.title, challenge_path(challenge) %></h4>
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+   </div>
+
+  <!-- LIST OF DEFEATS -->
+  <div class="bs-component">
+    <table class="table table-striped table-hover">
+      <tbody>
+        <% if current_user.challenges_lost.size > 0 %>
+          <h3>Your Shameful Defeats!</h3>
+          <% current_user.challenges_lost.each do |challenge| %>
+            <tr>
+              <td>
+                <h4 class="no-caps"><%= link_to challenge.title, challenge_path(challenge) %></h4>
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+
+  <!-- LIST OF DECLINED -->
+  <div class="bs-component">
+    <table class="table table-striped table-hover">
+      <tbody>
+        <% if current_user.challenge_declined.size > 0 %>
+          <h3>Your Declined Challenges</h3>
+          <% current_user.challenge_declined.each do |challenge| %>
+            <tr>
+              <td>
+                <h4 class="no-caps"><%= link_to challenge.title, challenge_path(challenge) %></h4>
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+   </div>
 
   <%= link_to "Create a New Challenge", new_challenge_path, class: "btn btn-success btn-lg"  %>
 

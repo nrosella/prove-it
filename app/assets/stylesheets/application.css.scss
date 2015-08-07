@@ -284,3 +284,17 @@ table th[class*="col-"] {
     border-bottom: 0;
   }
 }
+
+.hidden-td {
+  opacity: 0;
+}
+
+.btn-challenge-accept {
+  color: #ffffff;
+  background-color: #47bbd7;
+}
+
+.btn-challenge-decline {
+  color: #ffffff;
+  background-color: #db504a;
+}
