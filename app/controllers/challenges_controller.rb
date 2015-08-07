@@ -7,7 +7,7 @@ class ChallengesController < ApplicationController
     @challenge = Challenge.find(params[:id])
     if params["commit"] == "Accept"
       @challenge.status = "in_progress"
-      @challenge.challenge_end = Time.now + @challenge.challenge_duration.minutes
+      @challenge.challenge_end = Time.now + @challenge.challenge_duration.seconds
       @challenge.save
     elsif params["commit"] == "Decline"
       @challenge.status = "declined"
@@ -28,6 +28,10 @@ class ChallengesController < ApplicationController
     @challenge = Challenge.find(params["id"])
     if (@challenge.status == "in_progress" && Time.now > (@challenge.challenge_end) )
       @challenge.status = "voting"
+      @challenge.save
+    end
+    if (@challenge.status == "voting" && Time.now > (@challenge.challenge_end + @challenge.voting_duration.seconds) )
+      @challenge.status = "closed"
       @challenge.save
     end
   

@@ -2,6 +2,7 @@
   <% content_for :head do %>
     <script type="text/javascript">
       <%= render 'countdown.js' %>
+      <%= render 'countdown2.js' %>
     </script>
   <% end %>
 <%end%>
@@ -14,7 +15,8 @@
   <% end %>
 <%end%>
 
-<div id='defaultCountdown'> </div>
+<div id='defaultCountdown'></div>
+<div id='votingCountdown'></div>
 
 <h1><%= @challenge.title %></h1>
 
@@ -26,6 +28,7 @@
 
 <div id="results"></div>
 <div id='voting'></div>
+<div id='closed'></div>
 
 <% case @challenge.status %>
 <% when 'closed' %>
@@ -43,9 +46,9 @@
 
 <br>
 <% if user_signed_in? %>
-<%= link_to "Go back to your challenges", user_path(current_user) %>
+  <%= link_to "Go back to your challenges", user_path(current_user) %>
 <% else %>
-<%= link_to "Go back to challenges", root_path %>
+  <%= link_to "Go back to challenges", root_path %>
 <% end %>
 
 

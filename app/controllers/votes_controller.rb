@@ -11,6 +11,15 @@ class VotesController < ApplicationController
     end
   end
 
+  def index
+    @challenge = Challenge.find(params[:id])
+    @challenge.status = 'closed'
+    @challenge.save
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def new
     @challenge = Challenge.find(params[:id])
     @challenge.status = 'voting'
