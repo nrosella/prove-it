@@ -9,10 +9,12 @@ class Challenge < ActiveRecord::Base
 
   validates :title, presence: true
 
+
+
   
 
   def winner
-    total_votes.key(total_votes.values.max)
+    total_votes.key(total_votes.values.max) || User.new(name: "nobody")
   end
 
   def loser

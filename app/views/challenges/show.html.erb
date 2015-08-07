@@ -29,6 +29,7 @@
 <div id="results"></div>
 <div id='voting'></div>
 <div id='closed'></div>
+
 <% case @challenge.status %>
 <% when 'closed' %>
   <h1><%= @challenge.winner.name %> wins!</h1>
@@ -45,9 +46,9 @@
 
 <br>
 <% if user_signed_in? %>
-<%= link_to "Go back to your challenges", user_path(current_user) %>
+  <%= link_to "Go back to your challenges", user_path(current_user) %>
 <% else %>
-<%= link_to "Go back to challenges", root_path %>
+  <%= link_to "Go back to challenges", root_path %>
 <% end %>
 
 

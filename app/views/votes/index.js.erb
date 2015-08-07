@@ -3,6 +3,6 @@ $('#defaultCountdown').hide();
 $('#votingCountdown').hide();
 $('#in_progress').hide();
 $('#status').html("<p>Status: closed</p>");
-$('#closed').html("<h1><%= j @challenge.winner ? @challenge.winner.name + 'wins!' : 'TIE' %> </h1>")
+$('#closed').html("<h1><%= j @challenge.winner.name + ' wins!' %> </h1>")
 $('.user_waiting').html("<p>You didn't submit evidence in time!</p>");
 $('div.waiting > p > span').html(" didn't submit evidence in time!");
