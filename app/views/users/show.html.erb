@@ -9,10 +9,10 @@
               <tr><td><h4 class="no-caps"><%= link_to challenge.title, challenge_path(challenge) %></h4></td>
                 <% if challenge.users[0] != current_user %>
                   <%= form_for(challenge) do |f| %>
-                    <td><%= f.submit 'Accept' %><td>
+                    <td><%= f.submit 'Accept' %></td>
                   <% end %>
                   <%= form_for(challenge) do |f| %>
-                    <td><%= f.submit 'Decline' %><td>
+                    <td><%= f.submit 'Decline' %></td>
                   <%end%>
                 <% end %></tr>
             <% end %>
