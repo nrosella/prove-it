@@ -1,7 +1,12 @@
 $(document).ready(function(){
   var finishTime = new Date(); 
-  finishTime = new Date("<%= @challenge.challenge_end - 23.hours - 58.minutes - 20.seconds - 20.seconds - 1.minute %>"); 
- 
-  $('#defaultCountdown').countdown({until: finishTime, expiryUrl: '<%= challenge_path(@challenge) %>'});
-
-})
+  finishTime = new Date("<%= @challenge.challenge_end %>"); 
+  $('#defaultCountdown').countdown({until: finishTime, onExpiry: function(){
+    $.ajax({
+      url: "<%= new_vote_path %>", 
+      dataType: "script", 
+      type: "GET",
+      data: {id: "<%= @challenge.id %>"}});
+    },
+  });
+});

@@ -1,9 +1,9 @@
 $(document).ready(function(){
-  $("#defaultCountdown")
-    .countdown("2016/01/01", function(event) {
-      $("#defaultCountdown").html(
-        event.strftime('%D days %H:%M:%S')
-      );
-    });
+  var finishTime = new Date(); 
+  finishTime = new Date("<%= @challenge.challenge_end + @challenge.voting_duration.minutes %>"); 
+  $('#defaultCountdown').countdown({until: finishTime, onExpiry: function(){
+    alert("voting done!");
 
+    },
   });
+});
