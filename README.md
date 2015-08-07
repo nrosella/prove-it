@@ -1,13 +1,13 @@
 TO DO for prove-it
 
-0. where’d the buttons go?
+0. where’d the buttons go? (done)
 
 1. be able to change evidence before moving to voting stage (mason side)
 	
 1.5 can only see your submitted evidence until it is voting stage (for future)
 - “your challenger has submitted evidence”, can’t see image
 
-2. set voting duration guidelines: make it by time, not 11 votes (travis side)
+2. set voting duration guidelines: make it by time, not 11 votes (travis side)(done)
 	- if you haven’t submitted 
 2.5. for countdown timer, have it do ajax request, not page reload
 
