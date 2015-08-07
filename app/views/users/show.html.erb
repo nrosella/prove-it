@@ -68,7 +68,7 @@
     <table class="table table-striped table-hover">
       <tbody>
         <% if current_user.challenges_won.size > 0 %>
-          <h3>Your Victories!</h3>
+          <h3>Victories!</h3>
           <% current_user.challenges_won.each do |challenge| %>
             <tr>
               <td>
@@ -86,7 +86,7 @@
     <table class="table table-striped table-hover">
       <tbody>
         <% if current_user.challenges_lost.size > 0 %>
-          <h3>Your Shameful Defeats!</h3>
+          <h3>Shameful Defeats!</h3>
           <% current_user.challenges_lost.each do |challenge| %>
             <tr>
               <td>
