@@ -30,6 +30,10 @@ class ChallengesController < ApplicationController
       @challenge.status = "voting"
       @challenge.save
     end
+    if (@challenge.status == "voting" && Time.now > (@challenge.challenge_end + @challenge.voting_duration.seconds) )
+      @challenge.status = "closed"
+      @challenge.save
+    end
   
   end
 
