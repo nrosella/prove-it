@@ -21,4 +21,5 @@ RSpec.describe Challenge, type: :model do
       end
     end
   end
+  # More tests here
 end

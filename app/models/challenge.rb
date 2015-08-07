@@ -31,8 +31,16 @@ class Challenge < ActiveRecord::Base
     end.join(", ")
   end
 
-  # def set_event_duration(event_duration, number, unit)
-  #   self.send(event_duration)= number * unit
-  # end
+  def in_progress
+    self.status == "in_progress"
+  end
+
+  def declined
+    self.status == "declined"
+  end
+
+  def closed
+    self.status == "closed"
+  end
 
 end

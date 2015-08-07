@@ -36,9 +36,7 @@ class User < ActiveRecord::Base
   end
 
   def total_wins
-    self.challenges.where(status: "closed").select do |challenge|
-      challenge.winner == self
-    end.count
+    self.challenges_won.count
   end
 
   def total_losses
@@ -50,15 +48,23 @@ class User < ActiveRecord::Base
   end
 
   def challenge_in_progress
-    self.challenges.where(status: "in_progress")
+    self.challenges.where(status: "in_progress").order(created_at: :desc)
   end
 
   def challenge_voting
-    self.challenges.where(status: "voting")
+    self.challenges.where(status: "voting").order(challenge_end: :desc)
   end
 
   def challenge_closed
     self.challenges.where(status: "closed")
+  end
+
+  def challenges_won
+    self.challenges.where(status: "closed").select{|c| c.winner == self}
+  end
+
+  def challenges_lost
+    self.challenges.where(status: "closed").select{|c| c.winner != self}
   end
 
   def challenge_declined
