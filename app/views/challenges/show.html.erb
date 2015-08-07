@@ -6,6 +6,14 @@
   <% end %>
 <%end%>
 
+<% if @challenge.status == "voting" %>
+  <% content_for :head do %>
+    <script type="text/javascript">
+      <%= render 'countdown2.js' %>
+    </script>
+  <% end %>
+<%end%>
+
 <div id='defaultCountdown'> </div>
 
 <h1><%= @challenge.title %></h1>
@@ -14,16 +22,17 @@
 
 <h1><%= @challenge.users.collect{|user| user.name.capitalize}.join(" vs ") %></h1>
 
-<p>Status: <%= @challenge.status%></p>
+<div id="status"><p>Status: <%= @challenge.status%></p></div>
 
 <div id="results"></div>
+<div id='voting'></div>
 
 <% case @challenge.status %>
 <% when 'closed' %>
   <h1><%= @challenge.winner.name %> wins!</h1>
   <%= @challenge.print_votes %>
 <% when 'in_progress' %>
-  <%= render 'show_in_progress' %>
+  <div id='in_progress'><%= render 'show_in_progress' %></div>
 <% when 'voting' %>
   <div id='voting'><%= render 'show_voting' %></div>
 <%end%>

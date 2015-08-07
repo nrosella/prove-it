@@ -11,6 +11,17 @@ class VotesController < ApplicationController
     end
   end
 
+  def new
+    @challenge = Challenge.find(params[:id])
+    @challenge.status = 'voting'
+    @challenge.save
+
+  
+    respond_to do |format|
+      format.js
+    end
+  end
+
   private
 
   def vote_params

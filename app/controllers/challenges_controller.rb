@@ -7,7 +7,7 @@ class ChallengesController < ApplicationController
     @challenge = Challenge.find(params[:id])
     if params["commit"] == "Accept"
       @challenge.status = "in_progress"
-      @challenge.challenge_end = Time.now + @challenge.challenge_duration.day
+      @challenge.challenge_end = Time.now + @challenge.challenge_duration.minutes
       @challenge.save
     elsif params["commit"] == "Decline"
       @challenge.status = "declined"
