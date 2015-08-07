@@ -1,40 +1,49 @@
-# Proveit
+TO DO for prove-it
 
-## Description
+0. where’d the buttons go?
 
-Add a short description of your app.
+1. be able to change evidence before moving to voting stage (mason side)
+	
+1.5 can only see your submitted evidence until it is voting stage (for future)
+- “your challenger has submitted evidence”, can’t see image
 
-## Screenshots
+2. set voting duration guidelines: make it by time, not 11 votes (travis side)
+	- if you haven’t submitted 
+2.5. for countdown timer, have it do ajax request, not page reload
 
-Add some spiffy screenshots of your app here.
 
-## Background
+3. change information that is shown on an invited challenge
+	- duration time for submission and voting 
+	- add accept/decline buttons in challenge show page too (for future)
 
-Why did you want to make this app? What was your development process
-like?
+4. if you decline a challenge 
+	- give a reason, or send a notification (NINO side)
 
-## Features
+5. Build out logic to have email sent at voting end to winner/losers
+for future (nino/greg)
 
-Bullet point some of the key features of your app here.
+6. on profile page
+	- countdown timers for each challenge? (greg side)
+	- change red with minimum time? (greg side)
 
-## Usage
+7. embed videos or link? (for future)
 
-How do users use your app?
+8. if no one submits evidence in time- make it a closed challenge (or another status), but both people lose
 
-## Development/Contribution
+9. if only one person submits evidence – make it an instant win? (status closed) / instant loss
 
-Explain how people can contribute to your app. How should they write tests?
-Any things in particular you'd like to see in pull requests?
+10. make sure you can’t send yourself challenges
 
-## Future
+11. fix ajax interactions with page reloads regarding challenge lifecycle (greg)
 
-What features are you currently working on? Only mention things that you
-actually are implementing. No pie-in-the-sky-never-gonna-happen stuff.
 
-## Author
+sort challenges on page (for future)
 
-Link to your blog, twitter, etc!
+down the road:
+open challenges? (for future)
 
-## License
+PROVE IT
 
-Proveit is MIT Licensed. See LICENSE for details.
+or
+
+PROVE IT!
