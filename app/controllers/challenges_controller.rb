@@ -5,15 +5,23 @@ class ChallengesController < ApplicationController
 
   def update
     @challenge = Challenge.find(params[:id])
+    binding.pry
+    if params[:challenge]
+      @challenge.explaination = current_user.name.titleize + " declined for the following reason: " + params[:challenge][:explaination]
+      @challenge.save
+      redirect_to user_path
+    end
     if params["commit"] == "Accept"
       @challenge.status = "in_progress"
       @challenge.challenge_end = Time.now + @challenge.challenge_duration.seconds
       @challenge.save
+      redirect_to user_path
     elsif params["commit"] == "Decline"
       @challenge.status = "declined"
       @challenge.save
+      render 'explaination'
     end
-    redirect_to user_path 
+     
   end
 
 
