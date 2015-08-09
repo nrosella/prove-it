@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   resources :evidences
 
-  root  'challenges#index'
+  root 'challenges#index'
 
   get '/users/:id', to: 'users#show', as: 'user'
 

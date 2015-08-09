@@ -19,6 +19,10 @@ require 'rspec/rails'
 require 'capybara/rails'
 require 'capybara/rspec'
 
+Capybara.app_host = "http://localhost:3000"
+Capybara.server_host = "localhost"
+Capybara.server_port = "3000"
+
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
   config.include Rails.application.routes.url_helpers

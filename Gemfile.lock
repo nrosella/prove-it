@@ -130,6 +130,7 @@ GEM
     loofah (2.0.2)
       nokogiri (>= 1.5.9)
     lumberjack (1.0.9)
+    machinist (2.0)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
     method_source (0.8.2)
@@ -298,6 +299,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-countdown-rails
   jquery-rails
+  machinist
   paperclip (~> 4.3)
   pg
   pry
