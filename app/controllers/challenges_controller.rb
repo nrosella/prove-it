@@ -60,19 +60,23 @@ class ChallengesController < ApplicationController
   def create
     @challenge = Challenge.new(challenge_params)
     @challenge.title = @challenge.title.titleize
-
+    if current_user.email.downcase == params[:challenge][:challenged_email].downcase
+      flash.now[:notice] = "Sorry, self challenges not allowed."
+      binding.pry
+      render 'new'
+    else
     @challenged = User.find_by(email: params[:challenge][:challenged_email])
     @challenge.challenge_duration = (params["challenge"]["challenge_duration"].to_i * params["challenge"]["time_unit_challenge"].to_i)
     @challenge.voting_duration = (params["challenge"]["voting_duration"].to_i * params["challenge"]["time_unit_vote"].to_i)
   
-    if @challenge.save
-      UserChallenge.create(user_id: current_user.id, challenge_id: @challenge.id, admin: true)
-      UserChallenge.create(user_id: @challenged.id, challenge_id: @challenge.id)
-      # @challenged.send_challenge_invitation_email(@challenge)
+      if @challenge.save
+        UserChallenge.create(user_id: current_user.id, challenge_id: @challenge.id, admin: true)
+        UserChallenge.create(user_id: @challenged.id, challenge_id: @challenge.id)
+        # @challenged.send_challenge_invitation_email(@challenge)
+      end
+
+      render 'show'
     end
-
-    render 'show'
-
   end
 
   private
