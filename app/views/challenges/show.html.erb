@@ -14,13 +14,13 @@
 <div id='closed'></div>
 
 <% case @challenge.status %>
-<% when 'closed' %>
-  <h1><%= @challenge.winner.name %> wins!</h1>
-  <%= @challenge.print_votes %>
-<% when 'in_progress' %>
-  <div id='in_progress'><%= render 'show_in_progress' %></div>
-<% when 'voting' %>
-  <div id='voting'><%= render 'show_voting' %></div>
+  <% when 'closed' %>
+    <h1><%= @challenge.winner.name %> wins!</h1>
+    <%= @challenge.print_votes %>
+  <% when 'in_progress' %>
+    <div id='in_progress'><%= render 'show_in_progress' %></div>
+  <% when 'voting' %>
+    <div id='voting'><%= render 'show_voting' %></div>
 <%end%>
 
 <% if ['pending', 'declined'].exclude?(@challenge.status) %>

@@ -5,7 +5,6 @@ class ChallengesController < ApplicationController
 
   def update
     @challenge = Challenge.find(params[:id])
-    binding.pry
     if params[:challenge]
       @challenge.explaination = current_user.name.titleize + " declined for the following reason: " + params[:challenge][:explaination]
       @challenge.save
@@ -34,9 +33,12 @@ class ChallengesController < ApplicationController
 
   def show
     @challenge = Challenge.find(params["id"])
-    if (@challenge.status == "in_progress" && Time.now > (@challenge.challenge_end) )
-      @challenge.status = "voting"
+    if (@challenge.status == "in_progress" && Time.now > (@challenge.challenge_end) && @challenge.evidences.length == 1)
+      @challenge.status = "closed"
       @challenge.save
+      elsif (@challenge.status == "in_progress" && Time.now > (@challenge.challenge_end) )
+        @challenge.status = "voting"
+        @challenge.save
     end
     if (@challenge.status == "voting" && Time.now > (@challenge.challenge_end + @challenge.voting_duration.seconds) )
       @challenge.status = "closed"

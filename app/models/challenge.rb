@@ -9,16 +9,25 @@ class Challenge < ActiveRecord::Base
 
   validates :title, presence: true
 
-
-
-  
-
   def winner
-    total_votes.key(total_votes.values.max) || User.new(name: "nobody")
+    if self.evidences.length == 1
+      self.evidences[0].user
+    else total_votes.key(total_votes.values.max) || User.new(name: "nobody")
+    end
   end
 
   def loser
-    total_votes.key(total_votes.values.min)
+    # note this needs to be tested once loser method implemented somewhere
+    loser_by_no_submit = nil
+    if self.evidences.length == 1
+      binding.pry
+      self.users.each do |user|
+        if !user.has_submitted_evidence_for(self)
+          loser_by_no_submit = user
+        end
+      end
+    end
+    loser_by_no_submit || total_votes.key(total_votes.values.min)
   end
 
   def total_votes
