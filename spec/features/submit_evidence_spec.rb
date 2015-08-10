@@ -2,7 +2,7 @@ require 'rails_helper'
 include CapybaraHelper
 
 describe 'Submitting evidence to an in-progress challenge', :js => true do 
-	it 'creates a challenge and submits user_one evidence' do 
+	it 'creates a challenge and submits one users evidence' do 
 		user_one = FactoryGirl.create(:user)
 		user_two = FactoryGirl.create(:user)
 		login_user(user_one)
@@ -14,7 +14,9 @@ describe 'Submitting evidence to an in-progress challenge', :js => true do
 		image_path = Rails.root + 'evidence-samples/obama.jpg'
 		attach_file('evidence_photo', image_path)
 		click_button 'Submit evidence!'
-		expect(page).to have_content "You've submitted evidence."
+		expect(page).to have_content "Your evidence"
 	end
+
+
 
 end
