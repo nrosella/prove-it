@@ -25,13 +25,13 @@ Capybara.server_host = "localhost"
 Capybara.server_port = "3000"
 
 
-
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
 
   config.include CapybaraHelper, :type => :feature
+  config.include WaitForAjax, type: :feature
 
-  config.use_transactional_fixtures = false
+  # config.use_transactional_fixtures = false
 
   config.include Rails.application.routes.url_helpers
   # rspec-expectations config goes here. You can use an alternate

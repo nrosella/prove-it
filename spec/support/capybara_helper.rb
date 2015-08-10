@@ -25,5 +25,11 @@ module CapybaraHelper
     click_button 'Accept'
   end
 
+  def attach_evidence
+    image_path = Rails.root + 'evidence-samples/obama.jpg'
+    attach_file('evidence_photo', image_path)
+    click_button 'Submit evidence!'
+  end
+
 end
 
