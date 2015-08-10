@@ -2,9 +2,8 @@
 
 $('#voting').hide();
 $('#defaultCountdown').hide();
-$('#votingCountdown').hide();
+$('#votingCountdown').html("Voting over!");
 $('#in_progress').hide();
 $('#status').html("<p>Status: closed</p>");
-$('#closed').html("<h1><%= j @challenge.winner.name + ' wins!' %> </h1>")
-$('.user_waiting').html("<p>You didn't submit evidence in time!</p>");
-$('div.waiting > p > span').html(" didn't submit evidence in time!");
+$('#closed').html("<h1><%= j @challenge.winner.name + ' wins!' %> </h1> <h4><%= @challenge.print_votes %> </h4>")
+$('#evidence').html("<%= j render 'challenges/show_evidence' %>");

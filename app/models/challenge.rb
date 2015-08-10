@@ -12,7 +12,8 @@ class Challenge < ActiveRecord::Base
   def winner
     if self.evidences.length == 1
       self.evidences[0].user
-    else total_votes.key(total_votes.values.max) || User.new(name: "nobody")
+    else 
+      total_votes.key(total_votes.values.max) || User.new(name: "nobody")
     end
   end
 
@@ -58,6 +59,10 @@ class Challenge < ActiveRecord::Base
 
   def voting_or_closed?
     ['pending', 'declined', 'in_progress'].exclude?(self.status)
+  end
+
+  def pending_or_declined?
+    self.status == 'pending' || self.status == 'declined'
   end
 
   def votes_for(user)

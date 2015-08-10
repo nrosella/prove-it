@@ -12,6 +12,8 @@ Rails.application.routes.draw do
 
   post '/challenge/:id/declined', to: 'user_mailer#decline'
 
+  get '/in_progress_end', to: 'challenges#in_progress_end'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

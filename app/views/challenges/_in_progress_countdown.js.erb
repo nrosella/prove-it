@@ -3,7 +3,7 @@ $(document).ready(function(){
   finishTime = new Date("<%= @challenge.challenge_end %>"); 
   $('#defaultCountdown').countdown({until: finishTime, onExpiry: function(){
     $.ajax({
-      url: "<%= new_vote_path %>", 
+      url: "<%= in_progress_end_path %>", 
       dataType: "script", 
       type: "GET",
       data: {id: "<%= @challenge.id %>"}});

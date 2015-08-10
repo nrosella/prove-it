@@ -1,8 +1,10 @@
 <% content_for :head do %>
     <script type="text/javascript">
-      <%= render 'challenges/countdown2.js' %>
+      <%= render 'challenges/voting_countdown.js' %>
     </script>
   <% end %>
+
+<div id="voting">
 
 <%= @challenge.print_votes %>
 <% if user_signed_in? %>
@@ -24,3 +26,5 @@
 <%else%>
   <p>Log in or sign up to vote!</p>
 <%end%>
+
+</div>

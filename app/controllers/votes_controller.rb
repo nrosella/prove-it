@@ -21,7 +21,6 @@ class VotesController < ApplicationController
     @challenge.status = 'voting'
     @challenge.save
 
-  
     respond_to do |format|
       format.js
     end
