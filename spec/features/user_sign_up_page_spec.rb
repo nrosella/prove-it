@@ -3,6 +3,7 @@ require 'rails_helper'
 describe "Signing up", :js => true do
 
 	it 'will visit home page and sign up a new user' do 
+		
 		visit '/'
 		click_link 'Sign up'
 

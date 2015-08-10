@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   has_many :challenges, through: :user_challenges
   has_many :evidences
 
-  after_create :send_admin_mail
+  # after_create :send_admin_mail
   
   def send_admin_mail
     UserMailer.send_welcome_email(self).deliver_now!
@@ -43,6 +43,7 @@ class User < ActiveRecord::Base
     self.challenges.where(status: "closed").count - self.total_wins
   end
 
+
   def challenge_pending
     self.challenges.where(status: "pending").order(updated_at: :desc)
   end
@@ -59,6 +60,11 @@ class User < ActiveRecord::Base
     self.challenges.where(status: "closed").order(updated_at: :desc)
   end
 
+
+  # def challenges_won
+  #   user.challenges.closed
+  # end
+  
   def challenges_won
     self.challenges.where(status: "closed").order(updated_at: :desc).select{|c| c.winner == self}
   end
