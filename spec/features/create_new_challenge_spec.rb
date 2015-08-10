@@ -20,8 +20,7 @@ include CapybaraHelper
 			create_challenge(user_two)
 			logout_user
 			login_user(user_two)
-			click_link 'Profile'
-			click_button 'Accept'
+			accept_challenge
 			expect(page).to have_content 'Your In-Progress Challenges'
 		end
 

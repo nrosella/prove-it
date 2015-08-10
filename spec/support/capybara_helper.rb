@@ -20,5 +20,10 @@ module CapybaraHelper
   	click_link 'Logout'
   end
 
+  def accept_challenge
+    click_link 'Profile'
+    click_button 'Accept'
+  end
+
 end
 

@@ -18,6 +18,7 @@
 
 # Ignore all test photos
 /public/system/evidences/photos/*
+/evidence-samples/
 
 /config/application.yml
 
