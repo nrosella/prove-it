@@ -64,4 +64,8 @@ class Challenge < ActiveRecord::Base
     self.votes.where(recipient_id: user.id).size
   end
 
+  def print_competitors
+    self.users.collect{|user| user.name.capitalize}.join(" vs ")
+  end
+
 end
