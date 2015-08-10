@@ -3,15 +3,12 @@
 <div id='votingCountdown'></div>
 
 <h1><%= @challenge.title %></h1>
-
 <h2><%= @challenge.description %></h2>
-
-<h1><%= @challenge.users.collect{|user| user.name.capitalize}.join(" vs ") %></h1>
-
+<h1><%= @challenge.print_competitors %></h1>
 <div id="status"><p>Status: <%= @challenge.status%></p></div>
 
 <div id="results"></div>
-<div id='closed'></div>
+<div id="closed"></div>
 
 <% case @challenge.status %>
   <% when 'closed' %>
