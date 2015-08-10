@@ -1,19 +1,22 @@
-<% if user_signed_in? %>
-
-<% if current_user.competing?(@challenge) && @challenge.evidences.find_by(user_id: current_user.id).nil? %>
-  <p>Submit evidence here:</p>
-  <%= form_for Evidence.new, :html => { :multipart => true } do |f| %>
-
-  <%= f.hidden_field :challenge_id, {:value => @challenge.id} %>
-  <%= f.hidden_field :user_id, {:value => current_user.id} %>
-  <%= f.label 'Comment' %>
-  <%= f.text_field :comment %></br>
-  <%= f.file_field :photo, as: :file, :required => true %>
-  <%= f.submit 'Submit evidence!' %>
+  <% content_for :head do %>
+    <script type="text/javascript">
+      <%= render 'countdown.js' %>
+    </script>
   <% end %>
 
-<% else %>
-  <p>You've submitted evidence.</p>
-<%end%>
+<% if user_signed_in? %>
+
+  <% if current_user.competing?(@challenge) && !current_user.has_submitted_evidence_for(@challenge) %>
+    
+    <p>Submit evidence here:</p>
+    <%= form_for Evidence.new, :html => { :multipart => true } do |f| %>
+    <%= f.hidden_field :challenge_id, {:value => @challenge.id} %>
+    <%= f.hidden_field :user_id, {:value => current_user.id} %>
+    <%= f.label 'Comment' %>
+    <%= f.text_field :comment %></br>
+    <%= f.file_field :photo, as: :file, :required => true %>
+    <%= f.submit 'Submit evidence!' %>
+    <% end %>
+  <%end%>
 
 <%end%>

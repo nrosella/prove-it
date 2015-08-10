@@ -5,7 +5,7 @@ class EvidencesController < ApplicationController
     @challenge = Challenge.find(params[:evidence][:challenge_id])
     e = Evidence.new(evidence_params)
     e.save
-    if @challenge.evidences.length == 2
+    if @challenge.evidences.length == @challenge.users.size
       @challenge.status = 'voting'
       @challenge.save
     end

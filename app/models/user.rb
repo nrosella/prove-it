@@ -71,5 +71,16 @@ class User < ActiveRecord::Base
     self.challenges.where(status: "declined").order(updated_at: :desc)
   end
 
+  def evidence_for(challenge)
+    if challenge.evidences.find_by(user_id: self.id)
+      challenge.evidences.find_by(user_id: self.id).photo.url(:medium)
+    end
+  end
+
+  def capitalize_name
+    self.name.capitalize
+  end
+
+
 
 end

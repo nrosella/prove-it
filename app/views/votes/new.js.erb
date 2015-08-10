@@ -1,8 +1,7 @@
 //turning everything into voting status with ajax
 
 $('#voting').html("<%= j render 'challenges/show_voting', :locals => {:challenge => @challenge} %>");
-$('#defaultCountdown').hide();
-$('#votingCountdown').show();
+// $('#votingCountdown').show();
 $('#in_progress').hide();
 $('#status').html("<p>Status: voting</p>");
 $('.user_waiting').html("<p>You didn't submit evidence in time!</p>");

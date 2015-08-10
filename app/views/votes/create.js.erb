@@ -1,7 +1,5 @@
+debugger;
 $('#voting').html("<%= j render 'challenges/show_voting', :locals => {:challenge => @challenge} %>");
 
-if(<%= @challenge.status %> === 'closed'){
-  $('#results').html("<h1><%= @challenge.winner.name %> wins!</h1>");
-}
 
 

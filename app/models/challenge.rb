@@ -27,7 +27,7 @@ class Challenge < ActiveRecord::Base
 
   def print_votes
     total_votes.collect do |k,v|
-    "#{k.name}: #{v} votes"
+    "#{k.capitalize_name}: #{ActionController::Base.helpers.pluralize(v, 'vote')}"
     end.join(", ")
   end
 
@@ -41,6 +41,18 @@ class Challenge < ActiveRecord::Base
 
   def closed
     self.status == "closed"
+  end
+
+  def in_progress?
+    self.status == "in_progress"
+  end
+
+  def voting_or_closed?
+    ['pending', 'declined', 'in_progress'].exclude?(self.status)
+  end
+
+  def votes_for(user)
+    self.votes.where(recipient_id: user.id).size
   end
 
 end

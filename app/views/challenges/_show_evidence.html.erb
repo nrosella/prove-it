@@ -1,47 +1,13 @@
-<% if user_signed_in? %>
-
-  <% if current_user.competing?(@challenge) %>
-    <% if current_user.has_submitted_evidence_for(@challenge) %>
-      <p>Your evidence: </p>
-      <%= image_tag @challenge.evidences.find_by(user_id: current_user.id).photo.url(:medium) %>
-    <%else%>
-      <% if @challenge.status == "in_progress" %>
-        <div class='user_waiting'><p>Awaiting your evidence...</p></div>
-      <% else %>
-        <p>You didn't submit evidence in time!</p>
-      <%end%>
-    <%end%>
-  <%end%>
-  
-  <br>
-  
-  <% @challenge.users.where.not(id: current_user.id).each do |user| %>
-    <% if user.has_submitted_evidence_for(@challenge) %>
-      <p><%= user.name.capitalize + "'s" %> evidence:</p>
-      <%= image_tag @challenge.evidences.find_by(user_id: user.id).photo.url(:medium) %>
-    <%else%>
-      <% if @challenge.status == "in_progress" %>
-        <div class='waiting'><p><%= user.name.capitalize %><span> hasn't submitted evidence yet.<span></p></div>
-      <% else %>
-        <p><%= user.name.capitalize %> didn't submit evidence in time!</p>
-      <%end%>
-    <%end%>
-  <%end%>
-  
-<%else%>
-    <% @challenge.users.each do |user| %>
-    <% if user.has_submitted_evidence_for(@challenge) %>
-      <p><%= user.name.capitalize + "'s" %> evidence:</p>
-      <%= image_tag @challenge.evidences.find_by(user_id: user.id).photo.url(:medium) %>
-    <%else%>
-      <% if @challenge.status == "in_progress" %>
-        <div class='waiting'><p><%= user.name.capitalize %><span> hasn't submitted evidence yet.<span></p></div>
-      <% else %>
-        <p><%= user.name.capitalize %> didn't submit evidence in time!</p>
-      <%end%>
-    <%end%>
-  <%end%>
-
+<% @challenge.users.each do |user| %>
+  <% c = ChallengeViewObject.new(@challenge, user, current_user) %>
+  <%= c.evidence_text %> <br>
+  <%= image_tag c.evidence_image %> <br>
 <%end%>
+
+
+
+  
+
+
 
 
