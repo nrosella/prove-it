@@ -44,31 +44,31 @@ class User < ActiveRecord::Base
   end
 
   def challenge_pending
-    self.challenges.where(status: "pending")
+    self.challenges.where(status: "pending").order(updated_at: :desc)
   end
 
   def challenge_in_progress
-    self.challenges.where(status: "in_progress").order(created_at: :desc)
+    self.challenges.where(status: "in_progress").order(updated_at: :desc)
   end
 
   def challenge_voting
-    self.challenges.where(status: "voting").order(challenge_end: :desc)
+    self.challenges.where(status: "voting").order(updated_at: :desc)
   end
 
   def challenge_closed
-    self.challenges.where(status: "closed")
+    self.challenges.where(status: "closed").order(updated_at: :desc)
   end
 
   def challenges_won
-    self.challenges.where(status: "closed").select{|c| c.winner == self}
+    self.challenges.where(status: "closed").order(updated_at: :desc).select{|c| c.winner == self}
   end
 
   def challenges_lost
-    self.challenges.where(status: "closed").select{|c| c.winner != self}
+    self.challenges.where(status: "closed").order(updated_at: :desc).select{|c| c.winner != self}
   end
 
   def challenge_declined
-    self.challenges.where(status: "declined")
+    self.challenges.where(status: "declined").order(updated_at: :desc)
   end
 
 

@@ -1,15 +1,19 @@
+<% if current_user %>
+	<%= link_to "Create a New Challenge", new_challenge_path, class: "btn btn-success btn-lg"  %>
+<% else %>
+	<%= link_to "Create a New Challenge", new_user_session_path, class: "btn btn-success btn-lg"  %>
+<% end %>
 <p>All Challenges</p>
 
 
 <% Challenge.all.each do |challenge| %>
   <div>
     <%= link_to challenge.title, challenge_path(challenge) %>
-    <%challenge.users.each do |user|  %>
+    <% challenge.users.each do |user|  %>
       <%= link_to user.name, user_path(user) %>
     <% end %>
   </div>
-  
-
 <% end %>
+
 
 

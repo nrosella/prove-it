@@ -13,4 +13,8 @@ class UserMailer < ApplicationMailer
     mail(to: @user.email, subject: "You've been challenged!")
   end
 
+  def decline
+    binding.pry
+  end
+
 end
