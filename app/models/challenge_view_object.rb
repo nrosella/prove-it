@@ -41,7 +41,7 @@ class ChallengeViewObject
     elsif self.challenge.in_progress?
        "Awaiting #{posessive_name} evidence.."
     else
-      "{user_name} didn't submit evidence in time!"
+      "#{user_name} didn't submit evidence in time!"
     end
   end
 

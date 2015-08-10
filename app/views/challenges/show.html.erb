@@ -9,6 +9,7 @@
 
 <div id="results"></div>
 <div id="closed"></div>
+<div id="ajax_voting"></div>
 
 <% case @challenge.status %>
   <% when 'closed' %>
@@ -17,11 +18,11 @@
   <% when 'in_progress' %>
     <div id='in_progress'><%= render 'show_in_progress' %></div>
   <% when 'voting' %>
-    <div id='voting'><%= render 'show_voting' %></div>
+    <div id='on_load_voting'><%= render 'show_voting' %></div>
 <%end%>
 
-<% if ['pending', 'declined'].exclude?(@challenge.status) %>
- <%= render 'show_evidence' %>
+<% if !@challenge.pending_or_declined? %>
+ <div id='evidence'><%= render 'show_evidence' %></div>
 <%end%>
 
 <br>

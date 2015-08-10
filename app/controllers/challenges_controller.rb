@@ -1,6 +1,14 @@
 class ChallengesController < ApplicationController
 
-  def index
+  def in_progress_end
+    @challenge = Challenge.find(params[:id])
+    @challenge.status = 'voting'
+    @challenge.save
+  
+
+    respond_to do |format|
+      format.js
+    end
   end
 
   def update

@@ -1,18 +1,9 @@
-//turning everything into voting status with ajax
+
 
 $('#voting').html("<%= j render 'challenges/show_voting', :locals => {:challenge => @challenge} %>");
-// $('#votingCountdown').show();
+
 $('#in_progress').hide();
 $('#status').html("<p>Status: voting</p>");
 $('.user_waiting').html("<p>You didn't submit evidence in time!</p>");
 $('div.waiting > p > span').html(" didn't submit evidence in time!");
 
-
-//show the seperate countdown timer for voting
-
-// $('#votingCountdown').html("<%= j render 'challenges/countdown2', :locals => {:challenge => @challenge} %>"); 
-
-//show a div that has the countdown
-//start then? datetime for voting start, datetime for voting end
-
-//could .show() it here, and also if challenge.status = voting, then show it too
