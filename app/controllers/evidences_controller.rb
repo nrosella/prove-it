@@ -7,6 +7,7 @@ class EvidencesController < ApplicationController
     e.save
     if @challenge.evidences.length == @challenge.users.size
       @challenge.status = 'voting'
+      @challenge.challenge_end = Time.now
       @challenge.save
     end
 
