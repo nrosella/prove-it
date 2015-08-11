@@ -1,6 +1,7 @@
 <div class="sidebar hidden-phone profile-sidebar" id="profile-sidebar">
-	<%= image_tag('nino.jpg', size: '200', class:"center-block") %>
+	<%= image_tag(@user.avatar, size: '200', class:"center-block") %>
 	<h3 align="center"><%= @user.name %></h3>
+  <h5 align="center"><%= @user.bio %></h5>
   
   <% if current_user %>
     <a class="btn btn-success btn-lg" href="/users/<%= current_user.id %>/edit">Update Profile</a>
