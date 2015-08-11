@@ -5,7 +5,4 @@ var userVotes = <%= @user_votes %>
 
 userIds.forEach(function(number){
   $('#' + number).html('Votes: ' + userVotes[userIds.indexOf(number)]);
-
-
-
 });
