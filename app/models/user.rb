@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   has_many :challenges, through: :user_challenges
   has_many :evidences
 
-  # after_create :send_admin_mail
+  after_create :send_admin_mail
   
   def send_admin_mail
     UserMailer.send_welcome_email(self).deliver_now!
@@ -77,11 +77,6 @@ class User < ActiveRecord::Base
   def challenge_closed
     self.challenges.where(status: "closed").order(updated_at: :desc)
   end
-
-
-  # def challenges_won
-  #   user.challenges.closed
-  # end
   
   def challenges_won
     self.challenges.where(status: "closed").order(updated_at: :desc).select{|c| c.winner == self}
@@ -99,6 +94,18 @@ class User < ActiveRecord::Base
     if challenge.evidences.find_by(user_id: self.id)
       challenge.evidences.find_by(user_id: self.id).photo.url
     end
+  end
+
+  def competitors
+    competition = Hash.new(0)
+    self.challenges.where.not(status: :pending).each do |challenge|
+      challenge.users.each do |user|
+        unless user == self
+          competition[user] += 1
+        end
+      end
+    end
+    competition
   end
 
   def capitalize_name
