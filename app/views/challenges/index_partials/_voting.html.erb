@@ -6,8 +6,25 @@
           <% Challenge.voting.each do |challenge| %>
             <tr>
               <td>
-                <h4 class="no-caps"><%= link_to challenge.title, challenge_path(challenge) %></h4>
+                <h4 class="no-caps"><%= link_to challenge.title, challenge_path(challenge) %>
+                </h4>
+                <h4 class="no-caps">
+                  <%= challenge.short_description %>
+                </h4>
               </td>
+              <% challenge.users.each.with_index do |user, idx| %>
+                <% unless idx == 0 %>
+                  <td style="text-align: center;">
+                    <h3>VS</h3>
+                  </td>
+                <% end %>
+                <td style="text-align: center;">
+                  <figure>
+                    <%= image_tag(user.avatar, size: '85') %>
+                    <figcaption><%= user.name %></figcaption>
+                  </figure>
+                </td>
+              <% end %>
             </tr>
           <% end %>
         <% end %>

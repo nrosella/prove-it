@@ -1,6 +1,40 @@
-<br>
-<%= form_for current_user do |f|%>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-  <%= f.submit %>
-<% end %>
+<section>
+  <%= form_for current_user do |f|%>
+    <table>
+      <tbody>
+        <tr>
+          <td>
+            <%= f.label :name %>
+          </td>
+          <td>
+            <%= f.text_field :name %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <%= f.label :bio %>
+          </td>
+          <td>
+            <%= f.text_area :bio %>
+          </td>
+        </tr>
+        <tr>
+        <td></td>
+          <td>
+            <%= f.file_field :avatar, as: :file, :required => false %>
+          </td>
+        </tr>
+        <tr>
+        <td></td>
+          <td>
+            <%= f.submit "Save Changes", class: "btn btn-success btn-md" %>
+          </td> 
+        </tr>
+      </tbody>
+    </table>
+
+
+  <% end %>
+</section>
+
+
