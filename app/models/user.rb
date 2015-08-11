@@ -124,11 +124,13 @@ class User < ActiveRecord::Base
 
   end
 
+
   def doughnut_chart_challenge_data_options
     @options = {
       width: '150px',
       height: '150px'
     }
   end
+
 
 end
