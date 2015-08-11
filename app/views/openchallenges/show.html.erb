@@ -1,0 +1,37 @@
+<div class="container">
+<br>
+<br>
+<br>
+<br>
+
+<h1>OPEN CHALLENGE!!</h1>
+<%=@openchallenge.title%>
+<%=@openchallenge.description%><br>
+
+
+<% if !current_user.competing?(@openchallenge)%>
+  <%= form_for Evidence.new, url: new_openevidence_path do |f| %>
+    <%= f.hidden_field :challenge_id, {:value => @openchallenge.id} %>
+    <%= f.submit "Join this challenge?" %>
+  <%end%>
+<%end%>
+
+
+
+<% @openchallenge.evidences.each do |e| %>
+  <%= e.user.capitalize_name %>
+  <%= image_tag e.photo.url(:medium)%>
+  <% if !current_user.voted?(@openchallenge) %>
+  <div id = <%=e.user.id%>><%= form_for Vote.new, url: open_vote_path, remote: true do |f| %>
+        <%= f.hidden_field :challenge_id, {:value => @openchallenge.id} %>
+        <%= f.hidden_field :user_id, {:value => current_user.id} %>
+        <%= f.hidden_field :recipient_id, {:value => e.user.id} %>
+        <%= f.submit "Vote for #{e.user.capitalize_name}!" %></div>
+      <% end %><br>
+  <%else%>
+    Votes: <%= @openchallenge.votes.where(recipient_id: e.user.id).size %><br>
+    <%end%>
+  <%end%>
+
+<%= link_to "go back to open challenges", openchallenges_path %>
+
