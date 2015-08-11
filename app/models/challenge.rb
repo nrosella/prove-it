@@ -105,4 +105,13 @@ class Challenge < ActiveRecord::Base
     self.users.collect{|user| user.name.capitalize}.join(" vs ")
   end
 
+  def rank_of(user)
+    if self.total_votes.keys.sort.index(user).present?
+      self.total_votes.keys.sort.reverse.index(user) + 1
+    else
+      self.users.size
+    end
+  end
+
+
 end
