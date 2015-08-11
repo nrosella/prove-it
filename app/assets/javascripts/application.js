@@ -18,3 +18,5 @@
 //= require_tree .
 //= require jquery.countdown
 //= require Chart
+//= require excanvas
+
