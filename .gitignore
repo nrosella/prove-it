@@ -20,6 +20,9 @@
 /public/system/evidences/photos/*
 /evidence-samples/
 
+# Ignore all avatars
+/public/system/users/avatars/*
+
 /config/application.yml
 
 # Ignore application configuration
