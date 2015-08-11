@@ -3,10 +3,12 @@ class UsersController < ApplicationController
 	def show
     if current_user
       @challenges = current_user.challenges
+      @user = current_user
     else
       @user = User.find(params[:id])
       @challenges = @user.challenges.where.not(status: 'pending')
     end
+<<<<<<< HEAD
 
 	 @challenge_data = 
     [
@@ -23,6 +25,13 @@ class UsersController < ApplicationController
 	        label: "Green"
 	    }
   ]
+=======
+>>>>>>> TuesdayFrontEndMJ
 	end
+
+  def edit
+    @user = current_user
+
+  end
 
 end

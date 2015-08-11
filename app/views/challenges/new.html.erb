@@ -12,8 +12,8 @@
 <p><%= f.select :voting_duration, (1..60) %>
 <%= f.select :time_unit_vote, [['Days', 86400],['Hours', 3600],['Minutes', 60],['Seconds', 1]] %></p>
 
-<%= f.submit %>
+<%= f.submit "Create Challenge", class: "btn btn-success btn-md" %>
+
 <% end %>
 
-<%= link_to "go back to challenges", challenges_path %>
-
+<%= link_to "Back to Challenges", challenges_path %>

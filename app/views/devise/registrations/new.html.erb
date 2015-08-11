@@ -1,3 +1,4 @@
+<br>
 <% unless Rails.env.test? %>
   <%= stylesheet_link_tag    "application", :media => "all" %>
 <% end %>
@@ -29,9 +30,9 @@
     <%= f.label :password_confirmation, 'Password Confirmation' %><br />
     <%= f.password_field :password_confirmation, autocomplete: "off" %>
   </div>
-
+  <br>
   <div class="actions">
-    <%= f.submit "Sign up" %>
+    <%= f.submit "Sign up", class: "btn btn-success btn-md" %>
   </div>
 <% end %>
 
