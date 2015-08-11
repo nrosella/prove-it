@@ -5,7 +5,7 @@
           <h3> Open for Voting:</h3>
           <% Challenge.voting.each do |challenge| %>
             <tr>
-              <td>
+              <td width="50%">
                 <h4 class="no-caps"><%= link_to challenge.title, challenge_path(challenge) %>
                 </h4>
                 <h4 class="no-caps">
@@ -14,11 +14,11 @@
               </td>
               <% challenge.users.each.with_index do |user, idx| %>
                 <% unless idx == 0 %>
-                  <td style="text-align: center;">
+                  <td align="right" style="text-align: center;">
                     <h3>VS</h3>
                   </td>
                 <% end %>
-                <td style="text-align: center;">
+                <td align="right" style="text-align: center;">
                   <figure>
                     <%= image_tag(user.avatar, size: '85') %>
                     <figcaption><%= user.name %></figcaption>

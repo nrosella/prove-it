@@ -1,0 +1,19 @@
+<br>
+<br>
+<br>
+
+<h1>Make a new open challenge!</h1>
+
+<%= form_for @challenge, url: create_openchallenge_path do |f| %>
+<p><%= f.label :title %></p>
+<p><%= f.text_field :title %></p>
+<p><%= f.label :description %></p>
+<p><%= f.text_field :description %></p>
+<p><%= f.label :challenge_duration, 'Length of challenge (min. 1 day):' %></p>
+<p><%= f.select :challenge_duration, (1..60) %>
+<%= f.select :time_unit_challenge, [['Days', 86400],['Hours', 3600],['Minutes', 60],['Seconds', 1]] %></p>
+
+<%= f.submit %>
+<% end %>
+
+<%= link_to "go back to open challenges", openchallenges_path %>

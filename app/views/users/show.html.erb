@@ -1,6 +1,32 @@
 <div class="col-md-3"><%= render partial: 'users_sidebar' %></div>
 <div class="col-md-6" id="profile-main-section">
-<%= chartjs_doughnut_chart(@challenge_view_data, @challenge_view_data_options) %>
+  <div class="col-md-12" id="results-charts">
+    <div class="col-md-4">
+      <% if current_user.total_wins > 0 %>
+        <%= chartjs_doughnut_chart(@challenge_chart_data, @challenge_chart_options) %>
+        <p><%= @user.name.capitalize %>'s total loss / win ratio</p>
+      <% else %>
+        <%= image_tag 'no-data.png', size: "150x150" %>
+      <% end %>
+    </div>
+    <div class="col-md-4">
+      <% if current_user.challenge_accepted_count > 0 || current_user.challenge_declined_count > 0 %>
+        <%= chartjs_doughnut_chart(@challenge_participation_chart, @options = {width: "150px", height: "150px"}) %>
+          <p>Participation Level</p>
+      <% else %>
+        <%= image_tag 'no-data.png', size: "170x170" %>
+          <p>Participation Level</p>
+      <% end %>
+    </div>
+    <div class="col-md-4">
+      <% if current_user.total_wins > 0 %>
+      <%= chartjs_doughnut_chart(@challenge_chart_data, @options = {width: "150px", height: "150px"}) %>
+      <p>Total loss / win ratio</p>
+      <% else %>
+      <%= image_tag 'no-data.png', size: "150x150" %>
+      <% end %>
+    </div>
+  </div>
 <% if user_signed_in? %>
   <!-- LIST OF PENDING -->
   <div class="bs-component">
