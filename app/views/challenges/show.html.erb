@@ -1,20 +1,38 @@
+<div class='container'>
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <ul class="list-inline">
+      <li><div id='defaultCountdown'></div></li>
+      <li><div id='votingCountdown'></div></li>
+      </ul>
+      <div class="jumbotron">
+      <h1 class="text-center"><%= @challenge.title %></h1>
+    </div>
+      <p class="text-center lead"><%= @challenge.description %></p>
+      <h1 class="text-center"><%= @challenge.print_competitors %></h1>
+      <div id="status"><p class="text-center">Status: <%= @challenge.status%></p></div>
 
-<div id='defaultCountdown'></div>
-<div id='votingCountdown'></div>
+      </div>  
+    <div class="col-md-2"></div>
+  </div>
 
-<h1><%= @challenge.title %></h1>
-<h2><%= @challenge.description %></h2>
-<h1><%= @challenge.print_competitors %></h1>
-<div id="status"><p>Status: <%= @challenge.status%></p></div>
 
-<div id="results"></div>
-<div id="closed"></div>
+
+<div class="row">
+  <div class="col-md-4"></div>
+  <div class="col-md-4">
+    <div id="closed" class="text-center"></div>
+  </div>
+  <div class="col-md-4"></div>
+</div>
+
 <div id="ajax_voting"></div>
 
 <% case @challenge.status %>
   <% when 'closed' %>
-    <h1><%= @challenge.winner.name %> wins!</h1>
-    <%= @challenge.print_votes %>
+    <h1 class="text-center"><%= @challenge.winner.name %> wins!</h1>
+    <p class="text-center"><%= @challenge.print_votes %></p>
   <% when 'in_progress' %>
     <div id='in_progress'><%= render 'show_in_progress' %></div>
   <% when 'voting' %>
@@ -31,5 +49,12 @@
 <% else %>
   <%= link_to "Go back to challenges", root_path %>
 <% end %>
+
+        
+
+
+      
+
+</div>
 
 

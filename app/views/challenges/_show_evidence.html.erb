@@ -1,8 +1,13 @@
+<div class="row">
+ 
+  
 <% @challenge.users.each do |user| %>
   <% c = ChallengeViewObject.new(@challenge, user, current_user) %>
-  <%= c.evidence_text %> <br>
-  <%= image_tag c.evidence_image %> <br>
+  <div class="col-md-6"> <%= c.evidence_text %> <br>
+  <%= image_tag c.evidence_image %> <br></div>
 <%end%>
+  
+</div>
 
 
 
