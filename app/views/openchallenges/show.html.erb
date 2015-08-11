@@ -1,0 +1,67 @@
+<div class="container">
+
+<br>
+<br>
+<div class="row">
+  <div class="col-md-2"></div>
+    <div class="col-md-8">
+
+<h2 class="text-center">OPEN CHALLENGE!!</h1>
+<h1 class='text-center'><%=@openchallenge.title%></h2>
+<h3 class ='text-center small'><%=@openchallenge.description%><br></h3>
+</div>
+<div class="col-md-2"></div>
+
+
+</div>
+<div class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-8">
+<% if !current_user.competing?(@openchallenge)%>
+  <%= form_for Evidence.new, url: new_openevidence_path do |f| %>
+    <%= f.hidden_field :challenge_id, {:value => @openchallenge.id} %>
+    <%= f.submit "Join this challenge?" %>
+  <%end%>
+<%end%>
+<div class="col-md-2"></div>
+</div><br>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Place</th>
+            <th>Name</th>
+            <th>Evidence</th>
+            <th>Votes</th>
+        </tr>
+    </thead>
+
+<tbody>
+  
+<% @openchallenge.evidences.each do |e| %>
+  <tr>
+  <td></td>
+  <td><%= e.user.capitalize_name %></td>
+  <td><%= image_tag e.photo.url(:medium)%></td>
+  <td><% if !current_user.voted?(@openchallenge) %>
+  <div id = <%=e.user.id%>><%= form_for Vote.new, url: open_vote_path, remote: true do |f| %>
+        <%= f.hidden_field :challenge_id, {:value => @openchallenge.id} %>
+        <%= f.hidden_field :user_id, {:value => current_user.id} %>
+        <%= f.hidden_field :recipient_id, {:value => e.user.id} %>
+        <%= f.submit "Vote for #{e.user.capitalize_name}!" %></div>
+      <% end %><br>
+  <%else%>
+    <%= @openchallenge.votes.where(recipient_id: e.user.id).size %><br>
+    <%end%></td>
+    </tr>
+  <%end%>
+
+</tbody>
+
+</table>
+
+<%= link_to "go back to open challenges", openchallenges_path %>
+
+</div>
+
+<br>

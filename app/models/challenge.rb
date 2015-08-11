@@ -30,8 +30,8 @@ class Challenge < ActiveRecord::Base
 # INSTANCE METHODS -----------
 
   def short_description
-    if self.description.length > 50
-      self.description[0..50] + "..."
+    if self.description.length > 36
+      self.description[0..36] + "..."
     else
       self.description
     end
@@ -57,6 +57,10 @@ class Challenge < ActiveRecord::Base
       end
     end
     loser_by_no_submit || total_votes.key(total_votes.values.min)
+  end
+
+  def tie?
+    self.winner.name == "nobody"
   end
 
   def total_votes
