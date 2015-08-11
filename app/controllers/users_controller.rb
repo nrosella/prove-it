@@ -7,22 +7,9 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
       @challenges = @user.challenges.where.not(status: 'pending')
     end
-
-	 @challenge_data = 
-    [
-	    {
-	        value: 300,
-	        color:"#F7464A",
-	        highlight: "#FF5A5E",
-	        label: "Red"
-	    },
-	    {
-	        value: 500,
-	        color: "#46BFBD",
-	        highlight: "#5AD3D1",
-	        label: "Green"
-	    }
-  ]
+    @user = current_user
+    @challenge_view_data = @user.doughnut_chart_challenge_data
+    @challenge_view_data_options = @user.doughnut_chart_challenge_data_options
 	end
 
 end

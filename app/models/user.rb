@@ -87,6 +87,30 @@ class User < ActiveRecord::Base
     self.name.capitalize
   end
 
+  def doughnut_chart_challenge_data
+    @challenge_data = 
+      [
+        {
+            value: self.total_wins,
+            color:"#F7464A",
+            highlight: "#FF5A5E",
+            label: "Total wins"
+        },
+        {
+            value: self.total_losses,
+            color: "#46BFBD",
+            highlight: "#5AD3D1",
+            label: "Total losses"
+        }
+    ]
 
+  end
+
+  def doughnut_chart_challenge_data_options
+    @options = {
+      width: '150px',
+      height: '150px'
+    }
+  end
 
 end
