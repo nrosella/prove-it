@@ -31,5 +31,19 @@ module CapybaraHelper
     click_button 'Submit evidence!'
   end
 
+  def two_users_submit_evidence(user_one,user_two)
+    login_user(user_one)
+    create_challenge(user_two)
+    logout_user
+    login_user(user_two)
+    accept_challenge
+    click_link 'Capybara Test Challenge'
+    attach_evidence
+    logout_user
+    login_user(user_one)
+    click_link 'Capybara Test Challenge'
+    attach_evidence
+  end
+
 end
 
