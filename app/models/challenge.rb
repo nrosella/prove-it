@@ -105,4 +105,12 @@ class Challenge < ActiveRecord::Base
     self.users.collect{|user| user.name.capitalize}.join(" vs ")
   end
 
+  def inprogress_w_time_expired
+    self.status == "in_progress" && Time.now > (self.challenge_end)
+  end
+
+  def voting_ended
+    self.status == "voting" && Time.now > (self.challenge_end + self.voting_duration.seconds)
+  end
+
 end

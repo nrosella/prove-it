@@ -41,14 +41,14 @@ class ChallengesController < ApplicationController
 
   def show
     @challenge = Challenge.find(params["id"])
-    if (@challenge.status == "in_progress" && Time.now > (@challenge.challenge_end) && @challenge.evidences.length == 1)
+    if (@challenge.inprogress_w_time_expired && @challenge.evidences.length == 1)
       @challenge.status = "closed"
       @challenge.save
-      elsif (@challenge.status == "in_progress" && Time.now > (@challenge.challenge_end) )
+      elsif @challenge.inprogress_w_time_expired
         @challenge.status = "voting"
         @challenge.save
     end
-    if (@challenge.status == "voting" && Time.now > (@challenge.challenge_end + @challenge.voting_duration.seconds) )
+    if @challenge.voting_ended
       @challenge.status = "closed"
       @challenge.save
     end
