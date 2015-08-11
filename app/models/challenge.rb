@@ -9,6 +9,34 @@ class Challenge < ActiveRecord::Base
 
   validates :title, presence: true
 
+# CLASS METHODS -----------
+
+  def self.pending
+    self.all.where(status: "pending").order(updated_at: :desc)
+  end
+
+  def self.in_progress
+    self.all.where(status: "in_progress").order(challenge_end: :desc)
+  end
+
+  def self.voting
+    self.all.where(status: "voting").order(updated_at: :desc)
+  end
+
+  def self.closed
+    self.all.where(status: "closed").order(updated_at: :desc)
+  end
+
+# INSTANCE METHODS -----------
+
+  def short_description
+    if self.description.length > 50
+      self.description[0..50] + "..."
+    else
+      self.description
+    end
+  end
+
   def winner
     if self.evidences.length == 1
       self.evidences[0].user

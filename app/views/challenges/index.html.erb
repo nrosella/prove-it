@@ -1,19 +1,14 @@
 <% if current_user %>
-	<%= link_to "Create a New Challenge", new_challenge_path, class: "btn btn-success btn-lg"  %>
+	<%= link_to "Create a New Challenge", new_challenge_path, class: "btn btn-success btn-lg pull-down"  %>
 <% else %>
 	<%= link_to "Create a New Challenge", new_user_session_path, class: "btn btn-success btn-lg"  %>
 <% end %>
-<p>All Challenges</p>
 
+<!-- LIST OF VOTING -->
+<%= render partial: "challenges/index_partials/voting" %>
 
-<% Challenge.all.each do |challenge| %>
-  <div>
-    <%= link_to challenge.title, challenge_path(challenge) %>
-    <% challenge.users.each do |user|  %>
-      <%= link_to user.name, user_path(user) %>
-    <% end %>
-  </div>
-<% end %>
+<!-- LIST OF IN-PROGRESS -->
+<%= render  partial: "challenges/index_partials/in_progress" %>
 
-
-
+<!-- LIST OF 5 MOST RECENTLY COMPLETED -->
+<%= render partial: "challenges/index_partials/closed" %>

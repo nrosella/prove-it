@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
   get '/users/:id', to: 'users#show', as: 'user'
 
+  get '/users/:id/edit', to: 'users#edit'
+
   post '/challenge/:id/declined', to: 'user_mailer#decline'
 
   get '/in_progress_end', to: 'challenges#in_progress_end'

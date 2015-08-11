@@ -1,5 +1,10 @@
 <div class="sidebar hidden-phone profile-sidebar" id="profile-sidebar">
 	<%= image_tag('nino.jpg', size: '200', class:"center-block") %>
-	<h3 align="center"><%= current_user.name %></h3>
+	<h3 align="center"><%= @user.name %></h3>
+  
+  <% if current_user %>
+    <a class="btn btn-success btn-lg" href="/users/<%= current_user.id %>/edit">Update Profile</a>
+  <% end %>
+
 	
 </div>
