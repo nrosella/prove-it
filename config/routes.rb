@@ -17,7 +17,9 @@ Rails.application.routes.draw do
 
   get '/users/:id', to: 'users#show', as: 'user'
 
-  get '/users/:id/edit', to: 'users#edit'
+  get '/users/:id/edit', to: 'users#edit', as: 'user_edit'
+
+  patch '/users/:id/', to: 'users#update'
 
   post '/challenge/:id/declined', to: 'user_mailer#decline'
 
