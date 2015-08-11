@@ -22,9 +22,14 @@
 @import "bootstrap";
 /* Some Style from the Bootstrap Default Theme */
 body {
-  padding-top: 70px;
+  padding-top: 20px;
   padding-bottom: 30px;
 }
+.center-block .sidebar {  
+  display: block;  
+  margin-right: auto;  
+  margin-left: auto;  
+}  
 
 .theme-dropdown .dropdown-menu {
   position: static;
@@ -44,6 +49,23 @@ body {
 .no-caps {
 	text-transform: none;
 }
+.profile-sidebar {
+  background-color: #18bc9c;
+  padding-top: 100px;
+  margin-top: -50px;
+  margin-left: -30px;
+  min-height:1500px;
+  position:fixed;
+  width: 20%;
+}
+
+#profile-sidebar  {
+  color: #ffffff;
+}
+#profile-main-section {
+  margin-top: 25px;
+}
+
 table {
   background-color: transparent;
 }

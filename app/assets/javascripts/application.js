@@ -17,3 +17,4 @@
 //= require_tree ../../../vendor/assets/javascripts/.
 //= require_tree .
 //= require jquery.countdown
+//= require Chart
