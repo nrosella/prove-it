@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   devise_for :users
   resources :challenges
 
+  resources :openchallenges
+
   resources :votes
 
   resources :evidences
@@ -13,6 +15,14 @@ Rails.application.routes.draw do
   post '/challenge/:id/declined', to: 'user_mailer#decline'
 
   get '/in_progress_end', to: 'challenges#in_progress_end'
+
+  post '/openchallenges/create' => 'openchallenges#create', :as => :create_openchallenge
+
+  post '/evidences/open_create' => 'evidences#open_create', :as => :create_openevidence
+
+  post '/evidences/open_new' => 'evidences#open_new', :as => :new_openevidence
+
+  post '/votes/open_vote' => 'votes#open_vote', :as => :open_vote
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

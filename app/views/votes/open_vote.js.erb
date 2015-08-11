@@ -1,0 +1,11 @@
+$('#<%= @recipient.id %>').html('Votes: <%= @challenge.votes.where(recipient_id: @recipient.id).size %>');
+
+var userIds = <%= @user_ids %>
+var userVotes = <%= @user_votes %>
+
+userIds.forEach(function(number){
+  $('#' + number).html('Votes: ' + userVotes[userIds.indexOf(number)]);
+
+
+
+});

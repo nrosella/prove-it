@@ -1,0 +1,2 @@
+module OpenChallengesHelper
+end
