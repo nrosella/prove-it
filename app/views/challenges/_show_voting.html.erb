@@ -5,26 +5,30 @@
   <% end %>
 
 <div id="voting">
+  <div class="row">
+  <div class="col-md-4"></div>
 
-<%= @challenge.print_votes %>
-<% if user_signed_in? %>
-
-  <%if !current_user.voted?(@challenge) %>
-    <% @challenge.users.each do |user| %>
-      <%= form_for Vote.new, remote: true do |f| %>
-      <%= f.hidden_field :challenge_id, {:value => @challenge.id} %>
-      <%= f.hidden_field :user_id, {:value => current_user.id} %>
-      <%= f.hidden_field :recipient_id, {:value => user.id} %>
-      <%= f.submit "Vote for #{user.capitalize_name}!" %>
+  <% if user_signed_in? %>
+  <div class="col-md-4">
+    <%if !current_user.voted?(@challenge) %>
+      <% @challenge.users.each do |user| %>
+        <%= form_for Vote.new, remote: true do |f| %>
+        <%= f.hidden_field :challenge_id, {:value => @challenge.id} %>
+        <%= f.hidden_field :user_id, {:value => current_user.id} %>
+        <%= f.hidden_field :recipient_id, {:value => user.id} %>
+        <%= f.submit "Vote for #{user.capitalize_name}!" %>
+      <% end %>
     <% end %>
-  <% end %>
-
-<%else%>
-  <p>Thanks for voting!</p>  
-<%end%>
-
-<%else%>
-  <p>Log in or sign up to vote!</p>
-<%end%>
-
+  
+    <%else%>
+      <p class="text-center">Thanks for voting!</p>  
+      <p class="text-center"><%= @challenge.print_votes %></p>
+    <%end%>
+  
+  <%else%>
+    <p>Log in or sign up to vote!</p>
+  <%end%>
+  </div>
+  <div class="col-md-4"></div>
+</div>
 </div>

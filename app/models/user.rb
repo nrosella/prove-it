@@ -79,7 +79,7 @@ class User < ActiveRecord::Base
 
   def evidence_for(challenge)
     if challenge.evidences.find_by(user_id: self.id)
-      challenge.evidences.find_by(user_id: self.id).photo.url(:medium)
+      challenge.evidences.find_by(user_id: self.id).photo.url
     end
   end
 
