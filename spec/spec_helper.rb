@@ -29,7 +29,7 @@ Capybara.server_port = "3000"
 RSpec.configure do |config|
 
   config.include CapybaraHelper, :type => :feature
-  config.include WaitForAjax, type: :feature
+  # config.include WaitForAjax, type: :feature
 
   # config.use_transactional_fixtures = false
 
