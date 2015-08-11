@@ -1,5 +1,6 @@
+<div class="col-md-3"><%= render partial: 'users_sidebar' %></div>
+<div class="col-md-6" id="profile-main-section">
 <% if user_signed_in? %>
-  
   <!-- LIST OF PENDING -->
   <div class="bs-component">
    <table class="table table-striped table-hover">
@@ -130,4 +131,8 @@
   <%= render partial: "challenges/in_progress" %>
   <%= render partial: "challenges/closed" %>
 <%end%>
+</div>
+<div class="col-md-3 col-lg-3"></div>
+
+<div class="test5" id="test5"></div>
 
