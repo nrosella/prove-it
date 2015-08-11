@@ -77,6 +77,10 @@ class User < ActiveRecord::Base
     self.challenges.where(status: "declined").order(updated_at: :desc)
   end
 
+  def challenge_accepted
+    self.challenges.where(status: "voting").order(updated_at: :desc)
+  end
+
   def evidence_for(challenge)
     if challenge.evidences.find_by(user_id: self.id)
       challenge.evidences.find_by(user_id: self.id).photo.url
@@ -87,26 +91,57 @@ class User < ActiveRecord::Base
     self.name.capitalize
   end
 
-  def doughnut_chart_challenge_data
-    @challenge_data = 
-      [
-        {
-            value: self.total_wins,
-            color:"#F7464A",
-            highlight: "#FF5A5E",
-            label: "Total wins"
-        },
-        {
-            value: self.total_losses,
-            color: "#46BFBD",
-            highlight: "#5AD3D1",
-            label: "Total losses"
-        }
-    ]
+  def challenge_declined_count
+    # binding.pry
+    self.challenge_declined.count
+  end
+
+  def challenge_accepted_count
+    self.challenge_accepted.count
+  end
+
+  def participation_chart
+    if challenge_accepted_count > 0
+    @participation_data = 
+        [
+          {
+              value: self.challenge_declined_count,
+              color:"#F7464A",
+              highlight: "#FF5A5E",
+              label: "Declined"
+          },
+          {
+              value: self.challenge_accepted_count,
+              color: "#18bc9c",
+              highlight: "#5AD3D1",
+              label: "Accepted"
+          }
+      ]
+    else
+      @participation_data = "grgr"
+    end
+  end
+
+  def doughnut_chart_data
+      @chart_data = 
+        [
+          {
+              value: self.total_wins,
+              color:"#F7464A",
+              highlight: "#FF5A5E",
+              label: "Total wins"
+          },
+          {
+              value: self.total_losses,
+              color: "#18bc9c",
+              highlight: "#5AD3D1",
+              label: "Total losses"
+          }
+      ]
 
   end
 
-  def doughnut_chart_challenge_data_options
+  def doughnut_chart_options
     @options = {
       width: '150px',
       height: '150px'

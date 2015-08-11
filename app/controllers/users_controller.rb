@@ -9,12 +9,13 @@ class UsersController < ApplicationController
       @challenges = @user.challenges.where.not(status: 'pending')
     end
     @user = current_user
-    @challenge_view_data = @user.doughnut_chart_challenge_data
-    @challenge_view_data_options = @user.doughnut_chart_challenge_data_options
+    @challenge_chart_data = @user.doughnut_chart_data
+    @challenge_chart_options = @user.doughnut_chart_options
+    @challenge_participation_chart = @user.participation_chart
 	end
 
   def edit
-    @user = current_user
+    @user = current_user 
   end
 
 end
