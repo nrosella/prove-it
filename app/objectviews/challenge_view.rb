@@ -24,6 +24,4 @@ class ChallengeViewObject
      end
   end
 
-
-
 end
