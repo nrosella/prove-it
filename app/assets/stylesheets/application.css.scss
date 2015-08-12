@@ -50,8 +50,18 @@ body {
   width: 100%;
 }
 
+#notice {
+  color: #ffffff;
+  margin-right: 100px;
+  margin-top: 20px;
+}
+#alert {
+  color: #ffffff;
+}
+
 canvas {
-  margin-left: 30px;
+  margin-left: 95px;
+  padding-top: 10px;
 }
 
 p, canvas {
@@ -63,6 +73,7 @@ p, canvas {
   padding: 10px;
   margin-bottom: 50px;
 }
+
 .theme-dropdown .dropdown-menu {
   position: static;
   display: block;
