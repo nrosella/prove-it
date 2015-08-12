@@ -12,6 +12,7 @@ class ChallengesController < ApplicationController
   end
 
   def update
+    
     @challenge = Challenge.find(params[:id])
     if params[:challenge]
       @challenge.explaination = current_user.name.titleize + " declined for the following reason: " + params[:challenge][:explaination]

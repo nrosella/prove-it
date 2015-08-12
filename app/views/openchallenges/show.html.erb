@@ -1,38 +1,71 @@
-<div class="container">
+<% content_for :head do %>
+    <script type="text/javascript">
+      <%= render partial: 'openchallenges/openvoting_countdown.js', locals: {challenge: @openchallenge} %>
+    </script>
+  <% end %>
 
 <br>
 <br>
+<br>
+
+<div class="container">
+
+<div class ='row'>
+  <div class="col-md-4"></div>
+ <div class="col-md-4">
+<% unless @openchallenge.status == 'closed' %>
+<div id='votingCountdown' style="margin:0 auto;"></div>
+<%end%>
+</div>
+<div class="col-md-4"></div>
+</div>
+
 <div class="row">
   <div class="col-md-2"></div>
     <div class="col-md-8">
-
-<h2 class="text-center">OPEN CHALLENGE!!</h1>
-<h1 class='text-center'><%=@openchallenge.title%></h2>
-<h3 class ='text-center small'><%=@openchallenge.description%><br></h3>
+      <h2 class="text-center">OPEN CHALLENGE!!</h2>
+      <h1 class='text-center'><%=@openchallenge.title%></h1>
+      <h3 class ='text-center small'><%=@openchallenge.description%><br></h3>
+      <h4 class ='text-center small' id='status'><%=@openchallenge.status%></h4>
+    </div>
+  <div class="col-md-2"></div>
 </div>
-<div class="col-md-2"></div>
-
-</div>
-
-<%= form_for @openchallenge, url: sort_new_path, method: 'POST', remote: true do |f| %>
-  <%= f.submit 'show latest evidence' %>
-  <% end %>
-<%= form_for @openchallenge, url: sort_votes_path, method: 'POST', remote: true do |f| %>
-  <%= f.submit 'show most popular evidence' %>
-  <% end %>
-
 
 <div class="row">
-  <div class="col-md-2"></div>
-  <div class="col-md-8">
-<% if !current_user.competing?(@openchallenge)%>
-  <%= form_for Evidence.new, url: new_openevidence_path do |f| %>
-    <%= f.hidden_field :challenge_id, {:value => @openchallenge.id} %>
-    <%= f.submit "Join this challenge?" %>
-  <%end%>
+  <div class="col-md-4">
+
+<% unless @openchallenge.status == 'closed'%>
+<div id='sorting'>
+<%= form_for @openchallenge, url: sort_new_path, method: 'POST', remote: true do |f| %>
+  <%= f.submit 'Show latest evidence' %>
+  <% end %>
+<%= form_for @openchallenge, url: sort_votes_path, method: 'POST', remote: true do |f| %>
+  <%= f.submit 'Show most popular evidence' %>
+  <% end %>
+</div>
 <%end%>
-<div class="col-md-2"></div>
-</div><br>
+</div>
+
+<div class="col-md-4"></div>
+<div class="col-md-4"></div>
+</div>
+
+<div class="row">
+  <div class="col-md-4">
+  
+<div id="evidence">   
+<% if !current_user.competing?(@openchallenge) && @openchallenge.status != 'closed' %>
+  <h3><%= form_for Evidence.new, url: new_openevidence_path, remote: true do |f| %>
+    <%= f.hidden_field :challenge_id, {:value => @openchallenge.id} %>
+    <%= f.submit "Join this challenge!" %></h3>
+      <%end%>
+
+<%end%>
+</div>
+</div>
+<div class="col-md-4"></div>
+<div class="col-md-4"></div>
+</div>
 
 <table class="table table-hover">
     <thead>
@@ -44,11 +77,19 @@
         </tr>
     </thead>
 
-<tbody id='list'><%= render 'list' %></tbody>
+<tbody id='list'>
+  <% if @openchallenge.status == 'closed'%>
+    <%= render 'show_votes' %>
+  <%else%>
+    <%= render 'list' %>
+  <%end%>
+
+
+</tbody>
 
 </table>
 
-<%= link_to "go back to open challenges", openchallenges_path %>
+<%= link_to "Go back to all open challenges", openchallenges_path %>
 
 </div>
 

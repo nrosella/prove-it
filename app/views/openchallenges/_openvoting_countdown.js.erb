@@ -1,9 +1,9 @@
 $(document).ready(function(){
   var finishTime = new Date(); 
-  finishTime = new Date("<%= @challenge.challenge_end + @challenge.voting_duration.seconds %>"); 
+  finishTime = new Date("<%= @challenge.challenge_end %>"); 
   $('#votingCountdown').countdown({until: finishTime, onExpiry: function(){
     $.ajax({
-      url: "<%= voting_end_path %>", 
+      url: "<%= open_voting_end_path %>", 
       dataType: "script", 
       type: "GET",
       data: {id: "<%= @challenge.id %>"}});

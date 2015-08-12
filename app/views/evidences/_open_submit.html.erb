@@ -1,0 +1,9 @@
+Submit evidence here:
+    <%= form_for Evidence.new, :url => create_openevidence_path, :html => { :multipart => true } do |f| %>
+    <%= f.hidden_field :challenge_id, {:value => @open_challenge_id} %>
+    <%= f.hidden_field :user_id, {:value => current_user.id} %>
+    <%= f.file_field :photo, as: :file, :required => true %>
+    <%= f.label 'Comment' %>
+    <%= f.text_field :comment %></br>
+    <%= f.submit 'Submit evidence!' %>
+    <% end %>
