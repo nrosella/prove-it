@@ -1,17 +1,17 @@
 <div class="col-md-3"><%= render partial: 'users_sidebar' %></div>
 <div class="col-md-6" id="profile-main-section">
   <div class="col-md-12" id="results-charts">
-    <div class="col-md-6">
-      <% if current_user.total_wins > 0 %>
+    <div class="col-md-6" id="results-2">
+      <% if @user.total_wins > 0 %>
         <%= chartjs_doughnut_chart(@challenge_chart_data, @challenge_chart_options) %>
         <p>WIN / LOSS RATIO</p>
       <% else %>
         <%= image_tag 'no-data.png', size: "170x170", class: "no-data" %>
+        <p>WIN / LOSS RATIO</p>
       <% end %>
-      <p>WIN / LOSS RATIO</p>
     </div>
-    <div class="col-md-6">
-      <% if current_user.challenge_accepted_count > 0 || current_user.challenge_declined_count > 0 %>
+    <div class="col-md-6" id="results-3">
+      <% if @user.challenge_accepted_count > 0 || current_user.challenge_declined_count > 0 %>
         <%= chartjs_doughnut_chart(@challenge_participation_chart, @options = {width: "150px", height: "150px"}) %>
           <p>PARTICIPATION LEVEL</p>
       <% else %>
@@ -25,7 +25,7 @@
   <div class="bs-component">
    <table class="table table-striped table-hover">
      <tbody>
-       <% if current_user.challenge_pending.size > 0 %>
+       <% if @user.challenge_pending.size > 0 %>
            <h3>Your Pending Challenges:</h3>
             <% current_user.challenge_pending.each do |challenge| %>
                <tr>
@@ -37,9 +37,6 @@
                    <%= form_for(challenge) do |f| %>
                      <td><%= f.submit 'Decline', class: "btn btn-challenge-decline btn-md"%></td>
                    <% end %>
-                   <% if challenge.status == 'declined' %>
-                    <% redirect_to root_path %>
-                    <% end %>
                  <% else %>
                    <td class="hidden-td"></td>
                    <td class="hidden-td"></td>

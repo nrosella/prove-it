@@ -93,7 +93,7 @@ class User < ActiveRecord::Base
   end
 
   def challenge_accepted
-    self.challenges.where(status: "voting").order(updated_at: :desc)
+    self.challenges.where(status: "in_progress").order(updated_at: :desc)
   end
 
   def evidence_for(challenge)
@@ -123,12 +123,15 @@ class User < ActiveRecord::Base
   end
 
   def challenge_declined_count
-    # binding.pry
     self.challenge_declined.count
   end
 
+  # def challenge_accepted_count
+  #   self.challenge_accepted.count
+  # end
+
   def challenge_accepted_count
-    self.challenge_accepted.count
+    self.challenges.where.not(status: "pending").order(updated_at: :desc).count
   end
 
   def participation_chart
