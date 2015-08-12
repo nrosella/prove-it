@@ -60,7 +60,13 @@ body {
 }
 #sidebar-bio {
   border: solid 2px #ffffff;
-  margin-left: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+  text-align: center;
+}
+#update-profile-btn {
+  background: #2c3e50;
+  margin-bottom: 10px;
 }
 canvas {
   margin-left: 95px;

@@ -1,14 +1,17 @@
 <div class="sidebar hidden-phone profile-sidebar" id="profile-sidebar">
 	<%= image_tag(@user.avatar, size: '200', class:"center-block") %>
 	<h3 align="center"><%= @user.name %></h3>
-	<div class="col-md-11" id="sidebar-bio">
-	<h5 align="center">Bio:</h5>
-  <h5 align="center"><%= @user.bio %></h5>
-  </div>
-  
+
+  <div>
   <% if @user == current_user %>
-    <a class="center-block btn btn-success btn-lg" href="/users/<%= current_user.id %>/edit">Update Profile</a>
+    <a class="center-block btn btn-success btn-lg" href="/users/<%= current_user.id %>/edit" id="update-profile-btn">Update Profile</a>
   <% end %>
+  </div>
+
+	<div id="sidebar-bio">
+		<h5>Bio:</h5>
+  	<h5><%= @user.bio %></h5>
+  </div><br>
 
   <div clas="col-md-12">
   <%= render partial: "top_competitors", locals: {user: current_user} %>
