@@ -148,6 +148,7 @@ class User < ActiveRecord::Base
   end
 
   def doughnut_chart_data
+    if total_wins > 0
       @chart_data = 
         [
           {
@@ -163,7 +164,9 @@ class User < ActiveRecord::Base
               label: "Total losses"
           }
       ]
-
+    else
+      @chart_data = "rgrg"
+    end
   end
 
 

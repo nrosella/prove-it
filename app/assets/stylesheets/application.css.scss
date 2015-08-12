@@ -31,6 +31,25 @@ body {
   margin-left: auto;  
 }  
 
+.no-data {
+  margin-left: 85px;
+}
+
+#facebook-button {
+  background-color: #3b5998;
+  border: none;
+  width: 100%;
+}
+#login-button {
+  border: none;
+  width: 100%;
+}
+
+#signup-button {
+  border: none;
+  width: 100%;
+}
+
 canvas {
   margin-left: 30px;
 }
@@ -44,7 +63,6 @@ p, canvas {
   padding: 10px;
   margin-bottom: 50px;
 }
-
 .theme-dropdown .dropdown-menu {
   position: static;
   display: block;
