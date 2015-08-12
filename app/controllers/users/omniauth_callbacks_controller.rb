@@ -6,7 +6,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       @api_auth = request.env["omniauth.auth"]
       @user = User.from_omniauth(@api_auth)
       session[:fb_token] = @api_auth["credentials"]["token"]
-      binding.pry
       if @user.persisted?
         sign_in_and_redirect @user, :event => :authentication #this will throw if @user is not activated
         set_flash_message(:notice, :success, :kind => "Facebook") if is_navigational_format?

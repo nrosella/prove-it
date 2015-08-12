@@ -105,4 +105,43 @@ class Challenge < ActiveRecord::Base
     self.users.collect{|user| user.name.capitalize}.join(" vs ")
   end
 
+
+  def rank_of(user)
+    if self.total_votes.keys.sort.index(user).present?
+      self.total_votes.keys.sort.reverse.index(user) + 1
+    else
+      self.users.size
+    end
+  end
+
+
+  def inprogress_w_time_expired
+    self.status == "in_progress" && Time.now > (self.challenge_end)
+  end
+
+  def voting_ended
+    self.status == "voting" && Time.now > (self.challenge_end + self.voting_duration.seconds)
+  end
+
+  def rank_votes(user)
+    votez = self.votes.group(:recipient_id).count
+    newvotez = votez.each_with_object({}){|(key, value), hash|(hash[value] ||= [] ) << key}
+    newvotez2 = newvotez.sort.reverse
+    a = newvotez2.collect do |array|
+          array[1].size
+        end
+    index = newvotez2.index(newvotez2.detect do |array|
+       newvotez2[newvotez2.index(array)][1].include?(user.id)
+    end)
+    if index == nil
+      self.users.size
+    elsif index == 0
+      index + 1
+    else
+      a[0,index].inject(:+) + 1
+    end
+  end
+
+
+
 end

@@ -15,15 +15,34 @@ class OpenchallengesController < ApplicationController
     @openchallenge.description = @openchallenge.description.concat(": created by #{current_user.capitalize_name}")
     @openchallenge.challenge_end = Time.now + @openchallenge.challenge_duration.seconds
     @openchallenge.voting_duration = @openchallenge.challenge_duration
+    @openchallenge.status = 'voting'
     @openchallenge.save
     
     redirect_to openchallenge_path(@openchallenge)
   end
 
   def show
-    @openchallenge = Challenge.find(params[:id])
-    
+    @challenge = Challenge.find(params[:id])
+   
+    @openchallenge = Challenge.find(params[:id]) 
   end
+
+  def sort_new
+    @openchallenge = Challenge.find(params[:id])
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def sort_votes
+    @openchallenge = Challenge.find(params[:id])
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
 
   private
 

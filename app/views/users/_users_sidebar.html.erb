@@ -4,8 +4,11 @@
   <h5 align="center"><%= @user.bio %></h5>
   
   <% if current_user %>
-    <a class="btn btn-success btn-lg" href="/users/<%= current_user.id %>/edit">Update Profile</a>
+    <a class="center-block btn btn-success btn-lg" href="/users/<%= current_user.id %>/edit">Update Profile</a>
   <% end %>
+
+  <%= render partial: "top_competitors", locals: {user: current_user} %>
 
 	
 </div>
+

@@ -1,19 +1,31 @@
 <br>
 <br>
 <br>
+<br>
+<br>
+<br>
+<div class="col-lg-6 col-lg-offset-3">
+  <div class="col-md-12 text-center">
 
-<h1>Make a new open challenge!</h1>
+<%= form_for @challenge, url: create_openchallenge_path, class: "form-horizontal" do |f| %>
 
-<%= form_for @challenge, url: create_openchallenge_path do |f| %>
-<p><%= f.label :title %></p>
-<p><%= f.text_field :title %></p>
-<p><%= f.label :description %></p>
-<p><%= f.text_field :description %></p>
-<p><%= f.label :challenge_duration, 'Length of challenge (min. 1 day):' %></p>
-<p><%= f.select :challenge_duration, (1..60) %>
-<%= f.select :time_unit_challenge, [['Days', 86400],['Hours', 3600],['Minutes', 60],['Seconds', 1]] %></p>
+  <div class="form-group col-xs-12 floating-label-form-group controls">
+    <p><%= f.label :title %></p>
+    <p><%= f.text_field :title, placeholder: "Title", class: "form-control" %></p>
+  </div>
 
-<%= f.submit %>
+  <div class="form-group col-xs-12 floating-label-form-group controls">
+    <p><%= f.label :description %></p>
+    <p><%= f.text_field :description, placeholder: "Description", class: "form-control" %></p>
+  </div>
+
+  <div class="form-group controls">
+    <p><%= f.label :challenge_duration, 'Length of challenge (min. 1 day):' %></p>
+    <p><%= f.select :challenge_duration, (1..60) %>
+    <%= f.select :time_unit_challenge, [['Days', 86400],['Hours', 3600],['Minutes', 60],['Seconds', 1]] %></p>
+  </div>
+
+  <%= f.submit "Create Open Challenge", class: "btn btn-success btn-md" %>
 <% end %>
 
-<%= link_to "go back to challenges", challenges_path %>
+<%= link_to "Go back to open challenges", openchallenges_path %>

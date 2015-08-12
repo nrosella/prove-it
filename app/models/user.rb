@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   devise :omniauthable, :omniauth_providers => [:facebook]
-  has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
+  has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "missing.png"
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
 
   has_many :notifications
@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   has_many :challenges, through: :user_challenges
   has_many :evidences
 
-  # after_create :send_admin_mail
+  after_create :send_admin_mail
   
   def send_admin_mail
     UserMailer.send_welcome_email(self).deliver_now!
@@ -79,11 +79,6 @@ class User < ActiveRecord::Base
   def challenge_closed
     self.challenges.where(status: "closed").order(updated_at: :desc)
   end
-
-
-  # def challenges_won
-  #   user.challenges.closed
-  # end
   
   def challenges_won
     self.challenges.where(status: "closed").order(updated_at: :desc).select{|c| c.winner == self}
@@ -97,37 +92,95 @@ class User < ActiveRecord::Base
     self.challenges.where(status: "declined").order(updated_at: :desc)
   end
 
+  def challenge_accepted
+    self.challenges.where(status: "in_progress").order(updated_at: :desc)
+  end
+
   def evidence_for(challenge)
     if challenge.evidences.find_by(user_id: self.id)
       challenge.evidences.find_by(user_id: self.id).photo.url
     end
   end
 
+  def competitors
+    competition = Hash.new(0)
+    self.challenges.where.not(status: :pending).each do |challenge|
+      challenge.users.each do |user|
+        unless user == self
+          competition[user] += 1
+        end
+      end
+    end
+    competition.sort_by {|_user, occurence| occurence }.reverse
+  end
+
+  def top_3_competitors
+    self.competitors[0..2]
+  end
+
   def capitalize_name
     self.name.capitalize
   end
 
-  def doughnut_chart_challenge_data
-    @challenge_data = 
-      [
-        {
-            value: self.total_wins,
-            color:"#F7464A",
-            highlight: "#FF5A5E",
-            label: "Total wins"
-        },
-        {
-            value: self.total_losses,
-            color: "#46BFBD",
-            highlight: "#5AD3D1",
-            label: "Total losses"
-        }
-    ]
+  def challenge_declined_count
+    self.challenge_declined.count
+  end
 
+  # def challenge_accepted_count
+  #   self.challenge_accepted.count
+  # end
+
+  def challenge_accepted_count
+    self.challenges.where.not(status: "pending").order(updated_at: :desc).count
+  end
+
+  def participation_chart
+    if challenge_accepted_count > 0
+    @participation_data = 
+        [
+          {
+              value: self.challenge_declined_count,
+              color:"#F7464A",
+              highlight: "#FF5A5E",
+              label: "Declined"
+          },
+          {
+              value: self.challenge_accepted_count,
+              color: "#18bc9c",
+              highlight: "#5AD3D1",
+              label: "Accepted"
+          }
+      ]
+    else
+      @participation_data = "grgr"
+    end
+  end
+
+  def doughnut_chart_data
+    if total_wins > 0
+      @chart_data = 
+        [
+          {
+              value: self.total_wins,
+              color:"#F7464A",
+              highlight: "#FF5A5E",
+              label: "Total wins"
+          },
+          {
+              value: self.total_losses,
+              color: "#18bc9c",
+              highlight: "#5AD3D1",
+              label: "Total losses"
+          }
+      ]
+    else
+      @chart_data = "rgrg"
+    end
   end
 
 
-  def doughnut_chart_challenge_data_options
+  def doughnut_chart_options
+
     @options = {
       width: '150px',
       height: '150px'

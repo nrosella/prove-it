@@ -1,12 +1,31 @@
 <div class="col-md-3"><%= render partial: 'users_sidebar' %></div>
 <div class="col-md-6" id="profile-main-section">
-<%= chartjs_doughnut_chart(@challenge_view_data, @challenge_view_data_options) %>
+  <div class="col-md-12" id="results-charts">
+    <div class="col-md-6" id="results-2">
+      <% if @user.total_wins > 0 %>
+        <%= chartjs_doughnut_chart(@challenge_chart_data, @challenge_chart_options) %>
+        <p>WIN / LOSS RATIO</p>
+      <% else %>
+        <%= image_tag 'no-data.png', size: "170x170", class: "no-data" %>
+        <p>WIN / LOSS RATIO</p>
+      <% end %>
+    </div>
+    <div class="col-md-6" id="results-3">
+      <% if @user.challenge_accepted_count > 0 || current_user.challenge_declined_count > 0 %>
+        <%= chartjs_doughnut_chart(@challenge_participation_chart, @options = {width: "150px", height: "150px"}) %>
+          <p>PARTICIPATION LEVEL</p>
+      <% else %>
+        <%= image_tag 'no-data.png', size: "170x170", class: "no-data" %>
+          <p>PARTICIPATION LEVEL</p>
+      <% end %>
+    </div>
+  </div>
 <% if user_signed_in? %>
   <!-- LIST OF PENDING -->
   <div class="bs-component">
    <table class="table table-striped table-hover">
      <tbody>
-       <% if current_user.challenge_pending.size > 0 %>
+       <% if @user.challenge_pending.size > 0 %>
            <h3>Your Pending Challenges:</h3>
             <% current_user.challenge_pending.each do |challenge| %>
                <tr>
@@ -18,9 +37,6 @@
                    <%= form_for(challenge) do |f| %>
                      <td><%= f.submit 'Decline', class: "btn btn-challenge-decline btn-md"%></td>
                    <% end %>
-                   <% if challenge.status == 'declined' %>
-                    <% redirect_to root_path %>
-                    <% end %>
                  <% else %>
                    <td class="hidden-td"></td>
                    <td class="hidden-td"></td>
@@ -125,6 +141,7 @@
    </div>
 
   <%= link_to "Create a New Challenge", new_challenge_path, class: "btn btn-success btn-lg"  %>
+  <%= link_to "Join an Open Challenge", openchallenges_path, class: "btn btn-success btn-lg"  %>
 
 <!-- When user not signed in -->
 <% else %>

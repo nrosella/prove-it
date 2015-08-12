@@ -1,21 +1,44 @@
-<%= form_for @challenge do |f| %>
-<p><%= f.label :title %></p>
-<p><%= f.text_field :title %></p>
-<p><%= f.label :challenged_email %></p>
-<p><%= f.text_field :challenged_email %></p>
-<p><%= f.label :description %></p>
-<p><%= f.text_field :description %></p>
-<p><%= f.label :challenge_duration, 'Length of time to submit evidence:' %></p>
-<p><%= f.select :challenge_duration, (1..60) %>
-<%= f.select :time_unit_challenge, [['Days', 86400],['Hours', 3600],['Minutes', 60],['Seconds', 1]] %></p>
-<p><%= f.label :voting_duration, 'Length of time for voting:' %></p>
-<p><%= f.select :voting_duration, (1..60) %>
-<%= f.select :time_unit_vote, [['Days', 86400],['Hours', 3600],['Minutes', 60],['Seconds', 1]] %></p>
-<p><%= f.label "Post Challenge to Your Facebook Wall?" %> </p>
-<p><%= f.check_box :fb_post %> </p>
 
-<%= f.submit "Create Challenge", class: "btn btn-success btn-md" %>
+<div class="col-lg-6 col-lg-offset-3">
+	<div class="col-md-12 text-center">
+		<%= form_for @challenge, class: "form-horizontal", id: "contactForm" do |f| %>
+			
+			<div class="form-group col-xs-12 floating-label-form-group controls">
+				<p><%= f.label :title %></p>
+				<p><%= f.text_field :title, placeholder: "Challenge Title", class: "form-control" %></p>
+			</div>
 
-<% end %>
+			<div class="form-group col-xs-12 floating-label-form-group controls">
+				<p><%= f.label :challenged_email %></p>
+				<p><%= f.text_field :challenged_email, placeholder: "Email of Person to Challenge", class: "form-control" %></p>
+			</div>
 
-<%= link_to "Back to Challenges", challenges_path %>
+			<div class="form-group col-xs-12 floating-label-form-group controls">
+				<p><%= f.label :description %></p>
+				<p><%= f.text_field :description, placeholder: "Challenge Description", class: "form-control" %></p>
+			</div>
+
+			<div class="form-group controls">
+				<p><%= f.label :challenge_duration, 'Length of time to submit evidence:' %></p>
+				<p><%= f.select :challenge_duration, (1..60), class: "form-control", id: "select" %>
+				<%= f.select :time_unit_challenge, [['Days', 86400],['Hours', 3600],['Minutes', 60],['Seconds', 1]] %></p>
+			</div>
+
+			<div class="form-group">
+				<p><%= f.label :voting_duration, 'Length of time for voting:' %></p>
+				<p><%= f.select :voting_duration, (1..60), class: "form-control" %>
+				<%= f.select :time_unit_vote, [['Days', 86400],['Hours', 3600],['Minutes', 60],['Seconds', 1]] %></p>
+			</div>
+
+			<div class="form-group">
+				<p><%= f.label :fb_post, "Post Challenge to Your Facebook Wall?" %></p>
+				<p><%= f.check_box :fb_post, class: "form-control" %></p>
+			</div>
+
+			<%= f.submit "Create Challenge", class: "btn btn-success btn-md" %>
+
+		<% end %>
+
+		<%= link_to "Back to Challenges", challenges_path %>
+	</div>
+</div>
