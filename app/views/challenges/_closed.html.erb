@@ -1,5 +1,5 @@
 <h2>Challenges Completed:</h2><br>
-<% @challenges.where(status: 'closed').each do |challenge|  %>
+<% @challenges.closed.each do |challenge|  %>
   <div>
     <p><%= challenge.title %></p>
     <p><%= challenge.winner.name %></p>
