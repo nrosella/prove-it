@@ -5,16 +5,17 @@ class OpenchallengesController < ApplicationController
   end
 
   def index
-    @open_challenges = Challenge.all.select{|c| c.description.include?("created by")}
+    @open_challenges = Challenge.where(:open =>  true)
   end
 
   def create
     @openchallenge = Challenge.create(openchallenge_params)
     @openchallenge.challenge_duration = params[:challenge][:challenge_duration].to_i * params[:challenge][:time_unit_challenge].to_i
-    @openchallenge.description = @openchallenge.description.concat(": created by #{current_user.capitalize_name}")
     @openchallenge.challenge_end = Time.now + @openchallenge.challenge_duration.seconds
     @openchallenge.voting_duration = @openchallenge.challenge_duration
     @openchallenge.status = 'voting'
+    @openchallenge.creator = current_user.name
+    @openchallenge.open = true
     @openchallenge.save
     
     redirect_to openchallenge_path(@openchallenge)
@@ -22,12 +23,16 @@ class OpenchallengesController < ApplicationController
 
   def show
     @challenge = Challenge.find(params[:id])
-   
     @openchallenge = Challenge.find(params[:id]) 
+    if @openchallenge.expired?
+      @openchallenge.status = 'closed'
+      @openchallenge.save
+    end
   end
 
   def sort_new
     @openchallenge = Challenge.find(params[:id])
+
 
     respond_to do |format|
       format.js

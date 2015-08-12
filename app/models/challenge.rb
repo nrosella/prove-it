@@ -142,6 +142,11 @@ class Challenge < ActiveRecord::Base
     end
   end
 
+  def expired?
+    Time.now > (self.challenge_end)
+  end
+
+
 
 
 end
