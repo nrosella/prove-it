@@ -36,6 +36,9 @@ Rails.application.routes.draw do
 
   post '/votes/open_vote' => 'votes#open_vote', :as => :open_vote
 
+  post '/openchallenges/:id/sort_new' => 'openchallenges#sort_new', :as => :sort_new
+  post '/openchallenges/:id/sort_votes' => 'openchallenges#sort_votes', :as => :sort_votes
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
