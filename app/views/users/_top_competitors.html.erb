@@ -1,0 +1,7 @@
+<% user.top_3_competitors.each.with_index do |person, idx| %>
+  <div style="text-align: center;">
+  <%= link_to user_path(person[0]), class: "white-link" do %>
+      <span> <%= idx + 1 %>. <%= person[0].name %> - <%= person[1] %> Competition(s)</span>
+    <% end %>
+  </div>
+<% end %>
