@@ -26,6 +26,10 @@ class EvidencesController < ApplicationController
 
   def open_new
     @open_challenge_id = params[:evidence][:challenge_id]
+   
+    respond_to do |format|
+      format.js
+    end
   end
 
 
