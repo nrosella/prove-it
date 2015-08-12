@@ -1,29 +1,22 @@
 <div class="col-md-3"><%= render partial: 'users_sidebar' %></div>
 <div class="col-md-6" id="profile-main-section">
   <div class="col-md-12" id="results-charts">
-    <div class="col-md-4">
+    <div class="col-md-6">
       <% if current_user.total_wins > 0 %>
         <%= chartjs_doughnut_chart(@challenge_chart_data, @challenge_chart_options) %>
-        <p><%= @user.name.capitalize %>'s total loss / win ratio</p>
+        <p>WIN / LOSS RATIO</p>
       <% else %>
-        <%= image_tag 'no-data.png', size: "150x150" %>
+        <%= image_tag 'no-data.png', size: "170x170", class: "no-data" %>
       <% end %>
+      <p>WIN / LOSS RATIO</p>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-6">
       <% if current_user.challenge_accepted_count > 0 || current_user.challenge_declined_count > 0 %>
         <%= chartjs_doughnut_chart(@challenge_participation_chart, @options = {width: "150px", height: "150px"}) %>
-          <p>Participation Level</p>
+          <p>PARTICIPATION LEVEL</p>
       <% else %>
-        <%= image_tag 'no-data.png', size: "170x170" %>
-          <p>Participation Level</p>
-      <% end %>
-    </div>
-    <div class="col-md-4">
-      <% if current_user.total_wins > 0 %>
-      <%= chartjs_doughnut_chart(@challenge_chart_data, @options = {width: "150px", height: "150px"}) %>
-      <p>Total loss / win ratio</p>
-      <% else %>
-      <%= image_tag 'no-data.png', size: "150x150" %>
+        <%= image_tag 'no-data.png', size: "170x170", class: "no-data" %>
+          <p>PARTICIPATION LEVEL</p>
       <% end %>
     </div>
   </div>
