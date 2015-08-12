@@ -26,7 +26,7 @@
    <table class="table table-striped table-hover">
      <tbody>
        <% if @user.challenge_pending.size > 0 && @user == current_user %>
-           <h3>Your Pending Challenges:</h3>
+           <h3>Pending Challenges:</h3>
             <% current_user.challenge_pending.each do |challenge| %>
                <tr>
                <td><h4 class="no-caps"><%= link_to challenge.title, challenge_path(challenge) %></h4></td>
