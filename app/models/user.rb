@@ -109,7 +109,11 @@ class User < ActiveRecord::Base
         end
       end
     end
-    competition
+    competition.sort_by {|_user, occurence| occurence }.reverse
+  end
+
+  def top_3_competitors
+    self.competitors[0..2]
   end
 
   def capitalize_name
