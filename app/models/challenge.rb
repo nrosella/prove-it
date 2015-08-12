@@ -1,5 +1,5 @@
 class Challenge < ActiveRecord::Base
-  attr_accessor :challenged_email, :time_unit_vote, :time_unit_challenge
+  attr_accessor :challenged_email, :time_unit_vote, :time_unit_challenge, :fb_post
 
   has_many :notifications
   has_many :user_challenges
