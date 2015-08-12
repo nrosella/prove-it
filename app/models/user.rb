@@ -93,7 +93,7 @@ class User < ActiveRecord::Base
   end
 
   def challenge_accepted
-    self.challenges.where(status: "voting").order(updated_at: :desc)
+    self.challenges.where(status: "in_progress").order(updated_at: :desc)
   end
 
   def evidence_for(challenge)
