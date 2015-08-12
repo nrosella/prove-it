@@ -7,6 +7,8 @@
 <br>
 <br>
 <br>
+<br>
+<br>
 
 <div class="container">
 
@@ -37,11 +39,9 @@
 <% unless @openchallenge.status == 'closed'%>
 <div id='sorting'>
 <%= form_for @openchallenge, url: sort_new_path, method: 'POST', remote: true do |f| %>
-  <%= f.submit 'Show latest evidence' %>
+  <%= f.submit 'Show latest evidence', class: "btn btn-success btn-md" %>
   <% end %>
-<%= form_for @openchallenge, url: sort_votes_path, method: 'POST', remote: true do |f| %>
-  <%= f.submit 'Show most popular evidence' %>
-  <% end %>
+
 </div>
 <%end%>
 </div>
@@ -57,7 +57,7 @@
 <% if !current_user.competing?(@openchallenge) && @openchallenge.status != 'closed' %>
   <h3><%= form_for Evidence.new, url: new_openevidence_path, remote: true do |f| %>
     <%= f.hidden_field :challenge_id, {:value => @openchallenge.id} %>
-    <%= f.submit "Join this challenge!" %></h3>
+    <%= f.submit "Join this challenge!", class: "btn btn-success btn-md" %></h3>
       <%end%>
 
 <%end%>
