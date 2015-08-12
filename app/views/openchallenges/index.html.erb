@@ -8,7 +8,7 @@
 <h1>All open challenges</h1>
 
 <% @open_challenges.each do |challenge| %>
-  <%= link_to challenge.title, openchallenge_path(challenge) %> - <%= challenge.description %>. <%= pluralize( challenge.users.size, "competitor") %>. Time remaining: <%= ((challenge.challenge_end - Time.now)/3600).round(2) %> hours. <%= current_user.competing?(challenge) ? 'You are competing!' : nil %><br>
+  <%= link_to challenge.title, openchallenge_path(challenge) %> - <%= challenge.description %>. <%= pluralize( challenge.users.size, "competitor") %>. Status: <%=challenge.status%>. <%= current_user.competing?(challenge) ? 'You are competing!' : nil %><br>
   <%end%>
 
   <%= link_to 'make a new challenge', new_openchallenge_path %>

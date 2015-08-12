@@ -27,6 +27,9 @@ Rails.application.routes.draw do
 
   get '/in_progress_end', to: 'challenges#in_progress_end'
 
+  get '/voting_end', to: 'votes#voting_end', :as => :voting_end
+  get '/open_voting_end', to: 'votes#open_voting_end', :as => :open_voting_end
+
 
   post '/openchallenges/create' => 'openchallenges#create', :as => :create_openchallenge
 
@@ -38,6 +41,8 @@ Rails.application.routes.draw do
 
   post '/openchallenges/:id/sort_new' => 'openchallenges#sort_new', :as => :sort_new
   post '/openchallenges/:id/sort_votes' => 'openchallenges#sort_votes', :as => :sort_votes
+
+
 
 
   # The priority is based upon order of creation: first created -> highest priority.
