@@ -37,9 +37,6 @@
                    <%= form_for(challenge) do |f| %>
                      <td><%= f.submit 'Decline', class: "btn btn-challenge-decline btn-md"%></td>
                    <% end %>
-                   <% if challenge.status == 'declined' %>
-                    <% redirect_to root_path %>
-                    <% end %>
                  <% else %>
                    <td class="hidden-td"></td>
                    <td class="hidden-td"></td>
