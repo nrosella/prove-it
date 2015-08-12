@@ -3,6 +3,12 @@
 <br>
 <br>
 
+<div class="container">
+
+<div class ='row'>
+  <div class="col-md-4"></div>
+ <div class="col-md-4">
+
 <h1>Challenge: <%= Challenge.find(@open_challenge_id).title %></h1>
 <h2>Ends on: <%= Challenge.find(@open_challenge_id).challenge_end%></h2>
 <p>Submit evidence here:</p>
@@ -14,3 +20,7 @@
     <%= f.file_field :photo, as: :file, :required => true %>
     <%= f.submit 'Submit evidence!' %>
     <% end %>
+  </div>
+    <div class="col-md-4"></div>
+  </div>
+  </div>
