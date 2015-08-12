@@ -9,6 +9,7 @@ class OpenchallengesController < ApplicationController
   end
 
   def create
+    binding.pry
     @openchallenge = Challenge.create(openchallenge_params)
     @openchallenge.challenge_duration = params[:challenge][:challenge_duration].to_i * params[:challenge][:time_unit_challenge].to_i
     @openchallenge.description = @openchallenge.description.concat(": created by #{current_user.capitalize_name}")

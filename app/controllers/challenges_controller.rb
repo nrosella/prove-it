@@ -12,6 +12,7 @@ class ChallengesController < ApplicationController
   end
 
   def update
+
     @challenge = Challenge.find(params[:id])
     if params[:challenge]
       @challenge.explaination = current_user.name.titleize + " declined for the following reason: " + params[:challenge][:explaination]
@@ -61,8 +62,7 @@ class ChallengesController < ApplicationController
     @challenge = Challenge.new(challenge_params)
     @challenge.title = @challenge.title.titleize
     if current_user.email.downcase == params[:challenge][:challenged_email].downcase
-      flash.now[:notice] = "Sorry, self challenges not allowed."
-      binding.pry
+      flash.now[:notice] = "Although challenging yourself is a worthy endeavour, we do not allow it here. Please enter another email."
       render 'new'
     else
     @challenged = User.find_by(email: params[:challenge][:challenged_email])
@@ -72,9 +72,17 @@ class ChallengesController < ApplicationController
       if @challenge.save
         UserChallenge.create(user_id: current_user.id, challenge_id: @challenge.id, admin: true)
         UserChallenge.create(user_id: @challenged.id, challenge_id: @challenge.id)
+        if (params[:challenge][:fb_post] == '1') && session[:fb_token]
+          binding.pry
+          @graph = Koala::Facebook::API.new(session[:fb_token])
+          @graph.put_wall_post("I just challenged #{User.find_by(email: params[:challenge][:challenged_email]).name.titleize} to a challenge I like to call #{@challenge.title.titleize}. Check it out here #{challenge_url(@challenge.id)}")
+        end
+
         # @challenged.send_challenge_invitation_email(@challenge)
       end
 
+      # if #params are set up
+      #   
       render 'show'
     end
   end

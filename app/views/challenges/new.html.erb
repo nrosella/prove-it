@@ -11,6 +11,8 @@
 <p><%= f.label :voting_duration, 'Length of time for voting:' %></p>
 <p><%= f.select :voting_duration, (1..60) %>
 <%= f.select :time_unit_vote, [['Days', 86400],['Hours', 3600],['Minutes', 60],['Seconds', 1]] %></p>
+<p><%= f.label "Post Challenge to Your Facebook Wall?" %> </p>
+<p><%= f.check_box :fb_post %> </p>
 
 <%= f.submit "Create Challenge", class: "btn btn-success btn-md" %>
 
