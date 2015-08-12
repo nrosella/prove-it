@@ -1,3 +1,5 @@
+<div class="col-md-1"></div>
+<div class="col-md-10" id="main-challenge-div">
 <% if current_user %>
 	<%= link_to "Create a New Challenge", new_challenge_path, class: "btn btn-success btn-lg pull-down"  %>
 <% else %>
@@ -12,3 +14,4 @@
 
 <!-- LIST OF 5 MOST RECENTLY COMPLETED -->
 <%= render partial: "challenges/index_partials/closed" %>
+</div>
