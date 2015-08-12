@@ -58,10 +58,17 @@ body {
 #alert {
   color: #ffffff;
 }
-
+#sidebar-bio {
+  border: solid 2px #ffffff;
+  margin-left: 10px;
+}
 canvas {
   margin-left: 95px;
   padding-top: 10px;
+}
+span-text-align {
+  text-align: center;
+  margin-left: 2px;
 }
 
 p, canvas {
