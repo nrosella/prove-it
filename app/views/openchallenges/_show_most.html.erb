@@ -1,0 +1,3 @@
+<%= form_for @openchallenge, url: sort_votes_path, method: 'POST', remote: true do |f| %>
+  <%= f.submit 'Show most popular evidence', class: "btn btn-success btn-md" %>
+  <% end %>

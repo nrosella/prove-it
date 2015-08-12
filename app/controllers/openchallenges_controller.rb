@@ -29,15 +29,13 @@ class OpenchallengesController < ApplicationController
   def sort_new
     @openchallenge = Challenge.find(params[:id])
 
-
     respond_to do |format|
       format.js
     end
   end
 
   def sort_votes
-     @openchallenge = Challenge.find(params[:id])
-
+    @openchallenge = Challenge.find(params[:id])
 
     respond_to do |format|
       format.js

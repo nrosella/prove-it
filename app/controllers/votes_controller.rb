@@ -38,12 +38,7 @@ class VotesController < ApplicationController
   def open_vote
     @vote = Vote.create(vote_params)
     @openchallenge = Challenge.find(params[:vote][:challenge_id])
-    @recipient = @vote.recipient
-    @user_ids = @openchallenge.users.collect{|user| user.id}
-    @user_votes = @user_ids.collect do |user|
-      @openchallenge.votes.where(recipient_id: user).size
-    end
-    
+        
     respond_to do |format|
       format.js
     end

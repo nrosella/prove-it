@@ -1,4 +1,5 @@
 $('#votingCountdown').hide();
 $('#sorting').hide();
-$('#status').html("<%= @openchallenge.status %>")
+$('#status').html("<%= @openchallenge.status %>");
 $('#list').html("<%= j render 'openchallenges/show_votes', :locals => {:openchallenge => @openchallenge} %>");
+$('#status').html("<%= @openchallenge.winner.name %>");
