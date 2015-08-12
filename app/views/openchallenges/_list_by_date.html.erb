@@ -1,0 +1,17 @@
+<% @openchallenge.evidences.order(created_at: :desc).each do |evidence| %>
+  <tr>
+  <td><%=@openchallenge.rank_votes(evidence.user)%></td>
+  <td><h4><%= evidence.user.capitalize_name %></h4></td>
+  <td><%= image_tag evidence.photo.url(:medium)%></td>
+  <td><% if !current_user.voted?(@openchallenge) %>
+  <div id = <%=user.id%>><%= form_for Vote.new, url: open_vote_path, remote: true do |f| %>
+        <%= f.hidden_field :challenge_id, {:value => @openchallenge.id} %>
+        <%= f.hidden_field :user_id, {:value => current_user.id} %>
+        <%= f.hidden_field :recipient_id, {:value => evidence.user.id} %>
+        <%= f.submit "Vote for #{evidence.user.capitalize_name}!" %></div>
+      <% end %><br>
+  <%else%>
+    <h2><%= @openchallenge.votes.where(recipient_id: evidence.user.id).size %></h2>
+    <%end%></td>
+    </tr>
+  <%end%>
