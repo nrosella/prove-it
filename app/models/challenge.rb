@@ -38,11 +38,20 @@ class Challenge < ActiveRecord::Base
   end
 
   def winner
-    if self.evidences.length == 1
+    if self.evidences.length == 1 #Only one user submits evidence
       self.evidences[0].user
-    else 
-      total_votes.key(total_votes.values.max) || User.new(name: "nobody")
+    else
+      if tie?
+        User.new(name: "nobody")
+      else
+        total_votes.key(total_votes.values.max) || User.new(name: "nobody")
+      end
     end
+  end
+
+  def tie?
+    votes = total_votes.values.sort.reverse
+    votes[0] == votes[1]
   end
 
   def loser
@@ -59,11 +68,8 @@ class Challenge < ActiveRecord::Base
     loser_by_no_submit || total_votes.key(total_votes.values.min)
   end
 
-  def tie?
-    self.winner.name == "nobody"
-  end
-
   def total_votes
+    # Returns hash with key of users and value of # of votes
     self.votes.group(:recipient_id).count.transform_keys{|key| User.find(key)}
   end
 
