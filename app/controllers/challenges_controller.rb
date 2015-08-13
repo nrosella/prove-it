@@ -76,11 +76,6 @@ class ChallengesController < ApplicationController
       if @challenge.save
         UserChallenge.create(user_id: current_user.id, challenge_id: @challenge.id, admin: true)
         UserChallenge.create(user_id: @challenged.id, challenge_id: @challenge.id)
-        if (params[:challenge][:fb_post] == '1') && session[:fb_token]
-          @graph = Koala::Facebook::API.new(session[:fb_token])
-          @graph.put_wall_post("I just challenged #{User.find_by(email: params[:challenge][:challenged_email]).name.titleize} to a challenge I like to call #{@challenge.title.titleize}. Check it out here #{challenge_url(@challenge.id)}")
-        end
-
       end
 
       # if #params are set up
