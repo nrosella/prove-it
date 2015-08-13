@@ -28,8 +28,8 @@ Rails.application.routes.draw do
   get '/in_progress_end', to: 'challenges#in_progress_end'
 
   get '/voting_end', to: 'votes#voting_end', :as => :voting_end
+  
   get '/open_voting_end', to: 'votes#open_voting_end', :as => :open_voting_end
-
 
   post '/openchallenges/create' => 'openchallenges#create', :as => :create_openchallenge
 
@@ -38,6 +38,8 @@ Rails.application.routes.draw do
   post '/evidences/open_new' => 'evidences#open_new', :as => :new_openevidence
 
   post '/votes/open_vote' => 'votes#open_vote', :as => :open_vote
+
+  post '/votes/vote_boost' => 'votes#vote_boost', :as => :vote_boost
 
   post '/openchallenges/:id/sort_new' => 'openchallenges#sort_new', :as => :sort_new
   post '/openchallenges/:id/sort_votes' => 'openchallenges#sort_votes', :as => :sort_votes

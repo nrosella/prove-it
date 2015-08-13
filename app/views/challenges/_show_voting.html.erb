@@ -18,13 +18,30 @@
         <%= f.hidden_field :recipient_id, {:value => user.id} %>
         <%= f.submit "Vote for #{user.capitalize_name}!" %>
       <% end %>
+
     <% end %>
+
   
     <%else%>
+
       <p class="text-center">Thanks for voting!</p>  
       <p class="text-center"><%= @challenge.print_votes %></p>
     <%end%>
+    <% if !@boost %>
+    <p class="text-center">Ask Your Facebook Friends to Vote!</p>
+    <div id="#ajax_voting_boost_button">
   
+    <%= form_for Vote.new, :url => vote_boost_path, remote: true do |f| %>
+    <%= f.hidden_field :challenge_id, {:value => @challenge.id} %>
+    <%= f.hidden_field :user_id, {:value => current_user.id} %>
+    <%= f.hidden_field :social_boost, {:value => '1'} %>
+    <%= f.submit "Post to Facebook" %>
+    <% end %>
+    <% end %>
+    <% if @boost %>
+      <p> you have been boosted! </p>
+    <% end %>
+    </div> 
   <%else%>
     <p>Log in or sign up to vote!</p>
   <%end%>
