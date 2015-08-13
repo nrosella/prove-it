@@ -1,11 +1,11 @@
 <div class="bs-component">
-  <table class="table table-striped table-hover" cellspacing="0" cellpadding="0">
+  <table class="table table-striped table-hover">
     <tbody>
         <% if challenges.size > 0 %>
-          <h3> In-Progress Challenges:</h3>
-          <% challenges.order(challenge_end: :desc).each do |challenge| %>
+          <h3>Victories!</h3>
+          <% challenges.each do |challenge| %>
             <tr>
-              <td class="top">
+              <td>
                 <h4 class="no-caps"><%= link_to challenge.title, challenge_path(challenge) %></h4>
                 <h4 class="no-caps">
                   <%= challenge.short_description %>
