@@ -24,7 +24,7 @@
 
     <tbody>
 
-<% @open_challenges.each do |challenge| %>
+<% @open_challenges.order(created_at: :desc).each do |challenge| %>
   <tr>
     <td><%= link_to challenge.title, openchallenge_path(challenge) %></td>
     <td><%= challenge.description %></td> 
@@ -45,3 +45,7 @@
 <%end%>
 
 <%= link_to "See your trophies!", trophies_path, class: "btn btn-success btn-md" %>
+
+<br>
+<br>
+<br>
