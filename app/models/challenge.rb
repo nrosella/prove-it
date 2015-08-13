@@ -41,7 +41,7 @@ class Challenge < ActiveRecord::Base
     if self.evidences.length == 1 #Only one user submits evidence
       self.evidences[0].user
     else
-      if tie?
+      if tie? #what if no votes?
         User.new(name: "nobody")
       else
         total_votes.key(total_votes.values.max) || User.new(name: "nobody")
@@ -66,11 +66,6 @@ class Challenge < ActiveRecord::Base
       end
     end
     loser_by_no_submit || total_votes.key(total_votes.values.min)
-  end
-
-
-  def tie?
-    self.winner.name == "nobody"
   end
 
   def count_votes
