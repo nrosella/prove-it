@@ -1,6 +1,6 @@
 <% @openchallenge.evidences.order(created_at: :desc).each do |evidence| %>
   <tr>
-  <td><%=@openchallenge.rank_votes(evidence.user)%></td>
+  <td><%=@openchallenge.rank_of(evidence.user)%></td>
   <td><h4><%= evidence.user.capitalize_name %></h4></td>
   <td><%= image_tag evidence.photo.url(:medium)%></td>
   <td><% if !current_user.voted?(@openchallenge) %>
