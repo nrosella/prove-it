@@ -6,19 +6,24 @@
 
 <div id="voting">
   <div class="row">
-  <div class="col-md-4"></div>
+  <div class="col-md-1"></div>
 
   <% if user_signed_in? %>
-  <div class="col-md-4">
+  <div class="col-md-10">
     <%if !current_user.voted?(@challenge) %>
+
       <% @challenge.users.each do |user| %>
+      <div class="col-md-6">
         <%= form_for Vote.new, remote: true do |f| %>
         <%= f.hidden_field :challenge_id, {:value => @challenge.id} %>
         <%= f.hidden_field :user_id, {:value => current_user.id} %>
         <%= f.hidden_field :recipient_id, {:value => user.id} %>
-        <%= f.submit "Vote for #{user.capitalize_name}!" %>
+        <%= f.submit "Vote for #{user.capitalize_name}!", class: "btn btn-success btn-md" %>
+      </div>
       <% end %>
     <% end %>
+    <br>
+    <br>
   
     <%else%>
 
@@ -33,7 +38,7 @@
           <%= f.hidden_field :challenge_id, {:value => @challenge.id} %>
           <%= f.hidden_field :user_id, {:value => current_user.id} %>
           <%= f.hidden_field :social_boost, {:value => '1'} %>
-          <%= f.submit "Post to Facebook" %>
+          <%= f.submit "Post to Facebook", class: "btn btn-success btn-md" %>
         <% end %>
       </div>
     <% end %>
@@ -46,6 +51,6 @@
     <p>Log in or sign up to vote!</p>
   <%end%>
   </div>
-  <div class="col-md-4"></div>
+  <div class="col-md-1"></div>
 </div>
 </div>

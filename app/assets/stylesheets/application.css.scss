@@ -419,6 +419,7 @@ table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sor
     content: " \2191\2193";
 }
 
+
 th {
   text-align: center;
 }
@@ -426,3 +427,9 @@ th {
 #leader-board.table-striped > tbody > tr:nth-of-type(odd) {
   background-color: #18bc9c;
 }
+
+.center {
+     width: 50%;
+     margin: 0 auto;
+}
+
