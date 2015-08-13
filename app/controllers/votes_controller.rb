@@ -1,4 +1,5 @@
 class VotesController < ApplicationController
+  
   def create
     @challenge = Challenge.find(params[:vote][:challenge_id])
     Vote.create(vote_params)

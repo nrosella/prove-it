@@ -9,13 +9,21 @@ class ChallengesController < ApplicationController
 
   def in_progress_end
     @challenge = Challenge.find(params[:id])
-    @challenge.status = 'voting'
-    @challenge.save
-  
+    if @challenge.evidences.size <= 1
+      @challenge.status = 'closed'
+      @challenge.save
 
-    respond_to do |format|
-      format.js
+      respond_to do |format|
+        format.js{render 'votes/voting_end'}
+      end
+    else
+      @challenge.status = 'voting'
+      @challenge.save
+      respond_to do |format|
+        format.js
+      end
     end
+
   end
 
   def update
@@ -47,19 +55,13 @@ class ChallengesController < ApplicationController
   end
 
   def show
-    @challenge = Challenge.find(params["id"])
-    if (@challenge.inprogress_w_time_expired && @challenge.evidences.length == 1)
+    @challenge = Challenge.find(params[:id])
+    if @challenge.not_enough_evidence? || @challenge.voting_ended
       @challenge.status = "closed"
-      @challenge.save
-      elsif @challenge.inprogress_w_time_expired
-        @challenge.status = "voting"
-        @challenge.save
+    elsif @challenge.inprogress_w_time_expired
+      @challenge.status = "voting"
     end
-    if @challenge.voting_ended
-      @challenge.status = "closed"
-      @challenge.save
-    end
-  
+    @challenge.save
   end
 
 
