@@ -4,7 +4,10 @@
 <% @challenge.users.each do |user| %>
   <% c = ChallengeViewObject.new(@challenge, user, current_user) %>
   <div class="col-md-5"> <%= c.evidence_text %> <br>
-  <%= image_tag c.evidence_image %> <br></div>
+  <%= image_tag c.evidence_image %> <br>
+  <p><%=c.comment %></p>
+
+</div>
 <%end%>
   <div class="col-md-1"></div>
 </div>

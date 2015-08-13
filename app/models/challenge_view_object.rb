@@ -59,4 +59,10 @@ class ChallengeViewObject
     self.challenge.in_progress && self.user == self.current_user && self.user.has_submitted_evidence_for(self.challenge)
   end
 
+  def comment
+    if self.user.evidences.find_by(user_id: self.user.id, challenge_id: self.challenge.id)
+      self.user.evidences.find_by(user_id: self.user.id, challenge_id: self.challenge.id).comment.empty? ? nil : "Comment: #{self.user.evidences.find_by(user_id: self.user.id, challenge_id: self.challenge.id).comment}"
+    end
+  end
+
 end
