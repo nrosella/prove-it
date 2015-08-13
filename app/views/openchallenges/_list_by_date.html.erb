@@ -11,7 +11,7 @@
         <%= f.submit "Vote for #{evidence.user.capitalize_name}!" %></div>
       <% end %><br>
   <%else%>
-    <h2><%= @openchallenge.votes.where(recipient_id: evidence.user.id).size %></h2>
+    <h2><%= @openchallenge.votes_for(evidence.user) %></h2>
     <%end%></td>
     </tr>
   <%end%>
