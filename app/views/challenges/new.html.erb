@@ -28,11 +28,6 @@
 				<%= f.select :time_unit_vote, [['Days', 86400],['Hours', 3600],['Minutes', 60],['Seconds', 1]] %></p>
 			</div>
 
-			<div class="form-group">
-				<p><%= f.label :fb_post, "Post Challenge to Your Facebook Wall?" %></p>
-				<p><%= f.check_box :fb_post, class: "form-control" %></p>
-			</div>
-
 			<%= f.submit "Create Challenge", class: "btn btn-success btn-md" %>
 
 		<% end %>

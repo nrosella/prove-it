@@ -1,6 +1,5 @@
 class VotesController < ApplicationController
   def create
-    binding.pry
     @challenge = Challenge.find(params[:vote][:challenge_id])
     Vote.create(vote_params)
     respond_to do |format|
@@ -52,10 +51,16 @@ class VotesController < ApplicationController
 
   def vote_boost
     @challenge = Challenge.find(params[:vote][:challenge_id])
-    @user_id = User.find(params[:vote][:user_id])
+    @user = User.find(params[:vote][:user_id])
     @boost = params[:vote][:social_boost]
     @graph = Koala::Facebook::API.new(session[:fb_token])
-    @graph.put_wall_post("Please vote for me on ProveIt! I'm currently participating in a challenge called #{@challenge.title.titleize}. Vote here #{challenge_url(@challenge.id)} . Thank you!")
+    @graph.put_wall_post("Please vote for me on ProveIt! I'm currently participating in a challenge called #{@challenge.title.titleize}. Thank you!", {
+      "name" => "ProveIt",
+      "link" => "#{challenge_url(@challenge.id)}",
+      "caption" => "#{@challenge.title.titleize}",
+      "description" => "The site to challenge your friends",
+      "picture" => "#{Evidence.find_by(:user_id => @user.id, :challenge_id => @challenge.id).photo.url}"
+    })
     respond_to do |format|
       format.js {render :action =>'create' }
     end
