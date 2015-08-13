@@ -70,6 +70,9 @@ class ChallengesController < ApplicationController
     if current_user.email.downcase == params[:challenge][:challenged_email].downcase
       flash.now[:notice] = "Although challenging yourself is a worthy endeavour, we do not allow it here. Please enter another email."
       render 'new'
+    elsif User.find_by(email: params[:challenge][:challenged_email].downcase) == nil
+          flash.now[:notice] = "Sorry, that email is not associated with a valid account. Please enter a valid user's email."
+          render 'new'
     else
     @challenged = User.find_by(email: params[:challenge][:challenged_email])
     @challenge.challenge_duration = (params["challenge"]["challenge_duration"].to_i * params["challenge"]["time_unit_challenge"].to_i)
