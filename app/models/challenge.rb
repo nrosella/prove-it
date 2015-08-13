@@ -55,6 +55,7 @@ class Challenge < ActiveRecord::Base
     votes[0] == votes[1]
   end
 
+<<<<<<< HEAD
   def loser
     # note this needs to be tested once loser method implemented somewhere
     loser_by_no_submit = nil
@@ -70,6 +71,8 @@ class Challenge < ActiveRecord::Base
   end
 
 
+=======
+>>>>>>> Refactor user show page to use partials
   def count_votes
     self.votes.group(:recipient_id).count
   end
@@ -125,7 +128,6 @@ class Challenge < ActiveRecord::Base
   #     self.users.size
   #   end
   # end
-
 
   def inprogress_w_time_expired
     self.status == "in_progress" && Time.now > (self.challenge_end)
