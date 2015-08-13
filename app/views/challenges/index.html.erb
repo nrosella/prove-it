@@ -1,15 +1,18 @@
-<div class="col-md-1"></div>
-<div class="col-md-10" id="main-challenge-div">
-<% if current_user %>
-	<%= link_to "Create a New Challenge", new_challenge_path, class: "btn btn-success btn-lg pull-down"  %>
-<% else %>
-	<%= link_to "Create a New Challenge", new_user_session_path, class: "btn btn-success btn-lg"  %>
-<% end %>
+<div class="col-md-3">
+  <%= render partial: "challenges/index_partials/leaderboard" %>
+</div>
 
-<!-- LIST OF VOTING -->
-<%= render partial: "challenges/index_partials/voting", locals: {challenges: @challenges_voting } %>
-<!-- LIST OF IN-PROGRESS -->
-<%= render  partial: "challenges/index_partials/in_progress", locals: {challenges: @challenges_in_progress } %>
-<!-- LIST OF 5 MOST RECENTLY COMPLETED -->
-<%= render  partial: "challenges/index_partials/closed", locals: {challenges: @challenges_closed } %>
+<div class="col-md-8" id="main-challenge-div">
+  <% if current_user %>
+  	<%= link_to "Create a New Challenge", new_challenge_path, class: "btn btn-success btn-lg pull-down"  %>
+  <% else %>
+  	<%= link_to "Create a New Challenge", new_user_session_path, class: "btn btn-success btn-lg"  %>
+  <% end %>
+
+  <!-- LIST OF VOTING -->
+  <%= render partial: "challenges/index_partials/voting", locals: {challenges: @challenges_voting } %>
+  <!-- LIST OF IN-PROGRESS -->
+  <%= render  partial: "challenges/index_partials/in_progress", locals: {challenges: @challenges_in_progress } %>
+  <!-- LIST OF 5 MOST RECENTLY COMPLETED -->
+  <%= render  partial: "challenges/index_partials/closed", locals: {challenges: @challenges_closed } %>
 </div>

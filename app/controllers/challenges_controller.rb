@@ -1,6 +1,7 @@
 class ChallengesController < ApplicationController
 
   def index
+    @top_winners = User.top_winners
     @challenges_in_progress = Challenge.all.where(status: "in_progress").order(challenge_end: :desc)
     @challenges_voting = Challenge.all.where(status: "voting").order(updated_at: :desc)
     @challenges_closed = Challenge.all.where(status: "closed").order(updated_at: :desc).limit(5)

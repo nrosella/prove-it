@@ -1,0 +1,29 @@
+<div class="sidebar hidden-phone profile-sidebar" id="profile-sidebar">
+  <h3 align="center">LEADERBOARD</h3>
+  <div class="bs-component">
+    <table class="table table-striped" id="leader-board">
+      <thead>
+        <tr>
+          <th>Rank</th><th>Name</th><th>Wins</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @top_winners.each.with_index do |user, idx| %>
+          <% if user.total_wins > 0 %>
+            <tr>
+              <td>
+                <p><%= idx + 1 %>.</p>
+              </td>
+              <td>
+                <p><%= user.name.upcase %></p>
+              </td>
+              <td>
+                <p><%= user.total_wins %></p>
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+  </table>
+  </div>
+</div>
