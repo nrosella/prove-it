@@ -10,7 +10,7 @@
         <%= f.hidden_field :challenge_id, {:value => @openchallenge.id} %>
         <%= f.hidden_field :user_id, {:value => current_user.id} %>
         <%= f.hidden_field :recipient_id, {:value => user.id} %>
-        <%= f.submit "Vote for #{user.capitalize_name}!" %></div>
+        <%= f.submit "Vote for #{user.capitalize_name}!", class: "btn btn-success btn-md" %></div>
       <% end %><br>
   <%else%>
     <h2><%= @openchallenge.votes.where(recipient_id: user.id).size %></h2>

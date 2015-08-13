@@ -20,6 +20,7 @@ class UsersController < ApplicationController
     redirect_to user_path
   end
 
+
   def victories
     @user = User.find(params[:id])
   end
@@ -30,6 +31,12 @@ class UsersController < ApplicationController
 
   def declined
     @user = User.find(params[:id])
+  end
+
+  def trophies
+    
+    @user = current_user
+    @trophies = @user.trophies
   end
 
   private

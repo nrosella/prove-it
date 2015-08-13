@@ -3,7 +3,9 @@
     <tbody>
         <% if challenges.size > 0 %>
           <h3> Open for Voting:</h3>
+
           <%= render partial: "challenges/index_partials/list_challenges_rows", locals: {challenges: challenges } %>
+
         <% end %>
     </tbody>
   </table>
