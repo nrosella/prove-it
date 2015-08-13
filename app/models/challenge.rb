@@ -68,9 +68,18 @@ class Challenge < ActiveRecord::Base
     loser_by_no_submit || total_votes.key(total_votes.values.min)
   end
 
+
+  def tie?
+    self.winner.name == "nobody"
+  end
+
+  def count_votes
+    self.votes.group(:recipient_id).count
+  end
+
+
   def total_votes
-    # Returns hash with key of users and value of # of votes
-    self.votes.group(:recipient_id).count.transform_keys{|key| User.find(key)}
+    count_votes.transform_keys{|key| User.find(key)}
   end
 
   def print_votes
@@ -129,30 +138,63 @@ class Challenge < ActiveRecord::Base
     self.status == "voting" && Time.now > (self.challenge_end + self.voting_duration.seconds)
   end
 
-  def rank_votes(user)
-    votez = self.votes.group(:recipient_id).count
-    newvotez = votez.each_with_object({}){|(key, value), hash|(hash[value] ||= [] ) << key}
-    newvotez2 = newvotez.sort.reverse
-    a = newvotez2.collect do |array|
-          array[1].size
-        end
-    index = newvotez2.index(newvotez2.detect do |array|
-       newvotez2[newvotez2.index(array)][1].include?(user.id)
-    end)
-    if index == nil
-      self.users.size
-    elsif index == 0
-      index + 1
+  def rank_of(user)
+    if non_adjusted_place(user).nil?
+      last_place
+    elsif non_adjusted_place(user) == 0
+      1
     else
-      a[0,index].inject(:+) + 1
+      adjusted_place(user) + 1
     end
+  end
+
+  def swap_keys_values(hash)
+    hash.each_with_object({}){|(key, value), hash|(hash[value] ||= [] ) << key}
+  end
+
+  def compile_votes
+    swap_keys_values(count_votes).sort.reverse
+  end
+
+  def population_each_place
+    compile_votes.collect{|array| array[1].size}
+  end
+
+  def non_adjusted_place(user)
+    compile_votes.index(place_group(user))
+  end
+
+  def place_group(user)
+    compile_votes.detect do |array|
+       compile_votes[compile_votes.index(array)][1].include?(user.id)
+    end
+  end
+
+  def last_place
+    self.users.size
+  end
+
+  def adjusted_place(user)
+    population_each_place[0, non_adjusted_place(user)].inject(:+)
   end
 
   def expired?
     Time.now > (self.challenge_end)
   end
 
+  def open_winners
+    compile_votes[0][1].collect do |user_id|
+      User.find(user_id)
+    end
+  end
 
+  def print_open_winners
+    open_winners.collect{|user| user.capitalize_name}.join(" and ") + pluralize_win
+  end
 
+  def pluralize_win
+    open_winners.size > 1 ? " win!" : " wins!"
+  end
 
 end
+

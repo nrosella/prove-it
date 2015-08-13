@@ -30,7 +30,7 @@
       <h3 class ='text-center small'><%=@openchallenge.description%><br></h3>
       <h4 class ='text-center small' id='status'><%=@openchallenge.status%></h4>
       <% if @openchallenge.status == 'closed'%>
-       <h2 class="text-center"> <%= @openchallenge.winner.name%> wins! </h2>
+       <h2 class="text-center"> <%= @openchallenge.print_open_winners %></h2>
       <% end %>
     </div>
   <div class="col-md-2"></div>

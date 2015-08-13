@@ -195,5 +195,11 @@ class User < ActiveRecord::Base
     }
   end
 
+  def open_challenges_won
+    Challenge.all.select do |challenge|
+      challenge.open? && (challenge.status == 'closed') && challenge.open_winners.include?(self)
+    end
+  end
+
 
 end
