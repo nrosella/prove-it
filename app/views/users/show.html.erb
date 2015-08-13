@@ -9,7 +9,7 @@
   <!-- CHARTS   -->
   <div class="col-md-12" id="results-charts">
     <div class="col-md-6" id="results-2">
-      <% if @user.total_wins > 0 %>
+      <% if @user.total_wins > 0 || @user.total_losses > 0 %>
         <%= chartjs_doughnut_chart(@challenge_chart_data, @challenge_chart_options) %>
         <p>WIN / LOSS RATIO</p>
       <% else %>
