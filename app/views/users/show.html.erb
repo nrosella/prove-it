@@ -44,11 +44,11 @@
   <!-- LIST OF IN VOTING PHASE -->
   <%= render partial: "challenges/index_partials/voting", locals: {challenges: @user_in_voting } %>
   <!-- LIST OF VICTORIES -->
-  <%= render partial: "users/user_show_partials/user_victories", locals: {challenges: @user.challenges_won } %>
+  <%= render partial: "users/user_show_partials/user_victories", locals: {challenges: @user.challenges_won[0..2] } %>
   <!-- LIST OF DEFEATS -->
-  <%= render  partial: "users/user_show_partials/user_defeats", locals: {challenges: @user.challenges_lost } %>
+  <%= render  partial: "users/user_show_partials/user_defeats", locals: {challenges: @user.challenges_lost[0..2] } %>
   <!-- LIST OF DECLINED -->
-  <%= render  partial: "users/user_show_partials/user_declined", locals: {challenges: @user.challenge_declined[0..4] } %>
+  <%= render  partial: "users/user_show_partials/user_declined", locals: {challenges: @user.challenge_declined[0..2] } %>
 
 <div class="col-md-3 col-lg-3"></div>
 

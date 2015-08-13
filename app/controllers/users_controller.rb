@@ -20,6 +20,18 @@ class UsersController < ApplicationController
     redirect_to user_path
   end
 
+  def victories
+    @user = User.find(params[:id])
+  end
+
+  def defeats
+    @user = User.find(params[:id])
+  end
+
+  def declined
+    @user = User.find(params[:id])
+  end
+
   private
   
     def user_params

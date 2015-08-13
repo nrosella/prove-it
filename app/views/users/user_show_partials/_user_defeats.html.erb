@@ -3,32 +3,10 @@
     <tbody>
         <% if challenges.size > 0 %>
           <h3>Shameful Defeats!</h3>
-          <% challenges.each do |challenge| %>
-            <tr>
-              <td>
-                <h4 class="no-caps"><%= link_to challenge.title, challenge_path(challenge) %></h4>
-                <h4 class="no-caps">
-                  <%= challenge.short_description %>
-                </h4>
-              </td>
-
-              <% challenge.users.each.with_index do |user, idx| %>
-                <% unless idx == 0 %>
-                  <td style="text-align: center;">
-                    <h3>VS</h3>
-                  </td>
-                <% end %>
-                <td style="text-align: center;">
-                  <figure>
-                    <%= image_tag(user.avatar, size: '85') %>
-                    <figcaption><%= link_to user.name.capitalize, user_path(user) %>
-                    </figcaption>
-                  </figure>
-                </td>
-              <% end %>
-            </tr>
-          <% end %>
+          <%= render partial: "challenges/index_partials/list_challenges_rows", locals: {challenges: challenges } %>
         <% end %>
     </tbody>
   </table>
+  <%= link_to "All Defeats", user_defeats_path(@user) %>
 </div>
+<br>

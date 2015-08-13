@@ -1,0 +1,13 @@
+<div class="col-md-3">
+  <%= render partial: 'users/user_show_partials/users_sidebar'%>
+</div>
+
+<div class="col-md-1"></div>
+
+<div class="col-md-6" id="profile-main-section">
+  <%= render partial: "users/user_show_partials/user_victories", locals: {challenges: @user.challenges_won } %>
+<div class="col-md-3 col-lg-3"></div>
+
+
+
+
