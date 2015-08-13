@@ -15,6 +15,10 @@ class User < ActiveRecord::Base
   has_many :trophies
 
   after_create :send_admin_mail
+
+  def self.top_winners
+    self.all.sort_by {|user| user.total_wins }.reverse[0..9]
+  end
   
   def send_admin_mail
     UserMailer.send_welcome_email(self).deliver_now!
