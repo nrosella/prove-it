@@ -8,7 +8,10 @@
 <h1>All open challenges</h1>
 <br>
 
-<table class="table table-hover">
+<%= link_to 'Make a new open challenge!', new_openchallenge_path, class: "btn btn-success btn-md" %>
+<br>
+<br>
+<table class="table table-hover sortable" >
   <thead>
         <tr>
             <th>Name</th>
@@ -27,7 +30,7 @@
     <td><%= challenge.description %></td> 
     <td><%= challenge.creator.capitalize %></td>
     <td><%= current_user.competing?(challenge) ? (challenge.users.size - 1).to_s + " + you!" : challenge.users.size %> </td>
-    <td> <%=challenge.status%> </td>
+    <td> <%=challenge.status == 'voting' && ((challenge.challenge_end - Time.now) < 3600) ? challenge.status.capitalize + ' (ending soon!)' : challenge.status.capitalize %> </td>
   </tr>
   <%end%>
 
@@ -35,5 +38,3 @@
 </tbody>
 </table>
 
-
-  <%= link_to 'make a new challenge', new_openchallenge_path %>

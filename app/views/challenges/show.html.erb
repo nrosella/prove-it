@@ -1,4 +1,10 @@
-<div class='container'>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
   <div class="row">
     <div class="col-md-2"></div>
     <div class="col-md-8">
@@ -27,6 +33,10 @@
   <div class="col-md-4"></div>
 </div>
 
+<div class="row">
+  <div class="col-md-4"></div>
+  <div class="col-md-4">
+
 <div id="ajax_voting"></div>
 
 <% case @challenge.status %>
@@ -38,6 +48,12 @@
   <% when 'voting' %>
     <div id='on_load_voting'><%= render 'show_voting' %></div>
 <%end%>
+
+</div>
+<div class="col-md-4"></div>
+</div>
+
+
 
 <% if !@challenge.pending_or_declined? %>
  <div id='evidence'><%= render 'show_evidence' %></div>
@@ -55,6 +71,6 @@
 
       
 
-</div>
+
 
 

@@ -1,12 +1,12 @@
 <div class="row">
- 
+ <div class="col-md-1"></div>
   
 <% @challenge.users.each do |user| %>
   <% c = ChallengeViewObject.new(@challenge, user, current_user) %>
-  <div class="col-md-6"> <%= c.evidence_text %> <br>
+  <div class="col-md-5"> <%= c.evidence_text %> <br>
   <%= image_tag c.evidence_image %> <br></div>
 <%end%>
-  
+  <div class="col-md-1"></div>
 </div>
 
 
