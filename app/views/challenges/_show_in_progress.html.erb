@@ -15,8 +15,8 @@
     <%= f.hidden_field :user_id, {:value => current_user.id} %>
     <%= f.label 'Comment' %>
     <%= f.text_field :comment %></br>
-    <%= f.file_field :photo, as: :file, :required => true %>
-    <%= f.submit 'Submit evidence!' %>
+    <%= f.file_field :photo, as: :file, :required => true, class: "center-block" %>
+    <%= f.submit 'Submit evidence!', class: "btn btn-success btn-md center-block" %>
     <% end %>
   <%end%>
 

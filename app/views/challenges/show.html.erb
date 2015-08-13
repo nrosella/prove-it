@@ -6,12 +6,28 @@
   <p><%= @challenge.description %></p>
   <h2><%= @challenge.print_competitors %></h2>
 
-  <p class="text-center">Status: <%= @challenge.status%></p></div>
 
-  <div class="col-md-12">
-    <% if @challenge.status == 'in_progress' %>
-      <div class="block center" id='defaultCountdown'></div>
-    <%end%>
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+      
+      <h1 class="text-center"><%= @challenge.title %></h1>
+    
+      <p class="text-center lead"><%= @challenge.description %></p>
+      <h1 class="text-center"><%= @challenge.print_competitors %></h1>
+      <div id="status"><p class="text-center">Status: <%= @challenge.status%></p></div>
+
+      <% if @challenge.status == 'in_progress' %>
+      <div style = "margin: 0 auto;" id='defaultCountdown'></div>
+      <%end%>
+      <% if @challenge.status != 'closed' %>
+      <div style = "margin: 0 auto;" id='votingCountdown'></div>
+      <br>
+      <%end%>
+ 
+      </div>  
+    <div class="col-md-3"></div>
+
   </div>
 
   <% if @challenge.status != 'closed' %>
@@ -38,6 +54,9 @@
   <% when 'closed' %>
     <h1 class="text-center"><%= @challenge.winner.name %> wins!</h1>
     <p class="text-center"><%= @challenge.print_votes %></p>
+  <% when 'pending' %>
+    <p class="text-center">Waiting on <%= @challenge.users[1] == current_user ? "you" : @challenge.users[1].capitalize_name %> to accept. </p>
+
   <% when 'in_progress' %>
     <div id='in_progress'><%= render 'show_in_progress' %></div>
   <% when 'voting' %>
@@ -56,14 +75,24 @@
 <%end%>
 
 <br>
+
+<div class ='row'>
+  <div class="col-md-5"></div>
+  <div class="col-md-2">
 <% if user_signed_in? %>
-  <%= link_to "Go back to your challenges", user_path(current_user), class: "btn btn-success btn-md"%>
+  <%= link_to "Back to challenges", user_path(current_user), class: "btn btn-success btn-md center-block"%>
 <% else %>
-  <%= link_to "Go back to challenges", root_path, class: "btn btn-success btn-md" %>
+  <%= link_to "Back to challenges", root_path, class: "btn btn-success btn-md" %>
 <% end %>
+</div>
+
+ <div class="col-md-5"></div>
+
+</div>
 
 <br>
 <br>
+
 
         
 

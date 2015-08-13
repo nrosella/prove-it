@@ -2,7 +2,7 @@
 
 $('#voting').hide();
 $('#defaultCountdown').hide();
-$('#votingCountdown').html("Voting over!");
+$('#votingCountdown').html("<h3 style='line-height: 7px;' class='text-center'>Voting over!</h3>");
 $('#in_progress').hide();
 $('#status').html("<p>Status: closed</p>");
 $('#closed').html("<h1><%= j @challenge.winner.name + ' wins!' %> </h1> <h4><%= @challenge.print_votes %> </h4>")
