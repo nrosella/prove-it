@@ -1,5 +1,5 @@
 <% if current_user %>
-	<span>Your top three most frequent competitors are:</span><br>
+	<p style="text-align: center;">Your top three competitors:</p>
 	<% @user.top_3_competitors.each.with_index do |person, idx| %>
 	  <div style="text-align: center;">
 	  	<%= link_to user_path(person[0]), class: "white-link" do %>
@@ -8,7 +8,7 @@
 	  </div>
 	<% end %>
 <% else %>
-	<span><%= @user.name.capitalize %>'s top three most frequent competitors are:</span><br>
+	<span><%= @user.name.capitalize %>'s top three competitors:</span><br>
 	<% @user.top_3_competitors.each.with_index do |person, idx| %>
 	  <div style="text-align: center;">
 	  	<%= link_to user_path(person[0]), class: "white-link" do %>
