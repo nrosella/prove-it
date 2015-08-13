@@ -126,12 +126,12 @@ p, canvas {
   margin-top: -50px;
   margin-left: -30px;
   min-height:1500px;
-  position:fixed;
-  width: 20%;
+  width: 350px;
 }
 
 #profile-sidebar  {
   color: #ffffff;
+  
 }
 #profile-main-section {
   margin-top: 25px;
@@ -396,6 +396,7 @@ table th[class*="col-"] {
 #defaultCountdown { 
   width: 240px; 
   height: 50px; 
+  margin: auto;
   }
 
 #votingCountdown { 

@@ -1,33 +1,25 @@
-<br>
-<br>
-<br>
-<br>
-<br>
+<div class="col-md-12">
+<div class="col-md-2"></div>
+<div class="col-md-8 text-center">
+      
+  <h1><%= @challenge.title %></h1>
+  <p><%= @challenge.description %></p>
+  <h2><%= @challenge.print_competitors %></h2>
 
+  <p class="text-center">Status: <%= @challenge.status%></p></div>
 
-  <div class="row">
-    <div class="col-md-2"></div>
-    <div class="col-md-8">
-      <div class="jumbotron">
-      <h1 class="text-center"><%= @challenge.title %></h1>
-    </div>
-      <p class="text-center lead"><%= @challenge.description %></p>
-      <h1 class="text-center"><%= @challenge.print_competitors %></h1>
-      <div id="status"><p class="text-center">Status: <%= @challenge.status%></p></div>
-
-      <% if @challenge.status == 'in_progress' %>
-      <div id='defaultCountdown'></div>
-      <%end%>
-      <% if @challenge.status != 'closed' %>
-      <div style = "margin: 0 auto;" id='votingCountdown'></div>
-      <%end%>
- 
-      </div>  
-    <div class="col-md-2"></div>
+  <div class="col-md-12">
+    <% if @challenge.status == 'in_progress' %>
+      <div class="block center" id='defaultCountdown'></div>
+    <%end%>
   </div>
 
+  <% if @challenge.status != 'closed' %>
+    <div style = "margin: 0 auto;" id='votingCountdown'></div>
+  <%end%>
 
-
+  <div class="col-md-2"></div>
+  
 <div class="row">
   <div class="col-md-4"></div>
   <div class="col-md-4">
@@ -55,6 +47,7 @@
 </div>
 <div class="col-md-4"></div>
 </div>
+</div>  
 
 
 

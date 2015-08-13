@@ -165,8 +165,12 @@ class User < ActiveRecord::Base
     end
   end
 
+  def any_wins_or_losses
+    total_wins > 0 || total_losses > 0
+  end
+
   def doughnut_chart_data
-    if total_wins > 0 || total_losses > 0
+    if any_wins_or_losses
       @chart_data = 
         [
           {
