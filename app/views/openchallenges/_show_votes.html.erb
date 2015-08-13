@@ -4,7 +4,8 @@
   <td><%=@openchallenge.rank_of(user)%></td>
   <td><h4><%= user.capitalize_name %></h4></td>
   <td><%= image_tag user.evidences.where(challenge_id: @openchallenge.id).first.photo.url(:medium)%></td>
-  <td><h2><%= @openchallenge.votes.where(recipient_id: user.id).size %></h2></td>
+  <td><h2><%= @openchallenge.votes_for(user).size %></h2></td>
+  
     </tr>
   <%end%>
 

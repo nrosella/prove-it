@@ -37,7 +37,8 @@
 
   <!-- LIST OF PENDING -->
   <% if @user == current_user %>
-    <%= render partial: "users/user_show_partials/user_pending_challenges" %>
+
+    <%= render "users/user_show_partials/user_pending_challenges" %>
   <%end%>
   <!-- LIST OF IN PROGRESS -->
   <%= render  partial: "challenges/index_partials/in_progress", locals: {challenges: @user_in_progress } %>
