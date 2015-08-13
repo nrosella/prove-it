@@ -1,5 +1,10 @@
 class ChallengesController < ApplicationController
 
+  def index
+    @challenges_in_progress = Challenge.all.where(status: "in_progress").order(challenge_end: :desc)
+    @challenges_voting = Challenge.all.where(status: "voting").order(updated_at: :desc)
+  end
+
   def in_progress_end
     @challenge = Challenge.find(params[:id])
     @challenge.status = 'voting'

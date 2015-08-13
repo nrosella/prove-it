@@ -1,9 +1,9 @@
 <div class="bs-component">
   <table class="table table-striped table-hover">
     <tbody>
-        <% if Challenge.in_progress.size > 0 %>
+        <% if challenges.size > 0 %>
           <h3> In-Progress Challenges:</h3>
-          <% Challenge.in_progress.each do |challenge| %>
+          <% challenges.order(challenge_end: :desc).each do |challenge| %>
             <tr>
               <td>
                 <h4 class="no-caps"><%= link_to challenge.title, challenge_path(challenge) %></h4>
