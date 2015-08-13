@@ -6,6 +6,7 @@ class Challenge < ActiveRecord::Base
   has_many :users, through: :user_challenges
   has_many :votes
   has_many :evidences
+  has_many :trophies
 
   validates :title, presence: true
 
@@ -116,13 +117,13 @@ class Challenge < ActiveRecord::Base
   end
 
 
-  def rank_of(user)
-    if self.total_votes.keys.sort.index(user).present?
-      self.total_votes.keys.sort.reverse.index(user) + 1
-    else
-      self.users.size
-    end
-  end
+  # def rank_of(user)
+  #   if self.total_votes.keys.sort.index(user).present?
+  #     self.total_votes.keys.sort.reverse.index(user) + 1
+  #   else
+  #     self.users.size
+  #   end
+  # end
 
 
   def inprogress_w_time_expired

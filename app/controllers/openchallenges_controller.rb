@@ -26,6 +26,9 @@ class OpenchallengesController < ApplicationController
     @openchallenge = Challenge.find(params[:id]) 
     if @openchallenge.expired?
       @openchallenge.status = 'closed'
+      @openchallenge.open_winners.each do |user|
+        Trophy.create(user_id: user.id, challenge_id: @openchallenge.id, photo_url: Trophy.photo_urls.sample)
+      end
       @openchallenge.save
     end
   end

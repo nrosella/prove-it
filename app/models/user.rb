@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   has_many :user_challenges
   has_many :challenges, through: :user_challenges
   has_many :evidences
+  has_many :trophies
 
   after_create :send_admin_mail
   
