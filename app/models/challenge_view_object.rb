@@ -31,6 +31,14 @@ class ChallengeViewObject
     end
   end
 
+  def user_name_say
+    if user == current_user
+      "You say:"
+    else
+      user.name.capitalize + " says:"
+    end
+  end
+
   def evidence_text
     if self.challenge.voting_or_closed? && self.user.has_submitted_evidence_for(self.challenge)
       "#{posessive_name.capitalize} evidence:"
@@ -61,7 +69,7 @@ class ChallengeViewObject
 
   def comment
     if self.user.evidences.find_by(user_id: self.user.id, challenge_id: self.challenge.id)
-      self.user.evidences.find_by(user_id: self.user.id, challenge_id: self.challenge.id).comment.empty? ? nil : "#{self.user.capitalize_name} says: #{self.user.evidences.find_by(user_id: self.user.id, challenge_id: self.challenge.id).comment}"
+      self.user.evidences.find_by(user_id: self.user.id, challenge_id: self.challenge.id).comment.empty? ? nil : "#{self.user_name_say} #{self.user.evidences.find_by(user_id: self.user.id, challenge_id: self.challenge.id).comment}"
     end
   end
 
