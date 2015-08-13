@@ -55,24 +55,6 @@ class Challenge < ActiveRecord::Base
     votes[0] == votes[1]
   end
 
-<<<<<<< HEAD
-  def loser
-    # note this needs to be tested once loser method implemented somewhere
-    loser_by_no_submit = nil
-    if self.evidences.length == 1
-      binding.pry
-      self.users.each do |user|
-        if !user.has_submitted_evidence_for(self)
-          loser_by_no_submit = user
-        end
-      end
-    end
-    loser_by_no_submit || total_votes.key(total_votes.values.min)
-  end
-
-
-=======
->>>>>>> Refactor user show page to use partials
   def count_votes
     self.votes.group(:recipient_id).count
   end
