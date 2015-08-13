@@ -29,7 +29,16 @@ body {
   display: block;  
   margin-right: auto;  
   margin-left: auto;  
+}
+img {
+    display: block;
+    margin: auto;
+}
+#users-show-buttons{
+  margin-bottom: 40px;
 }  
+.top { vertical-align: top; }
+.bottom { vertical-align: bottom; }
 
 .no-data {
   margin-left: 85px;

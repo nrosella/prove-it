@@ -1,5 +1,5 @@
 <div class="col-md-3"><%= render partial: 'users_sidebar'%></div>
-
+<div class="col-md-1"></div>
 
 <div class="col-md-6" id="profile-main-section">
 
@@ -25,6 +25,12 @@
     </div>
   </div>
   <!-- END CHARTS   -->
+
+  <!-- NEW CHALLENGE BUTTONS -->
+  <div align="center" id="users-show-buttons">
+    <%= link_to "Create a New Challenge", new_challenge_path, class: "btn btn-success btn-lg"  %>
+    <%= link_to "Join an Open Challenge", openchallenges_path, class: "btn btn-success btn-lg"  %>
+  </div>
 
 <% if @user == current_user %>
   <!-- LIST OF PENDING -->
@@ -96,9 +102,6 @@
     </table>
    </div>
 
-  <%= link_to "Create a New Challenge", new_challenge_path, class: "btn btn-success btn-lg"  %>
-  <%= link_to "Join an Open Challenge", openchallenges_path, class: "btn btn-success btn-lg"  %>
-
 <!-- When user not signed in -->
 <% else %>
   <%= @user.name %>
@@ -106,7 +109,7 @@
   <%= render partial: "challenges/closed" %>
 <%end%>
 </div>
-<div class="col-md-3 col-lg-3"></div>
+<div class="col-md-2 col-lg-2"></div>
 
 
 
