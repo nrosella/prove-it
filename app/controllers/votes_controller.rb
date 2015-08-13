@@ -19,6 +19,9 @@ class VotesController < ApplicationController
   def open_voting_end
     @openchallenge = Challenge.find(params[:id])
     @openchallenge.status = 'closed'
+    @openchallenge.open_winners.each do |user|
+        Trophy.create(user_id: user.id, challenge_id: @openchallenge.id, photo_url: Trophy.photo_urls.sample)
+    end
     @openchallenge.save
     respond_to do |format|
       format.js
