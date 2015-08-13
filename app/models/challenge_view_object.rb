@@ -56,7 +56,7 @@ class ChallengeViewObject
   end
 
   def show_current_user_evidence?
-    self.challenge.in_progress && self.user == self.current_user && self.user.has_submitted_evidence_for(self.challenge)
+    self.challenge.in_progress? && self.user == self.current_user && self.user.has_submitted_evidence_for(self.challenge)
   end
 
   def comment

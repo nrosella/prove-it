@@ -10,26 +10,6 @@ class Challenge < ActiveRecord::Base
 
   validates :title, presence: true
 
-# CLASS METHODS -----------
-
-  def self.pending
-    self.all.where(status: "pending").order(updated_at: :desc)
-  end
-
-  def self.in_progress
-    self.all.where(status: "in_progress").order(challenge_end: :desc)
-  end
-
-  def self.voting
-    self.all.where(status: "voting").order(updated_at: :desc)
-  end
-
-  def self.closed
-    self.all.where(status: "closed").order(updated_at: :desc)
-  end
-
-# INSTANCE METHODS -----------
-
   def short_description
     if self.description.length > 36
       self.description[0..36] + "..."
@@ -42,7 +22,7 @@ class Challenge < ActiveRecord::Base
     if self.evidences.length == 1 #Only one user submits evidence
       self.evidences[0].user
     else
-      if tie? #what if no votes?
+      if tie?
         User.new(name: "nobody")
       else
         total_votes.key(total_votes.values.max) || User.new(name: "nobody")
@@ -70,18 +50,6 @@ class Challenge < ActiveRecord::Base
     end.join(", ")
   end
 
-  def in_progress
-    self.status == "in_progress"
-  end
-
-  def declined
-    self.status == "declined"
-  end
-
-  def closed
-    self.status == "closed"
-  end
-
   def in_progress?
     self.status == "in_progress"
   end
@@ -101,15 +69,6 @@ class Challenge < ActiveRecord::Base
   def print_competitors
     self.users.collect{|user| user.name.capitalize}.join(" vs ")
   end
-
-
-  # def rank_of(user)
-  #   if self.total_votes.keys.sort.index(user).present?
-  #     self.total_votes.keys.sort.reverse.index(user) + 1
-  #   else
-  #     self.users.size
-  #   end
-  # end
 
   def inprogress_w_time_expired
     self.status == "in_progress" && Time.now > (self.challenge_end)
@@ -141,6 +100,10 @@ class Challenge < ActiveRecord::Base
     compile_votes.collect{|array| array[1].size}
   end
 
+  def adjusted_place(user)
+    population_each_place[0, non_adjusted_place(user)].inject(:+)
+  end
+
   def non_adjusted_place(user)
     compile_votes.index(place_group(user))
   end
@@ -153,10 +116,6 @@ class Challenge < ActiveRecord::Base
 
   def last_place
     self.users.size
-  end
-
-  def adjusted_place(user)
-    population_each_place[0, non_adjusted_place(user)].inject(:+)
   end
 
   def expired?
