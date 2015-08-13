@@ -7,10 +7,10 @@
 <% end %>
 
 <!-- LIST OF VOTING -->
-<%= render partial: "challenges/index_partials/voting" %>
+<%= render partial: "challenges/index_partials/voting", locals: {challenges: @challenges_voting } %>
 
 <!-- LIST OF IN-PROGRESS -->
-<%= render  partial: "challenges/index_partials/in_progress" %>
+<%= render  partial: "challenges/index_partials/in_progress", locals: {challenges: @challenges_in_progress } %>
 
 <!-- LIST OF 5 MOST RECENTLY COMPLETED -->
 <%= render partial: "challenges/index_partials/closed" %>

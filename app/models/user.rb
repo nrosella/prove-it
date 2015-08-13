@@ -55,6 +55,14 @@ class User < ActiveRecord::Base
      end
    end
 
+  def has_pending?
+    self.challenge_pending.size > 0
+  end
+
+  def has_voting?
+    self.challenge_voting.size > 0
+  end
+
   def total_wins
     self.challenges_won.count
   end

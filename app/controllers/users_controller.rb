@@ -3,6 +3,8 @@ class UsersController < ApplicationController
 	def show
     @user = User.find(params[:id])
     @challenges = @user.challenges
+    @user_in_progress = @challenges.where(status: 'in_progress')
+    @user_in_voting = @challenges.where(status: 'voting')
     @challenge_chart_data = @user.doughnut_chart_data
     @challenge_chart_options = @user.doughnut_chart_options
     @challenge_participation_chart = @user.participation_chart

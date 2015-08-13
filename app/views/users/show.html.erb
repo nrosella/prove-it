@@ -1,5 +1,9 @@
 <div class="col-md-3"><%= render partial: 'users_sidebar'%></div>
+
+
 <div class="col-md-6" id="profile-main-section">
+
+  <!-- CHARTS   -->
   <div class="col-md-12" id="results-charts">
     <div class="col-md-6" id="results-2">
       <% if @user.total_wins > 0 %>
@@ -20,69 +24,21 @@
       <% end %>
     </div>
   </div>
-<% if user_signed_in? %>
-  <!-- LIST OF PENDING -->
-  <div class="bs-component">
-   <table class="table table-striped table-hover">
-     <tbody>
-       <% if @user.challenge_pending.size > 0 && @user == current_user %>
-           <h3>Pending Challenges:</h3>
-            <% current_user.challenge_pending.each do |challenge| %>
-               <tr>
-               <td><h4 class="no-caps"><%= link_to challenge.title, challenge_path(challenge) %></h4></td>
-                 <% if challenge.users[0] != current_user %>
-                   <%= form_for(challenge) do |f| %>
-                     <td><%= f.submit 'Accept', class: "btn btn-challenge-accept btn-md" %></td>
-                   <% end %>
-                   <%= form_for(challenge) do |f| %>
-                     <td><%= f.submit 'Decline', class: "btn btn-challenge-decline btn-md"%></td>
-                   <% end %>
-                 <% else %>
-                   <td class="hidden-td"></td>
-                   <td class="hidden-td"></td>
-                 <% end %>
-               </tr>
-             <% end %>
-       <% end %>
-     </tbody>
-   </table>
-  </div>
-  
-  <!-- LIST OF IN PROGRESS -->
-  <div class="bs-component">
-    <table class="table table-striped table-hover">
-      <tbody>
-          <% if current_user.challenge_in_progress.size > 0 %>
-            <h3> Your In-Progress Challenges:</h3>
-            <% current_user.challenge_in_progress.each do |challenge| %>
-              <tr>
-                <td>
-                  <h4 class="no-caps"><%= link_to challenge.title, challenge_path(challenge) %></h4>
-                </td>
-              </tr>
-            <% end %>
-          <% end %>
-      </tbody>
-    </table>
-  </div>
+  <!-- END CHARTS   -->
 
+<% if @user == current_user %>
+  <!-- LIST OF PENDING -->
+  <%= render partial: "users/user_show_partials/user_pending_challenges" %>
+
+  <!-- WORKING HERE 8/12 -->
+<!-- end if statement here!?!?!?!?!?!?!?!?!?!?!?!?!?! -->
+
+
+  <!-- LIST OF IN PROGRESS -->
+  <%= render  partial: "challenges/index_partials/in_progress", locals: {challenges: @user_in_progress } %>
   <!-- LIST OF IN VOTING PHASE -->
-  <div class="bs-component">
-    <table class="table table-striped table-hover">
-      <tbody>
-        <% if current_user.challenge_voting.size > 0 %>
-          <h3> Your Challenges Up For Voting:</h3>
-          <% current_user.challenge_voting.each do |challenge| %>
-            <tr>
-              <td>
-                <h4 class="no-caps"><%= link_to challenge.title, challenge_path(challenge) %></h4>
-              </td>
-            </tr>
-          <% end %>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
+  <%= render partial: "challenges/index_partials/voting", locals: {challenges: @user_in_voting } %>
+
 
   <!-- LIST OF VICTORIES -->
   <div class="bs-component">
@@ -146,7 +102,7 @@
 <!-- When user not signed in -->
 <% else %>
   <%= @user.name %>
-  <%= render partial: "challenges/in_progress" %>
+  <%= render partial: "users/user_show_partials/user_inprogress_challenges" %>
   <%= render partial: "challenges/closed" %>
 <%end%>
 </div>
