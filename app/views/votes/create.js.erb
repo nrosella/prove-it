@@ -1,6 +1,2 @@
-$('#ajax_voting').html("<%= j render 'challenges/show_voting', :locals => {:challenge => @challenge} %>");
+$('#ajax_voting').html("<%= j render 'challenges/show_voting', :locals => {:challenge => @challenge, :boost => @boost} %>");
 $('#on_load_voting').hide();
-
-
-
-
