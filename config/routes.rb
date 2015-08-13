@@ -21,6 +21,12 @@ Rails.application.routes.draw do
 
   get '/users/:id/edit', to: 'users#edit', as: 'user_edit'
 
+  get '/users/:id/victories', to: 'users#victories', as: 'user_victories'
+
+  get '/users/:id/defeats', to: 'users#defeats', as: 'user_defeats'
+
+  get '/users/:id/declined', to: 'users#declined', as: 'user_declined'
+
   patch '/users/:id/', to: 'users#update'
 
   post '/challenge/:id/declined', to: 'user_mailer#decline'
