@@ -20,6 +20,3 @@
 //= require Chart
 //= require excanvas
 
-$(document).ready(function(){
-    $('[data-toggle="popover"]').popover();   
-});

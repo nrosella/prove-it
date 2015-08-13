@@ -37,4 +37,11 @@
 
 </tbody>
 </table>
+<br>
 
+
+<% if user_signed_in? %>
+<%= link_to "Back to your profile", user_path(current_user), class: "btn btn-success btn-md"  %>
+<%end%>
+
+<%= link_to "See your trophies!", trophies_path, class: "btn btn-success btn-md" %>

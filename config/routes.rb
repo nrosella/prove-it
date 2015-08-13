@@ -51,6 +51,9 @@ Rails.application.routes.draw do
   post '/openchallenges/:id/sort_votes' => 'openchallenges#sort_votes', :as => :sort_votes
 
 
+  get '/trophies' => 'users#trophies', :as => :trophies
+
+
 
 
   # The priority is based upon order of creation: first created -> highest priority.
