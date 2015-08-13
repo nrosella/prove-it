@@ -15,7 +15,7 @@
                 <p><%= idx + 1 %>.</p>
               </td>
               <td>
-                <p><%= user.name.upcase %></p>
+                <p><%= link_to user.name.upcase, user_path(user), :style=>'color:white; text-decoration:none;' %></p>
               </td>
               <td>
                 <p><%= user.total_wins %></p>
