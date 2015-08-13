@@ -99,7 +99,7 @@ class Challenge < ActiveRecord::Base
   end
 
   def print_competitors
-    self.users.collect{|user| user.name.capitalize}.join(" vs ")
+    self.users.collect{|user| user.name.titleize}.join(" vs ")
   end
 
 

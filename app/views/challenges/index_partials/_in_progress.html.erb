@@ -21,7 +21,7 @@
                 <td style="text-align: center;">
                   <figure>
                     <%= image_tag(user.avatar, size: '85') %>
-                    <figcaption><%= link_to user.name.capitalize, user_path(user) %>
+                    <figcaption><%= link_to user.name.titleize, user_path(user) %>
                     </figcaption>
                   </figure>
                 </td>

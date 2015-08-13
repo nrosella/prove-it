@@ -5,5 +5,5 @@ $('#defaultCountdown').hide();
 $('#votingCountdown').html("Voting over!");
 $('#in_progress').hide();
 $('#status').html("<p>Status: closed</p>");
-$('#closed').html("<h1><%= j @challenge.winner.name + ' wins!' %> </h1> <h4><%= @challenge.print_votes %> </h4>")
+$('#closed').html("<h1><%= j @challenge.winner.name.titleize + ' wins!' %> </h1> <h4><%= @challenge.print_votes %> </h4>")
 $('#evidence').html("<%= j render 'challenges/show_evidence' %>");

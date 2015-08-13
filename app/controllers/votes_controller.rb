@@ -45,8 +45,6 @@ class VotesController < ApplicationController
     respond_to do |format|
       format.js
     end
-
-
   end
 
   def vote_boost

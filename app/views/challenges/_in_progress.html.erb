@@ -6,9 +6,9 @@
     <% challenge.users.each do |user| %>
       <div>
         <% if user.id == params[:id].to_i %>
-          <%= user.name %>
+          <%= user.name.titleize %>
         <% else %>
-          <%= link_to user.name, user_path(user) %>
+          <%= link_to user.name.titleize, user_path(user) %>
         <% end %>
 
         <%= image_tag @user.avatar.url(:thumb) %>

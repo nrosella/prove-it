@@ -44,7 +44,7 @@
 
 <% case @challenge.status %>
   <% when 'closed' %>
-    <h1 class="text-center"><%= @challenge.winner.name %> wins!</h1>
+    <h1 class="text-center"><%= @challenge.winner.name.titleize %> wins!</h1>
     <p class="text-center"><%= @challenge.print_votes %></p>
   <% when 'in_progress' %>
     <div id='in_progress'><%= render 'show_in_progress' %></div>

@@ -3,16 +3,16 @@
 	<% @user.top_3_competitors.each.with_index do |person, idx| %>
 	  <div style="text-align: center;">
 	  	<%= link_to user_path(person[0]), class: "white-link" do %>
-	    		<span><%= idx + 1 %>. <%= person[0].name.capitalize %> with <%= pluralize(person[1], 'Competition') %> </span>
+	    		<span><%= idx + 1 %>. <%= person[0].name.titleize %> with <%= pluralize(person[1], 'Competition') %> </span>
 	    <% end %>
 	  </div>
 	<% end %>
 <% else %>
-	<span><%= @user.name.capitalize %>'s top three most frequent competitors are:</span><br>
+	<span><%= @user.name.titleize %>'s top three most frequent competitors are:</span><br>
 	<% @user.top_3_competitors.each.with_index do |person, idx| %>
 	  <div style="text-align: center;">
 	  	<%= link_to user_path(person[0]), class: "white-link" do %>
-	    	<span><%= idx + 1 %>. <%= person[0].name.capitalize %> with <%= pluralize(person[1], 'Competition') %></span>
+	    	<span><%= idx + 1 %>. <%= person[0].name.titleize %> with <%= pluralize(person[1], 'Competition') %></span>
 	    <% end %>
 	  </div>
 	<% end %>

@@ -24,7 +24,7 @@
                     <span>DRAW</span>
                     <figure>
                       <%= image_tag(user.avatar, size: '85') %>
-                    <figcaption><%= link_to user.name.capitalize, user_path(user) %></figcaption>
+                    <figcaption><%= link_to user.name.titleize, user_path(user) %></figcaption>
                   </figure>
                   </td>
                 <% elsif challenge.winner == user %>
@@ -32,7 +32,7 @@
                     <span>WINNER!</span>
                     <figure>
                       <%= image_tag(user.avatar, size: '85') %>
-                    <figcaption><%= link_to user.name.capitalize, user_path(user) %></figcaption>
+                    <figcaption><%= link_to user.name.titleize, user_path(user) %></figcaption>
                   </figure>
                   </td>
                 <% else %>
@@ -40,7 +40,7 @@
                     <span>LOSER!</span>
                     <figure>
                       <%= image_tag(user.avatar, size: '85') %>
-                    <figcaption><%= link_to user.name.capitalize, user_path(user) %></figcaption>
+                    <figcaption><%= link_to user.name.titleize, user_path(user) %></figcaption>
                   </figure>
                   </td>
                 <% end %>

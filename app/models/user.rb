@@ -128,7 +128,7 @@ class User < ActiveRecord::Base
   end
 
   def capitalize_name
-    self.name.capitalize
+    self.name.titleize
   end
 
   def challenge_declined_count

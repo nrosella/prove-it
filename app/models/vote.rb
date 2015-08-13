@@ -6,5 +6,7 @@ class Vote < ActiveRecord::Base
   def recipient
     User.find(self.recipient_id)
   end
+
+  
   
 end
