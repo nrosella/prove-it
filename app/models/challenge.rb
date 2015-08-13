@@ -140,5 +140,9 @@ class Challenge < ActiveRecord::Base
     open_winners.size > 1 ? " win!" : " wins!"
   end
 
+  def not_enough_evidence?
+    self.inprogress_w_time_expired && self.evidences.length <= 1
+  end
+
 end
 
