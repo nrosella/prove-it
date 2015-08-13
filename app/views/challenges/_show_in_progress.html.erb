@@ -10,13 +10,19 @@
   <% if current_user.competing?(@challenge) && !current_user.has_submitted_evidence_for(@challenge) %>
     
     <p>Submit evidence here:</p>
-    <%= form_for Evidence.new, :html => { :multipart => true } do |f| %>
-    <%= f.hidden_field :challenge_id, {:value => @challenge.id} %>
-    <%= f.hidden_field :user_id, {:value => current_user.id} %>
-    <%= f.label 'Comment' %>
-    <%= f.text_field :comment %></br>
-    <%= f.file_field :photo, as: :file, :required => true, class: "center-block" %>
-    <%= f.submit 'Submit evidence!', class: "btn btn-success btn-md center-block" %>
+    <%= form_for Evidence.new, :html => { :multipart => true }, class: "form-horizontal", id: "contactForm" do |f| %>
+
+      <%= f.hidden_field :challenge_id, {:value => @challenge.id} %>
+      <%= f.hidden_field :user_id, {:value => current_user.id} %>
+    
+      <%= f.file_field :photo, as: :file, :required => true, class: "form-control" %>
+    
+      <div class="form-group col-xs-12 floating-label-form-group controls">
+        <%= f.label 'Comment' %>
+        <%= f.text_field :comment, placeholder: "Add a comment!", class: "form-control" %></div>
+      </div>
+    
+      <%= f.submit 'Submit evidence!', class: "btn btn-success btn-md center-block" %>
     <% end %>
   <%end%>
 
