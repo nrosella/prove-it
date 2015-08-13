@@ -6,6 +6,12 @@ class OpenchallengesController < ApplicationController
 
   def index
     @open_challenges = Challenge.where(:open =>  true)
+    @open_challenges.each do |challenge|
+      if challenge.expired?
+        challenge.status = 'closed'
+        challenge.save
+      end
+    end
   end
 
   def create

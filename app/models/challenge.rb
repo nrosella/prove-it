@@ -69,6 +69,7 @@ class Challenge < ActiveRecord::Base
     loser_by_no_submit || total_votes.key(total_votes.values.min)
   end
 
+
   def count_votes
     self.votes.group(:recipient_id).count
   end
@@ -179,8 +180,12 @@ class Challenge < ActiveRecord::Base
   end
 
   def open_winners
-    compile_votes[0][1].collect do |user_id|
-      User.find(user_id)
+    if self.votes.present?
+      compile_votes[0][1].collect do |user_id|
+        User.find(user_id)
+      end
+    else
+      [User.new(name: "nobody")]
     end
   end
 
