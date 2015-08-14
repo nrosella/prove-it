@@ -9,38 +9,44 @@
   <div class="col-md-1"></div>
 
   <% if user_signed_in? %>
+  
   <div class="col-md-10">
-    <%if !current_user.voted?(@challenge) %>
 
+    <%if !current_user.voted?(@challenge) %>
       <% @challenge.users.each do |user| %>
-      <div class="col-md-6">
+        <div class="col-md-6">
         <%= form_for Vote.new, remote: true do |f| %>
         <%= f.hidden_field :challenge_id, {:value => @challenge.id} %>
         <%= f.hidden_field :user_id, {:value => current_user.id} %>
         <%= f.hidden_field :recipient_id, {:value => user.id} %>
-        <%= f.submit "Vote for #{user.capitalize_name}!", class: "btn btn-success btn-md" %>
-      </div>
+        <%= f.submit "Vote for #{user.name.split(" ")[0].capitalize}!", class: "btn btn-success btn-md" %>
+        </div>
       <% end %>
     <% end %>
+
     <br>
     <br>
   
     <%else%>
-
       <p class="text-center">Thanks for voting!</p>  
       <p class="text-center"><%= @challenge.print_votes %></p>
     <%end%>
 
     <% if !@boost && session[:fb_token] %>
       <p class="text-center">Ask Your Facebook Friends to Vote!</p>
-      <div id="#ajax_voting_boost_button">
+      <div class="col-md-3"></div>
+      <div class="col-md-5">
+        <div id="#ajax_voting_boost_button">
         <%= form_for Vote.new, :url => vote_boost_path, remote: true do |f| %>
           <%= f.hidden_field :challenge_id, {:value => @challenge.id} %>
           <%= f.hidden_field :user_id, {:value => current_user.id} %>
           <%= f.hidden_field :social_boost, {:value => '1'} %>
-          <%= f.submit "Post to Facebook", class: "btn btn-success btn-md" %>
+          <%= f.submit "Post to Facebook", class: "btn btn-success btn-md"%>
         <% end %>
+        </div>
       </div>
+      <div class="col-md-4"> </div>
+    </div>
     <% end %>
     <% if @boost %>
       <div id="#ajax_voting_boost_button">

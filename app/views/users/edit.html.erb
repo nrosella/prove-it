@@ -3,12 +3,12 @@
     <%= form_for current_user, class: "form-horizontal" do |f|%>
       <div class="form-group col-xs-12 floating-label-form-group controls">
         <%= f.label :name %>
-        <%= f.text_field :name, class: "form-control" %>
+        <%= f.text_field :name, class: "form-control", placeholder: "Your name" %>
       </div>
 
       <div class="form-group col-xs-12 floating-label-form-group controls"> 
         <%= f.label :bio %>     
-        <%= f.text_area :bio, class: "form-control" %>
+        <%= f.text_area :bio, class: "form-control", placeholder: "Your bio" %>
       </div>
 
       <div class="form-group col-xs-12 floating-label-form-group controls"> 

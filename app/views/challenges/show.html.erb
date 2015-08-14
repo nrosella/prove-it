@@ -6,7 +6,7 @@
     
       <p class="text-center lead"><%= @challenge.description %></p>
       <h1 class="text-center"><%= @challenge.print_competitors %></h1>
-      <div id="status"><p class="text-center">Status: <%= @challenge.status%></p></div>
+      <div id="status"><p class="text-center">Status: <%= @challenge.status.gsub("_", " ").titleize%></p></div>
 
       <% if @challenge.status == 'in_progress' %>
       <div style = "margin: 0 auto;" id='defaultCountdown'></div>
