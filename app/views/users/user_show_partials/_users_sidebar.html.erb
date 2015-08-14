@@ -1,4 +1,4 @@
-<div class="sidebar hidden-phone profile-sidebar" id="profile-sidebar">
+<div class="sidebar hidden-phone profile-sidebar" id="profile-sidebar" >
 	<%= image_tag(@user.avatar, size: '200', class:"center-block") %>
 	<h3 align="center"><%= @user.name %></h3>
 
@@ -13,9 +13,8 @@
   	<h5><%= @user.bio %></h5>
   </div><br>
 
-  <div class="col-md-12">
+  <div >
   <%= render partial: "users/user_show_partials/top_competitors", locals: {user: current_user} %>
   </div>
 	
 </div>
-
