@@ -36,7 +36,7 @@
   <tr>
     <td><%= link_to challenge.title, openchallenge_path(challenge) %></td>
     <td><%= challenge.description %></td> 
-    <td><%= challenge.creator.capitalize %></td>
+    <td><%= challenge.creator.titleize %></td>
     <td>
     <% if user_signed_in? %>
     <%= current_user.competing?(challenge) ? (challenge.users.size - 1).to_s + " + you!" : challenge.users.size %>

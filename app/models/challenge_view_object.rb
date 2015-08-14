@@ -11,7 +11,7 @@ class ChallengeViewObject
    if user == current_user
      'You have'
    else
-     user.name.capitalize + ' has'
+     user.name.titleize + ' has'
    end
   end
 
@@ -19,7 +19,7 @@ class ChallengeViewObject
     if user == current_user
       'your'
     else
-     user.name.capitalize + "'s"
+     user.name.titleize + "'s"
     end
   end
 
@@ -27,7 +27,7 @@ class ChallengeViewObject
     if user == current_user
       "You"
     else
-      user.name.capitalize
+      user.name.titleize
     end
   end
 
@@ -35,7 +35,7 @@ class ChallengeViewObject
     if user == current_user
       "You say:"
     else
-      user.name.capitalize + " says:"
+      user.name.titleize + " says:"
     end
   end
 
