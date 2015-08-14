@@ -34,7 +34,7 @@
   <tr>
     <td><%= image_tag trophy.photo_url %></td>
     <td>Won in "<%= trophy.challenge.title %>"<br>
-        You beat <%=trophy.challenge.users.size%> people!</td>
+        You beat <%= pluralize(trophy.challenge.users.size, "person") %>!</td>
     <td><%= trophy.challenge.challenge_end.strftime("%m/%d/%Y") %></td>
     </tr>
     <%end%>
