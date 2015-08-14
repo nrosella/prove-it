@@ -179,14 +179,14 @@ class User < ActiveRecord::Base
         [
           {
               value: self.total_wins,
-              color:"#F7464A",
-              highlight: "#FF5A5E",
+              color: "#18bc9c",
+              highlight: "#5AD3D1",
               label: "Total wins"
           },
           {
               value: self.total_losses,
-              color: "#18bc9c",
-              highlight: "#5AD3D1",
+              color: "#F7464A",
+              highlight: "#FF5A5E",
               label: "Total losses"
           }
       ]

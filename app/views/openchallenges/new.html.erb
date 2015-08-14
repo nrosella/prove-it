@@ -7,6 +7,8 @@
 <div class="col-lg-6 col-lg-offset-3">
   <div class="col-md-12 text-center">
 
+<% if user_signed_in? %>
+
 <%= form_for @challenge, url: create_openchallenge_path, class: "form-horizontal" do |f| %>
 
   <div class="form-group col-xs-12 floating-label-form-group controls">
@@ -26,6 +28,8 @@
   </div>
 
   <%= f.submit "Create Open Challenge", class: "btn btn-success btn-md" %>
+<% end %>
+
 <% end %>
 
 <%= link_to "Go back to open challenges", openchallenges_path %>
