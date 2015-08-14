@@ -46,7 +46,7 @@ class Challenge < ActiveRecord::Base
 
   def print_votes
     total_votes.collect do |k,v|
-    "#{k.capitalize_name}: #{ActionController::Base.helpers.pluralize(v, 'vote')}"
+    "#{k.name.split(" ")[0].capitalize}: #{ActionController::Base.helpers.pluralize(v, 'vote')}"
     end.join(", ")
   end
 
