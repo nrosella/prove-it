@@ -1,16 +1,18 @@
 <div class="bs-component">
-  <table class="table table-striped table-hover">
-    <tbody>
-      <% if challenges.size > 0 %>
-        <h3>Your Declined Challenges</h3>
-        <% challenges.each do |challenge| %>
-          <tr>
-            <td>
-              <h4 class="no-caps"><%= link_to challenge.title, challenge_path(challenge) %></h4>
-                <%= challenge.explaination %>
-            </td>
-          </tr>
-        <% end %>
-      <% end %>
-    </tbody>
-  </table>
+  <% if challenges.size > 0 %>
+    <table class="table table-striped table-hover">
+      <tbody>
+          <h3>Your Declined Challenges</h3>
+          <% challenges.each do |challenge| %>
+            <tr>
+              <td>
+                <h4 class="no-caps"><%= link_to challenge.title, challenge_path(challenge) %></h4>
+                  <%= challenge.explaination %>
+              </td>
+            </tr>
+          <% end %>
+      </tbody>
+    </table>
+  <%= link_to "All Declined Challenges", user_declined_path(@user) %>
+  <% end %>
+</div>

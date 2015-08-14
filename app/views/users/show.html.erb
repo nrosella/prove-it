@@ -1,4 +1,4 @@
-<div class="col-md-3">
+<div class="col-md-3" >
   <%= render partial: 'users/user_show_partials/users_sidebar'%>
 </div>
 
@@ -44,15 +44,10 @@
   <%= render partial: "challenges/index_partials/voting", locals: {challenges: @user_in_voting } %>
   <!-- LIST OF VICTORIES -->
   <%= render partial: "users/user_show_partials/user_victories", locals: {challenges: @user.challenges_won[0..2] } %>
-  <%= link_to "All Victories", user_victories_path(@user) %>
-
   <!-- LIST OF DEFEATS -->
   <%= render  partial: "users/user_show_partials/user_defeats", locals: {challenges: @user.challenges_lost[0..2] } %>
-  <%= link_to "All Defeats", user_defeats_path(@user) %>
   <!-- LIST OF DECLINED -->
   <%= render  partial: "users/user_show_partials/user_declined", locals: {challenges: @user.challenge_declined[0..2] } %>
-  <%= link_to "All Declined Challenges", user_declined_path(@user) %></div>
-
 <div class="col-md-3 col-lg-3"></div>
 
 
