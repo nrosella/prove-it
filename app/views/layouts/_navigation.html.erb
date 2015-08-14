@@ -15,6 +15,7 @@
           <li class="notice" id="notice"><%= notice %></li>
           <li class="alert" id="alert"><%= alert %></li>
     			<li><a class="navbar-link">Logged in as <%= current_user.name %></a></li>
+          <li><%= link_to 'About', about_path, :class => 'navbar-link' %> </li>
         	<li><%= link_to 'Profile', user_path(current_user), :class => 'navbar-link' %> </li>
         	<li><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link' %></li>
         <% else %>
