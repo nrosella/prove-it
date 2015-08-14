@@ -2,4 +2,4 @@ $('#votingCountdown').hide();
 $('#sorting').hide();
 $('#status').html("<%= @openchallenge.status %>");
 $('#list').html("<%= j render 'openchallenges/show_votes', :locals => {:openchallenge => @openchallenge} %>");
-$('#status').html("<%= @openchallenge.print_open_winners %>");
+$('#status').html("<h1><%= @openchallenge.print_open_winners %></h1>");

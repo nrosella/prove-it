@@ -7,8 +7,16 @@
 
 <h1>All open challenges</h1>
 <br>
+<% if user_signed_in? %>
 
 <%= link_to 'Make a new open challenge!', new_openchallenge_path, class: "btn btn-success btn-md" %>
+
+<% else %>
+
+<%= link_to 'Make a new open challenge!', new_user_session_path, class: "btn btn-success btn-md" %>
+
+
+<% end %>
 <br>
 <br>
 <table class="table table-hover sortable" >
@@ -29,7 +37,13 @@
     <td><%= link_to challenge.title, openchallenge_path(challenge) %></td>
     <td><%= challenge.description %></td> 
     <td><%= challenge.creator.capitalize %></td>
-    <td><%= current_user.competing?(challenge) ? (challenge.users.size - 1).to_s + " + you!" : challenge.users.size %> </td>
+    <td>
+    <% if user_signed_in? %>
+    <%= current_user.competing?(challenge) ? (challenge.users.size - 1).to_s + " + you!" : challenge.users.size %>
+      <%else%>
+      <%= challenge.users.size %>
+      <%end%>
+    </td>
     <td> <%=challenge.status == 'voting' && ((challenge.challenge_end - Time.now) < 3600) ? challenge.status.capitalize + ' (ending soon!)' : challenge.status.capitalize %> </td>
   </tr>
   <%end%>
@@ -42,10 +56,15 @@
 
 <% if user_signed_in? %>
 <%= link_to "Back to your profile", user_path(current_user), class: "btn btn-success btn-md"  %>
-<%end%>
 
 <%= link_to "See your trophies!", trophies_path, class: "btn btn-success btn-md" %>
 
+<% else %>
+
+<%= link_to "Back to index", root_path, class: "btn btn-success btn-md"  %>
+
+
+<%end%>
 <br>
 <br>
 <br>
