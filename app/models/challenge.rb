@@ -144,5 +144,10 @@ class Challenge < ActiveRecord::Base
     self.inprogress_w_time_expired && self.evidences.length <= 1
   end
 
+  def challenge_created_by
+    self.user_challenges.where(admin: true)[0].user
+  end
+
+
 end
 
