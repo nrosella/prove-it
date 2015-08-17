@@ -33,15 +33,18 @@
   <% @trophies.each do |trophy| %>
   <tr>
     <td><%= image_tag trophy.photo_url %></td>
-    <td>Won in "<%= trophy.challenge.title %>"<br>
+    <td><% if trophy.challenge %>
+      Won in "<%= trophy.challenge.title %>"<br>
         You beat <%= pluralize(trophy.challenge.users.size, "person") %>!</td>
-    <td><%= trophy.challenge.challenge_end.strftime("%m/%d/%Y") %></td>
+        <%end%>
+    <td><% if trophy.challenge %>
+      <%= trophy.challenge.challenge_end.strftime("%m/%d/%Y") %>
+      <%end%></td>
     </tr>
     <%end%>
   </tbody>
 
 <%end%>
-
 
 
 
