@@ -54,14 +54,8 @@ class VotesController < ApplicationController
     @challenge = Challenge.find(params[:vote][:challenge_id])
     @user = User.find(params[:vote][:user_id])
     @boost = params[:vote][:social_boost]
-    @graph = Koala::Facebook::API.new(session[:fb_token])
-    @graph.put_wall_post("Please vote for me on ProveIt! I'm currently participating in a challenge called #{@challenge.title.titleize}. Thank you!", {
-      "name" => "ProveIt",
-      "link" => "#{challenge_url(@challenge.id)}",
-      "caption" => "#{@challenge.title.titleize}",
-      "description" => "The site to challenge your friends",
-      "picture" => "#{Evidence.find_by(:user_id => @user.id, :challenge_id => @challenge.id).photo.url}"
-    })
+    fb_data = Facebook.new(session[:fb_token], root_url)
+    fb_data.default_post_to_wall(@challenge, @user)
     respond_to do |format|
       format.js {render :action =>'create' }
     end
