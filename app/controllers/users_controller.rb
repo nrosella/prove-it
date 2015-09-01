@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
 	def show
+    Challenge.update_status
     @user = User.find(params[:id])
     @challenges = @user.challenges
     @user_in_progress = @challenges.where(status: 'in_progress')

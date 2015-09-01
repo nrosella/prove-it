@@ -132,6 +132,7 @@ class Challenge < ActiveRecord::Base
     end
   end
 
+
   def print_open_winners
     open_winners.collect{|user| user.capitalize_name}.join(" and ") + pluralize_win
   end
@@ -146,6 +147,39 @@ class Challenge < ActiveRecord::Base
 
   def challenge_created_by
     self.user_challenges.where(admin: true)[0].user
+  end
+
+  def self.challenges_voting
+    Challenge.all.where(status: "voting").order(updated_at: :desc)
+  end
+
+  def self.in_progress
+    Challenge.all.where(status: "in_progress")
+  end
+
+  def self.current_in_progress
+    challenges = Challenge.all.where(status: "in_progress")
+    challenges.each do |challenge|
+      if challenge.inprogress_w_time_expired
+        challenge.status = "closed"
+        challenge.save
+      end
+    end
+  end
+
+  def self.update_status
+    current_in_progress
+    current_voting
+  end
+
+  def self.current_voting
+    challenges = challenges_voting
+    challenges.each do |challenge|
+      if challenge.voting_ended
+        challenge.status = 'closed'
+        challenge.save
+      end
+    end
   end
 
 
