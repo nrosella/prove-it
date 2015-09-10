@@ -7,8 +7,8 @@ class Facebook
     @root_url = root_url
   end
 
-  def default_post_to_wall (challenge, user)
-    graph.put_wall_post("Please vote for me on ProveIt! I'm currently participating in a challenge called #{challenge.title.titleize}. Thank you!", {
+  def post_to_wall (challenge, user, message)
+    graph.put_wall_post("#{message}", {
       "name" => "ProveIt",
       "link" => "#{root_url}#{challenge_path(challenge.id)}",
       "caption" => "#{challenge.title.titleize}",

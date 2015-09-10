@@ -1,5 +1,5 @@
 class Vote < ActiveRecord::Base
-  attr_accessor :social_boost
+  attr_accessor :social_boost, :fb_message
   belongs_to :user
   belongs_to :challenge
 
