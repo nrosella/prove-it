@@ -456,9 +456,33 @@ th {
 .expand{
   min-width: 400px ;
   min-height: 100px ;
-  margin-left: -150px;
+  margin-left: -100px;
 }
 
 #fb_post_dropdown{
   margin: 25px;
+}
+
+.row-centered {
+  text-align:center;
+}
+
+.col-centered {
+    display:inline-block;
+    float:none;
+    /* reset the text-align */
+    text-align:left;
+    /* inline-block space fix */
+    margin-right:-4px;
+}
+
+.col-fixed {
+    /* custom width */
+  width:320px;
+}
+
+.content {
+  display:table-cell;
+  vertical-align:middle;
+  text-align:center;
 }
