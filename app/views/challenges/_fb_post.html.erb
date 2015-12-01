@@ -1,0 +1,31 @@
+ <% if !@boost && (session[:fb_token]) %>
+  <div class="row row-centered">
+    <div class="col-xs-6 col-centered col-fixed">
+      <div class="content">
+        <button id="fb_post_dropdown">Post Challenge to Facebook</button>
+      </div>
+    </div>
+  </div>
+  <div class = "fb-vote" >
+    <div class="row row-centered">
+      <div class="col-xs-6 col-centered col-fixed">
+        <div class="content">
+          <div id="ajax_voting_boost_button">
+            <%= form_for Vote.new, :url => vote_boost_path, remote: true do |f| %>
+              <%= f.text_area :fb_message, value: "Please vote for me on ProveIt! I'm currently participating in a challenge called #{@challenge.title.titleize}. Thank you!", class: "form-control expand" %>
+              <%= f.hidden_field :challenge_id, {:value => @challenge.id} %>
+              <%= f.hidden_field :user_id, {:value => current_user.id} %>
+              <%= f.hidden_field :social_boost, {:value => '1'} %>
+              <%= f.submit "Post to Facebook"%>
+          <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+<% if @boost %>
+  <div id="ajax_voting_boost_button">
+    <p> Post made to your Facebook wall!</p>
+  </div>
+<% end %>
