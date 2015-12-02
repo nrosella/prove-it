@@ -1,12 +1,12 @@
 class Challenge < ActiveRecord::Base
   attr_accessor :challenged_email, :time_unit_vote, :time_unit_challenge
 
-  has_many :notifications
-  has_many :user_challenges
+  has_many :notifications, :dependent => :destroy
+  has_many :user_challenges, :dependent => :destroy
   has_many :users, through: :user_challenges
-  has_many :votes
-  has_many :evidences
-  has_many :trophies
+  has_many :votes, :dependent => :destroy
+  has_many :evidences, :dependent => :destroy
+  has_many :trophies, :dependent => :destroy
 
   validates :title, presence: true
 
