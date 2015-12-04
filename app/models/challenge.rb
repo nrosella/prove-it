@@ -10,6 +10,27 @@ class Challenge < ActiveRecord::Base
 
   validates :title, presence: true
 
+  scope :get_by_status, -> (status) { where("status = ?",status) }
+  scope :order_by_updated, -> {order(updated_at: :desc)}
+
+  def title=(title)
+    if title
+      write_attribute(:title, title.titleize)
+    else
+      write_attribute(:title, nil)
+    end
+  end
+
+  def set_full_explaination(current_user, explaination)
+    self.explaination = current_user.name.titleize + " declined for the following reason: " + explaination
+    save
+  end
+
+  def set_end
+    self.challenge_end = Time.now + challenge_duration.seconds
+    save
+  end
+
   def short_description
     if self.description.length > 36
       self.description[0..36] + "..."
@@ -92,6 +113,11 @@ class Challenge < ActiveRecord::Base
     hash.each_with_object({}){|(key, value), hash|(hash[value] ||= [] ) << key}
   end
 
+  def get_durations(params)
+    self.challenge_duration = (params["challenge"]["challenge_duration"].to_i * params["challenge"]["time_unit_challenge"].to_i)
+    self.voting_duration = (params["challenge"]["voting_duration"].to_i * params["challenge"]["time_unit_vote"].to_i)
+  end
+
   def compile_votes
     swap_keys_values(count_votes).sort.reverse
   end
@@ -153,9 +179,6 @@ class Challenge < ActiveRecord::Base
     Challenge.all.where(status: "voting").order(updated_at: :desc)
   end
 
-  def self.in_progress
-    Challenge.all.where(status: "in_progress")
-  end
 
   def self.current_in_progress
     challenges = Challenge.all.where(status: "in_progress")

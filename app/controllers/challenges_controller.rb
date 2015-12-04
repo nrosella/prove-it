@@ -3,10 +3,9 @@ class ChallengesController < ApplicationController
   def index
     Challenge.update_status
     @top_winners = User.top_winners
-    @challenges_in_progress = Challenge.in_progress
+    @challenges_in_progress = Challenge.get_by_status("in_progress")
     @challenges_voting = Challenge.current_voting
-
-    @challenges_closed = Challenge.all.where(status: "closed").order(updated_at: :desc).limit(5)
+    @challenges_closed = Challenge.get_by_status("closed").order_by_.limit(5)
   end
 
   def in_progress_end
@@ -31,14 +30,13 @@ class ChallengesController < ApplicationController
   def update
     @challenge = Challenge.find(params[:id])
     if params[:challenge]
-      @challenge.explaination = current_user.name.titleize + " declined for the following reason: " + params[:challenge][:explaination]
-      @challenge.save
+      explaination = params[:challenge][:explaination]
+      @challenge.set_full_explaination(current_user, explaination)
       redirect_to user_path(current_user)
     end
     if params["commit"] == "Accept"
       @challenge.status = "in_progress"
-      @challenge.challenge_end = Time.now + @challenge.challenge_duration.seconds
-      @challenge.save
+      @challenge.set_end
       redirect_to user_path(current_user)
     elsif params["commit"] == "Decline"
       @challenge.status = "declined"
@@ -70,25 +68,19 @@ class ChallengesController < ApplicationController
 
   def create
     @challenge = Challenge.new(challenge_params)
-    @challenge.title = @challenge.title.titleize
-    if current_user.email.downcase == params[:challenge][:challenged_email].downcase
+    challenged_email = params[:challenge][:challenged_email].downcase
+    if current_user.email.downcase == challenged_email
       flash.now[:notice] = "Although challenging yourself is a worthy endeavour, we do not allow it here. Please enter another email."
       render 'new'
-    elsif User.find_by(email: params[:challenge][:challenged_email].downcase) == nil
-          flash.now[:notice] = "Sorry, that email is not associated with a valid account. Please enter a valid user's email."
-          render 'new'
+    elsif User.find_by(email: challenged_email) == nil
+      flash.now[:notice] = "Sorry, that email is not associated with a valid account. Please enter a valid user's email."
+      render 'new'
     else
-    @challenged = User.find_by(email: params[:challenge][:challenged_email])
-    @challenge.challenge_duration = (params["challenge"]["challenge_duration"].to_i * params["challenge"]["time_unit_challenge"].to_i)
-    @challenge.voting_duration = (params["challenge"]["voting_duration"].to_i * params["challenge"]["time_unit_vote"].to_i)
-  
+      @challenged = User.find_by(email: challenged_email)
+      @challenge.get_durations(params)
       if @challenge.save
-        UserChallenge.create(user_id: current_user.id, challenge_id: @challenge.id, admin: true)
-        UserChallenge.create(user_id: @challenged.id, challenge_id: @challenge.id)
+        UserChallenge.create_all(current_user, @challenge, @challenged)
       end
-
-      # if #params are set up
-      #   
       render 'show'
     end
   end
