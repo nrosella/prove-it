@@ -5,7 +5,7 @@ class ChallengesController < ApplicationController
     @top_winners = User.top_winners
     @challenges_in_progress = Challenge.get_by_status("in_progress")
     @challenges_voting = Challenge.current_voting
-    @challenges_closed = Challenge.get_by_status("closed").order_by_.limit(5)
+    @challenges_closed = Challenge.get_by_status("closed").order_by_updated.limit(5)
   end
 
   def in_progress_end
