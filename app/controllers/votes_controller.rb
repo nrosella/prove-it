@@ -55,7 +55,7 @@ class VotesController < ApplicationController
     @user = User.find(params[:vote][:user_id])
     @boost = params[:vote][:social_boost]
     fb_data = Facebook.new(session[:fb_token], root_url)
-    fb_data.default_post_to_wall(@challenge, @user)
+    fb_data.post_to_wall(@challenge, @user, params[:vote][:fb_message])
     respond_to do |format|
       format.js {render :action =>'create' }
     end
